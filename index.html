@@ -13,7 +13,6 @@
     --done:#4a9d6e;
     --current:#d4a537;
     --late:#c0503f;
-    --pending:#2a332e;
   }
   *{box-sizing:border-box;}
   body{
@@ -83,16 +82,12 @@
   th{text-align:left;font-family:'SF Mono','Menlo',monospace;font-size:11px;color:var(--ink-dim);font-weight:500;padding:8px 10px;border-bottom:1px solid var(--line);}
   td{padding:10px 10px;border-bottom:1px solid var(--line);font-size:14px;vertical-align:middle;}
   tbody tr:hover td{background:rgba(230,236,232,0.04);}
-  tr.current td{background:rgba(212,165,55,0.08);}
-  tr.late td{background:rgba(192,80,63,0.06);}
   tr.done-row td{color:var(--ink-dim);}
   tr.done-row .cname{text-decoration:line-through;}
   .wk{font-family:'SF Mono','Menlo',monospace;color:var(--ink-dim);font-size:12px;}
   .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:8px;}
   .dot.done{background:var(--done);}
-  .dot.current{background:var(--current);}
-  .dot.late{background:var(--late);}
-  .dot.pending{background:var(--pending);border:1px solid var(--line);}
+  .dot.pending{background:var(--late);}
 </style>
 </head>
 <body>
@@ -346,21 +341,14 @@ function logHour(){
   scheduleSave();
 }
 
-function computeCurrent(){
-  for(let i=0;i<csTrack.length;i++) if(!csTrack[i].done) return {track:'cs', i};
-  for(let i=0;i<daTrack.length;i++) if(!daTrack[i].done) return {track:'da', i};
-  return null;
-}
-
-function renderTrack(arr, bodyId, prefix, trackKey, currentIdx, isLate){
+function renderTrack(arr, bodyId, prefix, trackKey){
   const tbody = document.getElementById(bodyId);
   tbody.innerHTML = '';
   arr.forEach((c,i)=>{
     const tr = document.createElement('tr');
     tr.style.cursor = 'pointer';
-    let dotClass = 'pending';
-    if(c.done){ dotClass = 'done'; tr.classList.add('done-row'); }
-    else if(i===currentIdx){ dotClass = isLate ? 'late' : 'current'; tr.classList.add(isLate ? 'late' : 'current'); }
+    const dotClass = c.done ? 'done' : 'pending';
+    if(c.done) tr.classList.add('done-row');
     tr.innerHTML = `
       <td class="wk">${prefix}${i+1}</td>
       <td><span class="dot ${dotClass}"></span><span class="cname">${c.name}</span><br><span class="wk">${c.instructor}</span></td>
@@ -376,11 +364,9 @@ function render(){
   let hoursLogged = 0;
   Object.values(hours).forEach(h=>hoursLogged+=h);
   const hourDeficit = totalTargetHoursSoFar - hoursLogged;
-  const isLate = hourDeficit > 0;
 
-  const cur = computeCurrent();
-  renderTrack(csTrack, 'csBody', 'CS', 'cs', cur && cur.track==='cs' ? cur.i : -1, isLate);
-  renderTrack(daTrack, 'daBody', 'DA', 'da', cur && cur.track==='da' ? cur.i : -1, isLate);
+  renderTrack(csTrack, 'csBody', 'CS', 'cs');
+  renderTrack(daTrack, 'daBody', 'DA', 'da');
 
   const dayNumber = daysSinceStart + 1;
   const totalDays = Math.round((endDate - startDate)/msDay) + 1;
