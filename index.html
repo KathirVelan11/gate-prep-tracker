@@ -178,114 +178,224 @@ const GH_PATH = 'progress.json';
 const GH_BRANCH = 'main';
 const PAT_KEY = 'gateTrackerGhPat';
 
-function mods(names){ return names.map(name => ({name, lectureDone:false, testDone:false})); }
+function mkModules(names){ return names.map(name => ({name, done:false})); }
+function mkTests(list){ return list.map(([name,coverage]) => ({name, coverage, done:false})); }
 
 let csTrack = [
-  {name:"Probability & Statistics (CS)", instructor:"Sachin Mittal — Engg Math Probability module", done:true, modules: mods([
-    "Probability Basics & Inclusion-Exclusion",
-    "Conditional Probability, Bayes' Theorem & Independence",
-    "Random Variables & PMF",
-    "Expectation & Variance",
-    "Discrete Distributions (Bernoulli, Binomial, Poisson)",
-    "Continuous Distributions (Uniform, Normal, Exponential)",
-    "Statistics: Mean, Mode, Median",
-  ])},
-  {name:"Discrete Mathematics", instructor:"Deepak Poonia — free Compact Course is full-coverage, safe to use", done:false, modules: mods([
-    "Basic Proof Techniques",
-    "Introduction to Discrete Mathematics",
-    "Propositional Logic",
-    "First Order Logic",
-    "Set Theory",
-    "Function",
-    "Group Theory",
-    "Combinatorics",
-    "Graph Theory",
-  ])},
-  {name:"C Programming", instructor:"Sachin Mittal", done:false, modules: mods([
-    "Basics: Number Systems, Operators & Control Flow",
-    "Functions, Memory Layout & Storage Classes",
-    "Recursion, Pointers, Arrays & Structures",
-  ])},
-  {name:"Data Structures", instructor:"Sachin Mittal — includes AVL Tree & Heap, not in DA course", done:false, modules: mods([
-    "Linked List",
-    "Asymptotic Analysis",
-    "Stack and Queue",
-    "Binary Trees",
-    "AVL Tree",
-    "Heap",
-    "Hashing",
-    "Row Major & Column Major Arrays",
-  ])},
-  {name:"Algorithms + DA-Algo delta", instructor:"Sachin Mittal — CS Algorithms (DP, all graph algos) full, + ~2-3hrs DA delta (Python syntax + Bellman-Ford) folded in at the end", done:false, modules: mods([
-    "Recurrence Relations & Recursive Time Complexity",
-    "Divide and Conquer — Part 1",
-    "Maximum and Minimum of Numbers",
-    "Divide and Conquer — Part 2",
-    "Sorting Algorithms",
-    "BFS & DFS",
-    "Shortest Path Algorithms (Greedy)",
-    "Minimum Spanning Tree Algorithms",
-    "More Greedy Algorithms (Huffman, Knapsack)",
-    "Dynamic Programming",
-    "More Dynamic Programming",
-    "DA delta: Python syntax + Bellman-Ford",
-  ])},
-  {name:"Digital Logic", instructor:"Deepak Poonia", done:false, modules: mods([
-    "Boolean Algebra & Minimization",
-    "Number System",
-    "Combinational Circuits",
-    "Functional Completeness",
-    "Sequential Circuits",
-  ])},
-  {name:"Computer Organization & Architecture", instructor:"Deepak Poonia", done:false, modules: mods([
-    "Basic Components & Main Memory",
-    "The CPU",
-    "Cache Memory",
-    "Pipeline",
-    "I/O Interfacing, Interrupts & DMA",
-    "Floating Point Representation",
-  ])},
-  {name:"Operating Systems", instructor:"Sachin Mittal", done:false, modules: mods([
-    "Process Management & CPU Scheduling",
-    "Inter-Process Communication & Synchronization",
-    "Deadlocks",
-    "Memory Management (Paging, Segmentation, TLB)",
-    "File Systems",
-  ])},
-  {name:"DBMS + DA Warehousing delta", instructor:"Deepak Poonia — CS DBMS (superset) full, + ~4hr DA Warehousing module folded in at the end", done:false, modules: mods([
-    "Relational Model & Normalization",
-    "Relational Algebra",
-    "Tuple Relational Calculus (TRC)",
-    "SQL",
-    "Magnetic Disk",
-    "File Organization & Indexing",
-    "Transaction Management & Recovery",
-    "ER Model",
-    "DA delta: Data Warehousing",
-  ])},
-  {name:"Computer Networks", instructor:"Sachin Mittal", done:false, modules: mods([
-    "IP Addressing, Subnetting & Supernetting",
-    "Data Link Layer — Error Control & Flow Control",
-    "Data Link Layer — MAC Protocols, ARP, DHCP",
-    "Network Layer",
-    "Transport Layer",
-    "Application Layer",
-  ])},
-  {name:"Theory of Computation", instructor:"Deepak Poonia — kept at end per his request", done:false, modules: mods([
-    "Regular Languages & Finite Automata",
-    "CFLs, Grammars & Pushdown Automata",
-    "Identification of Language Class",
-    "Closure Properties",
-    "Turing Machines & Undecidability",
-    "Countability",
-  ])},
-  {name:"Compiler Design", instructor:"Deepak Poonia — kept at end per his request", done:false, modules: mods([
-    "Compiler Overview & Lexical Analyzer",
-    "Syntax Analysis (Top-Down Parsing)",
-    "Bottom-Up Parsing",
-    "Syntax Directed Translation & SDD",
-    "Intermediate Code & Code Optimization",
-  ])},
+  {name:"Probability & Statistics (CS)", instructor:"Sachin Mittal — Engg Math Probability module", done:true,
+    modules: mkModules([
+      "Probability Basics & Inclusion-Exclusion",
+      "Conditional Probability, Bayes' Theorem & Independence",
+      "Random Variables & PMF",
+      "Expectation & Variance",
+      "Discrete Distributions (Bernoulli, Binomial, Poisson)",
+      "Continuous Distributions (Uniform, Normal, Exponential)",
+      "Statistics: Mean, Mode, Median",
+    ]),
+    tests: mkTests([
+      ["Topic Test 3","Bayes Theorem, Conditional Probability"],
+      ["Topic Test 4","Complete Probability"],
+    ]),
+    subjectTest:{done:false, note:"shared Eng Maths subject test (covers LA+Probability+Calculus — DA track does LA & Calculus separately); pick 1 of 3 available"},
+  },
+  {name:"Discrete Mathematics", instructor:"Deepak Poonia — free Compact Course is full-coverage, safe to use", done:false,
+    modules: mkModules([
+      "Basic Proof Techniques",
+      "Introduction to Discrete Mathematics",
+      "Propositional Logic",
+      "First Order Logic",
+      "Set Theory",
+      "Function",
+      "Group Theory",
+      "Combinatorics",
+      "Graph Theory",
+    ]),
+    tests: mkTests([
+      ["Topic Test 1","Propositional logic, First order logic"],
+      ["Topic Test 2","Set Theory, Functions, Relations, Lattices"],
+      ["Topic Test 3","Group Theory"],
+      ["Topic Test 4","Combinatorics"],
+      ["Topic Test 5","Graph Theory"],
+    ]),
+    subjectTest:{done:false, note:"pick 1 of 3 available — Complete Discrete Maths Syllabus"},
+  },
+  {name:"C Programming", instructor:"Sachin Mittal", done:false,
+    modules: mkModules([
+      "Basics: Number Systems, Operators & Control Flow",
+      "Functions, Memory Layout & Storage Classes",
+      "Recursion, Pointers, Arrays & Structures",
+    ]),
+    tests: mkTests([
+      ["Topic Test 1","Number Rep., Control Statements, Operators"],
+      ["Topic Test 2","Compilation, Storage Class, Function, Recursion, Pointers"],
+      ["Topic Test 3","Pointers, Strings, Structures, DMA"],
+    ]),
+    subjectTest:{done:false, note:"pick 1 of 3 available — Complete C Programming Syllabus"},
+  },
+  {name:"Data Structures", instructor:"Sachin Mittal — includes AVL Tree & Heap, not in DA course", done:false,
+    modules: mkModules([
+      "Linked List",
+      "Asymptotic Analysis",
+      "Stack and Queue",
+      "Binary Trees",
+      "AVL Tree",
+      "Heap",
+      "Hashing",
+      "Row Major & Column Major Arrays",
+    ]),
+    tests: mkTests([
+      ["Topic Test 1","Linked List"],
+      ["Topic Test 2","Asymptotic Notations, Loops TC"],
+      ["Topic Test 3","Stack and Queue"],
+      ["Topic Test 4","Combinatorics in Trees (BST, AVL, Heap)"],
+      ["Topic Test 5","Hashing with Probability"],
+    ]),
+    subjectTest:{done:false, note:"pick 1 of 3 available — Complete DS Syllabus"},
+  },
+  {name:"Algorithms + DA-Algo delta", instructor:"Sachin Mittal — CS Algorithms (DP, all graph algos) full, + ~2-3hrs DA delta (Python syntax + Bellman-Ford) folded in at the end", done:false,
+    modules: mkModules([
+      "Recurrence Relations & Recursive Time Complexity",
+      "Divide and Conquer — Part 1",
+      "Maximum and Minimum of Numbers",
+      "Divide and Conquer — Part 2",
+      "Sorting Algorithms",
+      "BFS & DFS",
+      "Shortest Path Algorithms (Greedy)",
+      "Minimum Spanning Tree Algorithms",
+      "More Greedy Algorithms (Huffman, Knapsack)",
+      "Dynamic Programming",
+      "More Dynamic Programming",
+      "DA delta: Python syntax + Bellman-Ford",
+    ]),
+    tests: mkTests([
+      ["Topic Test 1","Divide and Conquer"],
+      ["Topic Test 2","Recurrence relation"],
+      ["Topic Test 3","Greedy Algorithms"],
+      ["Topic Test 4","Dynamic Programming"],
+    ]),
+    subjectTest:{done:false, note:"pick 1 of 3 available — Complete Algorithm Syllabus"},
+  },
+  {name:"Digital Logic", instructor:"Deepak Poonia", done:false,
+    modules: mkModules([
+      "Boolean Algebra & Minimization",
+      "Number System",
+      "Combinational Circuits",
+      "Functional Completeness",
+      "Sequential Circuits",
+    ]),
+    tests: mkTests([
+      ["Topic Test 1","Boolean Algebra, Minimization, Number System"],
+      ["Topic Test 2","Combinational Circuits"],
+      ["Topic Test 3","Sequential Circuits"],
+      ["Topic Test 4 (Extra)","Boolean Algebra, Minimization"],
+    ]),
+    subjectTest:{done:false, note:"pick 1 of 3 available — Complete Digital Logic Syllabus"},
+  },
+  {name:"Computer Organization & Architecture", instructor:"Deepak Poonia", done:false,
+    modules: mkModules([
+      "Basic Components & Main Memory",
+      "The CPU",
+      "Cache Memory",
+      "Pipeline",
+      "I/O Interfacing, Interrupts & DMA",
+      "Floating Point Representation",
+    ]),
+    tests: mkTests([
+      ["Topic Test 1","Basics, Addressing Modes, Control Unit"],
+      ["Topic Test 2","Pipelining"],
+      ["Topic Test 3","Cache Memory"],
+      ["Topic Test 4","I/O Interfacing, Magnetic Disk"],
+    ]),
+    subjectTest:{done:false, note:"3 variants listed on GO Classes as Coming Soon — check availability"},
+  },
+  {name:"Operating Systems", instructor:"Sachin Mittal", done:false,
+    modules: mkModules([
+      "Process Management & CPU Scheduling",
+      "Inter-Process Communication & Synchronization",
+      "Deadlocks",
+      "Memory Management (Paging, Segmentation, TLB)",
+      "File Systems",
+    ]),
+    tests: mkTests([
+      ["Topic Test 1","Scheduling"],
+      ["Topic Test 2","Synchronisation, Deadlock"],
+      ["Topic Test 3","Memory Management"],
+      ["Topic Test 4","File system, Fork, System calls"],
+    ]),
+    subjectTest:{done:false, note:"pick 1 of 3 available — Complete OS Syllabus"},
+  },
+  {name:"DBMS + DA Warehousing delta", instructor:"Deepak Poonia — CS DBMS (superset) full, + ~4hr DA Warehousing module folded in at the end", done:false,
+    modules: mkModules([
+      "Relational Model & Normalization",
+      "Relational Algebra",
+      "Tuple Relational Calculus (TRC)",
+      "SQL",
+      "Magnetic Disk",
+      "File Organization & Indexing",
+      "Transaction Management & Recovery",
+      "ER Model",
+      "DA delta: Data Warehousing",
+    ]),
+    tests: mkTests([
+      ["Topic Test 1","Normalization"],
+      ["Topic Test 2","ER Model, Integrity Constraints"],
+      ["Topic Test 3","Queries, SQL, TRC, Relational Algebra"],
+      ["Topic Test 4","Indexing, B Tree, B+ Tree"],
+      ["Topic Test 5","Transaction management"],
+    ]),
+    subjectTest:{done:false, note:"pick 1 of 3 available — Complete Database Syllabus"},
+  },
+  {name:"Computer Networks", instructor:"Sachin Mittal", done:false,
+    modules: mkModules([
+      "IP Addressing, Subnetting & Supernetting",
+      "Data Link Layer — Error Control & Flow Control",
+      "Data Link Layer — MAC Protocols, ARP, DHCP",
+      "Network Layer",
+      "Transport Layer",
+      "Application Layer",
+    ]),
+    tests: mkTests([
+      ["Topic Test 1","IP addressing, Data Link layer"],
+      ["Topic Test 2","Network Layer"],
+      ["Topic Test 3","Routing algorithms, Transport layer"],
+      ["Topic Test 4","Transport layer, Application Layer"],
+    ]),
+    subjectTest:{done:false, note:"pick 1 of 3 available — Complete CN Syllabus"},
+  },
+  {name:"Theory of Computation", instructor:"Deepak Poonia — kept at end per his request", done:false,
+    modules: mkModules([
+      "Regular Languages & Finite Automata",
+      "CFLs, Grammars & Pushdown Automata",
+      "Identification of Language Class",
+      "Closure Properties",
+      "Turing Machines & Undecidability",
+      "Countability",
+    ]),
+    tests: mkTests([
+      ["Topic Test 1","Finite Automata"],
+      ["Topic Test 2","Regular Expression"],
+      ["Topic Test 3","CFG, PDA"],
+      ["Topic Test 4","Closure Properties, Language Class Detection"],
+      ["Topic Test 5","Decidability, Undecidability"],
+      ["Topic Test 6","Countability"],
+    ]),
+    subjectTest:{done:false, note:"pick 1 of 3 available — Complete TOC Syllabus"},
+  },
+  {name:"Compiler Design", instructor:"Deepak Poonia — kept at end per his request", done:false,
+    modules: mkModules([
+      "Compiler Overview & Lexical Analyzer",
+      "Syntax Analysis (Top-Down Parsing)",
+      "Bottom-Up Parsing",
+      "Syntax Directed Translation & SDD",
+      "Intermediate Code & Code Optimization",
+    ]),
+    tests: mkTests([
+      ["Topic Test 1","Lexical, Syntax Analysis, Parsers"],
+      ["Topic Test 2","Semantic Analysis, SDT, SDD, Parser"],
+      ["Topic Test 3","Intermediate Codes, DAG, SSA, Code Optimisation"],
+    ]),
+    subjectTest:{done:false, note:"only 2 variants listed on GO Classes, marked Coming Soon — check availability"},
+  },
 ];
 
 let daTrack = [
@@ -382,14 +492,20 @@ function mergeTrack(defaults, loaded){
     const match = loaded.find(l => l.name === def.name);
     if(!match) return def;
     const merged = { ...def, done: !!match.done };
-    if(match.subjectTest !== undefined) merged.subjectTest = !!match.subjectTest;
-    if(def.modules){
+    if(def.tests){
       merged.modules = def.modules.map(dm => {
         const lm = match.modules && match.modules.find(x => x.name === dm.name);
-        return lm ? { ...dm, lectureDone: !!lm.lectureDone, testDone: !!lm.testDone } : dm;
+        if(!lm) return dm;
+        return { ...dm, done: lm.done !== undefined ? !!lm.done : !!lm.lectureDone };
       });
-    } else if(match.topicTests !== undefined){
-      merged.topicTests = !!match.topicTests;
+      merged.tests = def.tests.map(dt => {
+        const lt = match.tests && match.tests.find(x => x.name === dt.name);
+        return lt ? { ...dt, done: !!lt.done } : dt;
+      });
+      merged.subjectTest = { ...def.subjectTest, done: match.subjectTest ? !!match.subjectTest.done : false };
+    } else if(match.subjectTest !== undefined){
+      merged.subjectTest = !!match.subjectTest;
+      if(match.topicTests !== undefined) merged.topicTests = !!match.topicTests;
     }
     return merged;
   });
@@ -473,14 +589,15 @@ function logHour(){
 
 function toggleTopicTests(track,i){ const arr = track==='cs'?csTrack:daTrack; arr[i].topicTests = !arr[i].topicTests; render(); scheduleSave(); }
 function toggleSubjectTest(track,i){ const arr = track==='cs'?csTrack:daTrack; arr[i].subjectTest = !arr[i].subjectTest; render(); scheduleSave(); }
-function toggleModuleLecture(track,i,mi){ const arr = track==='cs'?csTrack:daTrack; arr[i].modules[mi].lectureDone = !arr[i].modules[mi].lectureDone; render(); scheduleSave(); }
-function toggleModuleTest(track,i,mi){ const arr = track==='cs'?csTrack:daTrack; arr[i].modules[mi].testDone = !arr[i].modules[mi].testDone; render(); scheduleSave(); }
+function toggleModuleDone(track,i,mi){ const arr = track==='cs'?csTrack:daTrack; arr[i].modules[mi].done = !arr[i].modules[mi].done; render(); scheduleSave(); }
+function toggleCourseTest(track,i,ti){ const arr = track==='cs'?csTrack:daTrack; arr[i].tests[ti].done = !arr[i].tests[ti].done; render(); scheduleSave(); }
+function toggleCourseSubjectTest(track,i){ const arr = track==='cs'?csTrack:daTrack; arr[i].subjectTest.done = !arr[i].subjectTest.done; render(); scheduleSave(); }
 
 const expandedPlans = new Set();
 function toggleExpand(key){ if(expandedPlans.has(key)) expandedPlans.delete(key); else expandedPlans.add(key); render(); }
 
 function buildPlanHtml(c, trackKey, i){
-  if(!c.modules){
+  if(!c.tests){
     return `<div class="tests">
       <span class="testtag ${c.topicTests?'on':'off'}" data-tt>Topic-wise tests</span>
       <span class="testtag ${c.subjectTest?'on':'off'}" data-st>Subject-wise test</span>
@@ -488,16 +605,21 @@ function buildPlanHtml(c, trackKey, i){
   }
   const key = trackKey + '-' + i;
   const expanded = expandedPlans.has(key);
-  const totalItems = c.modules.length*2 + 1;
+  const total = c.modules.length + c.tests.length + 1;
+  let n = 0;
   let rows = '';
   c.modules.forEach((m,mi)=>{
-    const n1 = mi*2+1, n2 = mi*2+2;
-    rows += `<div class="planrow ${m.lectureDone?'done':''}" data-mod="${mi}">${n1}. Module — ${m.name}</div>`;
-    rows += `<div class="planrow ${m.testDone?'done':''}" data-modtest="${mi}">${n2}. &rarr; Topic-wise test: ${m.name}</div>`;
+    n++;
+    rows += `<div class="planrow ${m.done?'done':''}" data-mod="${mi}">${n}. Module — ${m.name}</div>`;
   });
-  rows += `<div class="planrow final ${c.subjectTest?'done':''}" data-st>${totalItems}. Subject-wise test — ${c.name}</div>`;
+  c.tests.forEach((t,ti)=>{
+    n++;
+    rows += `<div class="planrow ${t.done?'done':''}" data-test="${ti}">${n}. ${t.name} — ${t.coverage}</div>`;
+  });
+  n++;
+  rows += `<div class="planrow final ${c.subjectTest.done?'done':''}" data-st>${n}. Subject-wise test — ${c.subjectTest.note}</div>`;
   return `
-    <div class="planToggle" data-expand>${expanded?'▾ Hide':'▸ Show'} module + test plan (${totalItems} items)</div>
+    <div class="planToggle" data-expand>${expanded?'▾ Hide':'▸ Show'} module + test plan (${total} items)</div>
     <div class="planlist" ${expanded?'':'hidden'}>${rows}</div>
   `;
 }
@@ -519,18 +641,18 @@ function renderTrack(arr, bodyId, prefix, trackKey){
       </td>
     `;
     tr.onclick = () => toggleDone(trackKey, i);
-    if(c.modules){
+    if(c.tests){
       const key = trackKey + '-' + i;
       tr.querySelector('[data-expand]').onclick = (e) => { e.stopPropagation(); toggleExpand(key); };
       tr.querySelectorAll('[data-mod]').forEach(el=>{
         const mi = parseInt(el.getAttribute('data-mod'));
-        el.onclick = (e) => { e.stopPropagation(); toggleModuleLecture(trackKey, i, mi); };
+        el.onclick = (e) => { e.stopPropagation(); toggleModuleDone(trackKey, i, mi); };
       });
-      tr.querySelectorAll('[data-modtest]').forEach(el=>{
-        const mi = parseInt(el.getAttribute('data-modtest'));
-        el.onclick = (e) => { e.stopPropagation(); toggleModuleTest(trackKey, i, mi); };
+      tr.querySelectorAll('[data-test]').forEach(el=>{
+        const ti = parseInt(el.getAttribute('data-test'));
+        el.onclick = (e) => { e.stopPropagation(); toggleCourseTest(trackKey, i, ti); };
       });
-      tr.querySelector('[data-st]').onclick = (e) => { e.stopPropagation(); toggleSubjectTest(trackKey, i); };
+      tr.querySelector('[data-st]').onclick = (e) => { e.stopPropagation(); toggleCourseSubjectTest(trackKey, i); };
     } else {
       tr.querySelector('[data-tt]').onclick = (e) => { e.stopPropagation(); toggleTopicTests(trackKey, i); };
       tr.querySelector('[data-st]').onclick = (e) => { e.stopPropagation(); toggleSubjectTest(trackKey, i); };
