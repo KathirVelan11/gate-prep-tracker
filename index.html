@@ -24,7 +24,11 @@
     padding:32px 20px 80px;
   }
   .wrap{max-width:920px;margin:0 auto;}
-  h1{font-size:28px;font-weight:600;margin:0 0 4px;}
+  .headerRow{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:10px 20px;margin-bottom:4px;}
+  h1{font-size:28px;font-weight:600;margin:0;}
+  .todaybadge{text-align:right;}
+  .todaybadge .tlabel{font-family:'SF Mono','Menlo',monospace;font-size:10px;letter-spacing:3px;color:var(--ink-dim);margin-bottom:3px;}
+  .todaybadge .tdate{font-family:'SF Mono','Menlo',monospace;font-size:17px;color:var(--current);font-weight:600;}
   .sub{color:var(--ink-dim);font-family:'SF Mono','Menlo',monospace;font-size:13px;margin-bottom:24px;}
 
   .syncbar{display:flex;align-items:center;gap:10px;margin-bottom:16px;}
@@ -93,8 +97,13 @@
 </head>
 <body>
 <div class="wrap">
-  <h1>GATE 2027 — CS+DA Prep</h1>
-  <div class="sub" id="today"></div>
+  <div class="headerRow">
+    <h1>GATE 2027 — CS+DA Prep</h1>
+    <div class="todaybadge">
+      <div class="tlabel">TODAY</div>
+      <div class="tdate" id="today"></div>
+    </div>
+  </div>
   <div class="sub" id="planNote"></div>
 
   <div class="syncbar">
