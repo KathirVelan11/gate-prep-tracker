@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>GATE 2027 Tracker</title>
+<style>
+  :root{
+    --bg:#0e1210;
+    --panel:#151b18;
+    --line:#26302b;
+    --ink:#e6ece8;
+    --ink-dim:#8fa398;
+    --done:#4a9d6e;
+    --current:#d4a537;
+    --late:#c0503f;
+    --pending:#2a332e;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Iowan Old Style','Georgia',serif;
+    padding:32px 20px 80px;
+  }
+  .wrap{max-width:920px;margin:0 auto;}
+  h1{font-size:28px;font-weight:600;margin:0 0 4px;}
+  .sub{color:var(--ink-dim);font-family:'SF Mono','Menlo',monospace;font-size:13px;margin-bottom:24px;}
+
+  .syncbar{display:flex;align-items:center;gap:10px;margin-bottom:16px;}
+  .syncbtn{
+    background:var(--panel);border:1px solid var(--line);color:var(--ink-dim);
+    padding:6px 12px;font-family:'SF Mono','Menlo',monospace;font-size:11px;cursor:pointer;
+  }
+  .syncbtn:hover{color:var(--ink);border-color:var(--ink-dim);}
+  .syncstatus{font-family:'SF Mono','Menlo',monospace;font-size:11px;color:var(--ink-dim);}
+  .syncstatus.ok{color:var(--done);}
+  .syncstatus.pending{color:var(--current);}
+  .syncstatus.error{color:var(--late);}
+
+  .settings{background:var(--panel);border:1px solid var(--line);padding:16px 18px;margin-bottom:24px;}
+  .settings input[type=password]{
+    background:var(--bg);border:1px solid var(--line);color:var(--ink);
+    padding:6px 8px;font-family:inherit;font-size:12px;flex:1;min-width:200px;
+  }
+
+  .status-row{display:flex;gap:16px;margin-bottom:28px;flex-wrap:wrap;}
+  .stat{flex:1;min-width:140px;background:var(--panel);border:1px solid var(--line);padding:16px 18px;}
+  .stat .num{font-family:'SF Mono','Menlo',monospace;font-size:26px;font-weight:600;}
+  .stat .lbl{font-size:12px;color:var(--ink-dim);margin-top:2px;}
+  .stat.warn .num{color:var(--late);}
+  .stat.ok .num{color:var(--done);}
+
+  .hourlog{background:var(--panel);border:1px solid var(--line);padding:18px 20px;margin-bottom:24px;}
+  .hourlog h2{font-size:14px;font-family:'SF Mono','Menlo',monospace;font-weight:600;color:var(--ink-dim);margin:0 0 12px;}
+  .hourgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(50px,1fr));gap:6px;margin-bottom:12px;}
+  .hcell{text-align:center;padding:6px 2px;font-family:'SF Mono','Menlo',monospace;font-size:11px;border:1px solid var(--line);}
+  .hcell .d{color:var(--ink-dim);font-size:9px;}
+  .hcell .v{font-size:13px;margin-top:2px;}
+  .hcell.hit{border-color:var(--done);}
+  .hcell.miss{border-color:var(--late);}
+  .hcell.zero{border-color:var(--late);opacity:0.5;}
+  .addhour{display:flex;gap:8px;align-items:center;font-family:'SF Mono','Menlo',monospace;font-size:12px;flex-wrap:wrap;}
+  .addhour input{
+    background:var(--bg);border:1px solid var(--line);color:var(--ink);
+    padding:6px 8px;font-family:inherit;font-size:12px;width:70px;
+  }
+  .addhour button{
+    background:var(--current);color:#0e1210;border:none;padding:7px 14px;
+    font-family:inherit;font-size:12px;cursor:pointer;font-weight:600;
+  }
+
+  .instructions{
+    font-family:'SF Mono','Menlo',monospace;font-size:11px;color:var(--ink-dim);
+    margin-bottom:16px;line-height:1.6;
+  }
+
+  table{width:100%;border-collapse:collapse;}
+  th{text-align:left;font-family:'SF Mono','Menlo',monospace;font-size:11px;color:var(--ink-dim);font-weight:500;padding:8px 10px;border-bottom:1px solid var(--line);}
+  td{padding:10px 10px;border-bottom:1px solid var(--line);font-size:14px;vertical-align:middle;}
+  tr.current td{background:rgba(212,165,55,0.08);}
+  tr.late td{background:rgba(192,80,63,0.06);}
+  tr.done-row td{color:var(--ink-dim);}
+  tr.done-row .cname{text-decoration:line-through;}
+  .wk{font-family:'SF Mono','Menlo',monospace;color:var(--ink-dim);font-size:12px;}
+  .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:8px;}
+  .dot.done{background:var(--done);}
+  .dot.current{background:var(--current);}
+  .dot.late{background:var(--late);}
+  .dot.pending{background:var(--pending);border:1px solid var(--line);}
+  .ctrls{display:flex;gap:4px;white-space:nowrap;}
+  .ctrls button{
+    background:var(--bg);border:1px solid var(--line);color:var(--ink-dim);
+    width:24px;height:24px;cursor:pointer;font-size:12px;line-height:1;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .ctrls button:hover{color:var(--ink);border-color:var(--ink-dim);}
+  .ctrls .mark{width:auto;padding:0 8px;font-family:'SF Mono','Menlo',monospace;font-size:10px;}
+  .ctrls .mark.on{color:var(--done);border-color:var(--done);}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>GATE 2027 — CS+DA Prep</h1>
+  <div class="sub" id="today"></div>
+  <div class="sub" id="dayCounter" style="color:var(--current);font-weight:600;"></div>
+
+  <div class="syncbar">
+    <button id="syncBtn" class="syncbtn" onclick="toggleSettings()">⚙ Sync</button>
+    <span id="syncStatus" class="syncstatus">offline</span>
+  </div>
+  <div id="settingsPanel" class="settings" hidden>
+    <div class="instructions">
+      Paste a GitHub personal access token (fine-grained, scoped only to the
+      gate-prep-tracker repo, permission: Contents — Read and write) to sync your
+      progress to GitHub. It is stored only in this browser's localStorage — it is
+      never written into the repo and never leaves your device except in direct
+      calls to GitHub's API.
+    </div>
+    <div class="addhour">
+      <input type="password" id="patInput" placeholder="github_pat_... or ghp_...">
+      <button onclick="savePat()">Save token</button>
+      <button onclick="clearPat()">Clear</button>
+    </div>
+  </div>
+
+  <div class="status-row" id="statusRow"></div>
+
+  <div class="hourlog">
+    <h2>Sep 2026 daily hours (target 5h/day)</h2>
+    <div class="hourgrid" id="hourGrid"></div>
+    <div class="addhour">
+      <span>Day (1-122):</span><input type="number" id="hDay" min="1" max="122" placeholder="7">
+      <span>Hours:</span><input type="number" id="hVal" min="0" max="16" step="0.5" placeholder="5">
+      <button onclick="logHour()">Log</button>
+    </div>
+  </div>
+
+  <div class="instructions">
+    Plain reference list — CS track top to bottom, then DA track after. Use the
+    arrows to reorder and "mark" to check off a course; changes sync to GitHub
+    automatically a few seconds after you stop editing.
+  </div>
+
+  <h2 style="font-family:'SF Mono','Menlo',monospace;font-size:14px;color:var(--ink-dim);margin:0 0 10px;">CS TRACK</h2>
+  <table>
+    <thead><tr><th>#</th><th>CS Course</th><th></th></tr></thead>
+    <tbody id="csBody"></tbody>
+  </table>
+
+  <h2 style="font-family:'SF Mono','Menlo',monospace;font-size:14px;color:var(--ink-dim);margin:28px 0 10px;">DA TRACK — after CS finishes</h2>
+  <table>
+    <thead><tr><th>#</th><th>DA Course</th><th></th></tr></thead>
+    <tbody id="daBody"></tbody>
+  </table>
+</div>
+
+<script>
+const startDate = new Date(2026,8,1);
+const endDate = new Date(2026,11,31); // Dec 31 2026
+const msDay = 86400000;
+
+function todayMidnight(){ const d = new Date(); d.setHours(0,0,0,0); return d; }
+const today = todayMidnight();
+
+// ---- GitHub sync config ----
+const GH_OWNER = 'KathirVelan11';
+const GH_REPO = 'gate-prep-tracker';
+const GH_PATH = 'progress.json';
+const GH_BRANCH = 'main';
+const PAT_KEY = 'gateTrackerGhPat';
+
+let csTrack = [
+  {name:"Probability & Statistics (CS)", instructor:"Sachin Mittal — Engg Math Probability module", done:true},
+  {name:"Discrete Mathematics", instructor:"Deepak Poonia — free Compact Course is full-coverage, safe to use", done:false},
+  {name:"C Programming", instructor:"Sachin Mittal", done:false},
+  {name:"Data Structures", instructor:"Sachin Mittal — includes AVL Tree & Heap, not in DA course", done:false},
+  {name:"Algorithms + DA-Algo delta", instructor:"Sachin Mittal — CS Algorithms (DP, all graph algos) full, + ~2-3hrs DA delta (Python syntax + Bellman-Ford) folded in at the end", done:false},
+  {name:"Digital Logic", instructor:"Deepak Poonia", done:false},
+  {name:"Computer Organization & Architecture", instructor:"Deepak Poonia", done:false},
+  {name:"Operating Systems", instructor:"Sachin Mittal", done:false},
+  {name:"DBMS + DA Warehousing delta", instructor:"Deepak Poonia — CS DBMS (superset) full, + ~4hr DA Warehousing module folded in at the end", done:false},
+  {name:"Computer Networks", instructor:"Sachin Mittal", done:false},
+  {name:"Theory of Computation", instructor:"Deepak Poonia — kept at end per his request", done:false},
+  {name:"Compiler Design", instructor:"Deepak Poonia — kept at end per his request", done:false},
+];
+
+let daTrack = [
+  {name:"Probability & Statistics (DA delta)", instructor:"Sachin Mittal — only Module 2 (joint dist, covariance, correlation) + Module 3 (CLT, confidence intervals, z/t/chi-sq tests); Module 1 already done via CS", done:false},
+  {name:"Linear Algebra", instructor:"Sachin Mittal — full course, superset of CS's LA module", done:false},
+  {name:"Python Programming", instructor:"Sachin Mittal", done:false},
+  {name:"Calculus & Optimization", instructor:"Sachin Mittal — full course, superset of CS's Calculus module", done:false},
+  {name:"Machine Learning", instructor:"Sachin Mittal", done:false},
+  {name:"Artificial Intelligence", instructor:"Anjali Chauhan, Deepak Poonia", done:false},
+];
+
+let hours = {1:0.5, 2:5, 3:5, 4:5, 5:3, 6:0};
+
+function fmtDate(d){return d.toLocaleDateString('en-GB',{day:'numeric',month:'short'});}
+
+// ---- localStorage token helpers ----
+function getPat(){ try{ return localStorage.getItem(PAT_KEY) || ''; }catch(e){ return ''; } }
+function setPat(v){ try{ localStorage.setItem(PAT_KEY, v); }catch(e){} }
+function clearPatStorage(){ try{ localStorage.removeItem(PAT_KEY); }catch(e){} }
+
+function toggleSettings(){
+  const p = document.getElementById('settingsPanel');
+  p.hidden = !p.hidden;
+  if(!p.hidden) document.getElementById('patInput').value = getPat();
+}
+function savePat(){
+  const v = document.getElementById('patInput').value.trim();
+  if(!v) return;
+  setPat(v);
+  document.getElementById('settingsPanel').hidden = true;
+  loadFromGithub();
+}
+function clearPat(){
+  clearPatStorage();
+  document.getElementById('patInput').value = '';
+  setSyncStatus('offline','');
+}
+function setSyncStatus(text, cls){
+  const el = document.getElementById('syncStatus');
+  if(!el) return;
+  el.textContent = text;
+  el.className = 'syncstatus ' + (cls||'');
+}
+
+// ---- base64 helpers (UTF-8 safe) ----
+function b64EncodeUnicode(str){
+  return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, (m,p)=>String.fromCharCode('0x'+p)));
+}
+function b64DecodeUnicode(str){
+  return decodeURIComponent(atob(str).split('').map(c=>'%'+('00'+c.charCodeAt(0).toString(16)).slice(-2)).join(''));
+}
+
+// ---- GitHub API ----
+let fileSha = null;
+let saveTimer = null;
+let syncing = false;
+
+async function ghGet(){
+  const pat = getPat();
+  const url = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${GH_PATH}?ref=${GH_BRANCH}`;
+  return fetch(url, { headers: { 'Authorization': 'token ' + pat, 'Accept': 'application/vnd.github+json' } });
+}
+async function ghPut(body){
+  const pat = getPat();
+  const url = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${GH_PATH}`;
+  return fetch(url, {
+    method: 'PUT',
+    headers: {
+      'Authorization': 'token ' + pat,
+      'Accept': 'application/vnd.github+json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+  });
+}
+
+async function loadFromGithub(){
+  if(!getPat()){ setSyncStatus('offline',''); return; }
+  setSyncStatus('loading…','pending');
+  try{
+    const res = await ghGet();
+    if(res.status === 404){
+      fileSha = null;
+      setSyncStatus('no remote data yet','pending');
+      render();
+      scheduleSave();
+      return;
+    }
+    if(!res.ok){
+      setSyncStatus('token error ('+res.status+')','error');
+      return;
+    }
+    const data = await res.json();
+    fileSha = data.sha;
+    const parsed = JSON.parse(b64DecodeUnicode(data.content.replace(/\n/g,'')));
+    if(parsed.csTrack) csTrack = parsed.csTrack;
+    if(parsed.daTrack) daTrack = parsed.daTrack;
+    if(parsed.hours) hours = parsed.hours;
+    setSyncStatus('synced','ok');
+    render();
+  }catch(e){
+    setSyncStatus('offline (network)','error');
+  }
+}
+
+function scheduleSave(){
+  if(!getPat()) return;
+  setSyncStatus('pending…','pending');
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(saveToGithub, 3000);
+}
+
+async function saveToGithub(){
+  if(!getPat() || syncing) return;
+  syncing = true;
+  setSyncStatus('saving…','pending');
+  try{
+    const payload = { csTrack, daTrack, hours };
+    const body = {
+      message: 'Update progress ' + new Date().toISOString(),
+      content: b64EncodeUnicode(JSON.stringify(payload, null, 2)),
+      branch: GH_BRANCH,
+    };
+    if(fileSha) body.sha = fileSha;
+    const res = await ghPut(body);
+    if(!res.ok){
+      setSyncStatus('save failed ('+res.status+')','error');
+      syncing = false;
+      return;
+    }
+    const data = await res.json();
+    fileSha = data.content.sha;
+    setSyncStatus('synced','ok');
+  }catch(e){
+    setSyncStatus('offline (network)','error');
+  }
+  syncing = false;
+}
+
+// ---- interactions ----
+function moveUp(track,i){ if(i===0) return; const arr = track==='cs'?csTrack:daTrack; [arr[i-1],arr[i]]=[arr[i],arr[i-1]]; render(); scheduleSave(); }
+function moveDown(track,i){ const arr = track==='cs'?csTrack:daTrack; if(i===arr.length-1) return; [arr[i+1],arr[i]]=[arr[i],arr[i+1]]; render(); scheduleSave(); }
+function toggleDone(track,i){ const arr = track==='cs'?csTrack:daTrack; arr[i].done = !arr[i].done; render(); scheduleSave(); }
+function logHour(){
+  const d = parseInt(document.getElementById('hDay').value);
+  const v = parseFloat(document.getElementById('hVal').value);
+  if(!d || isNaN(v)) return;
+  hours[d] = v;
+  document.getElementById('hDay').value='';
+  document.getElementById('hVal').value='';
+  render();
+  scheduleSave();
+}
+
+function computeCurrent(){
+  for(let i=0;i<csTrack.length;i++) if(!csTrack[i].done) return {track:'cs', i};
+  for(let i=0;i<daTrack.length;i++) if(!daTrack[i].done) return {track:'da', i};
+  return null;
+}
+
+function renderTrack(arr, bodyId, prefix, trackKey, currentIdx, isLate){
+  const tbody = document.getElementById(bodyId);
+  tbody.innerHTML = '';
+  arr.forEach((c,i)=>{
+    const tr = document.createElement('tr');
+    let dotClass = 'pending';
+    if(c.done){ dotClass = 'done'; tr.classList.add('done-row'); }
+    else if(i===currentIdx){ dotClass = isLate ? 'late' : 'current'; tr.classList.add(isLate ? 'late' : 'current'); }
+    tr.innerHTML = `
+      <td class="wk">${prefix}${i+1}</td>
+      <td><span class="dot ${dotClass}"></span><span class="cname">${c.name}</span><br><span class="wk">${c.instructor}</span></td>
+      <td class="ctrls">
+        <button onclick="moveUp('${trackKey}',${i})" title="Move up">↑</button>
+        <button onclick="moveDown('${trackKey}',${i})" title="Move down">↓</button>
+        <button class="mark ${c.done?'on':''}" onclick="toggleDone('${trackKey}',${i})">${c.done?'done':'mark'}</button>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+function render(){
+  const daysSinceStart = Math.floor((today - startDate)/msDay);
+  const totalTargetHoursSoFar = daysSinceStart >= 0 ? (daysSinceStart+1)*5 : 0;
+  let hoursLogged = 0;
+  Object.values(hours).forEach(h=>hoursLogged+=h);
+  const hourDeficit = totalTargetHoursSoFar - hoursLogged;
+  const isLate = hourDeficit > 0;
+
+  const cur = computeCurrent();
+  renderTrack(csTrack, 'csBody', 'CS', 'cs', cur && cur.track==='cs' ? cur.i : -1, isLate);
+  renderTrack(daTrack, 'daBody', 'DA', 'da', cur && cur.track==='da' ? cur.i : -1, isLate);
+
+  document.getElementById('statusRow').innerHTML = `
+    <div class="stat ${hourDeficit>0?'warn':'ok'}">
+      <div class="num">${hourDeficit>0?'-':''}${Math.abs(hourDeficit).toFixed(1)}h</div>
+      <div class="lbl">hour deficit vs 5h/day target</div>
+    </div>
+  `;
+
+  document.getElementById('today').textContent =
+    `Today: ${today.toDateString()} — CS track first, DA track after`;
+
+  const dayNumber = daysSinceStart + 1;
+  const totalDays = Math.round((endDate - startDate)/msDay) + 1;
+  const daysLeft = Math.round((endDate - today)/msDay);
+  document.getElementById('dayCounter').textContent =
+    `Day ${dayNumber} of ${totalDays} (Sep 1 – Dec 31) — ${daysLeft} days left until Dec 31`;
+
+  const hourGrid = document.getElementById('hourGrid');
+  hourGrid.innerHTML = '';
+  const monthDays = [
+    {name:'Sep', days:30, offset:0},
+    {name:'Oct', days:31, offset:30},
+    {name:'Nov', days:30, offset:61},
+    {name:'Dec', days:31, offset:91},
+  ];
+  monthDays.forEach(m=>{
+    const monthLabel = document.createElement('div');
+    monthLabel.style.cssText = 'grid-column:1/-1;font-family:monospace;font-size:11px;color:var(--ink-dim);margin-top:10px;';
+    monthLabel.textContent = m.name + ' 2026';
+    hourGrid.appendChild(monthLabel);
+    for(let d=1; d<=m.days; d++){
+      const globalDay = m.offset + d;
+      const v = hours[globalDay];
+      let cls = 'hcell', display = '–';
+      if(v !== undefined){
+        display = v + 'h';
+        if(v >= 5) cls += ' hit';
+        else if(v === 0) cls += ' zero';
+        else cls += ' miss';
+      }
+      const cell = document.createElement('div');
+      cell.className = cls;
+      cell.innerHTML = `<div class="d">${m.name} ${d}</div><div class="v">${display}</div>`;
+      hourGrid.appendChild(cell);
+    }
+  });
+}
+
+render();
+if(!getPat()) document.getElementById('settingsPanel').hidden = false;
+loadFromGithub();
+</script>
+</body>
+</html>
