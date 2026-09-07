@@ -1,0 +1,104 @@
+{
+  "csTrack": [
+    {
+      "name": "Probability & Statistics (CS)",
+      "instructor": "Sachin Mittal — Engg Math Probability module",
+      "done": true
+    },
+    {
+      "name": "Discrete Mathematics",
+      "instructor": "Deepak Poonia — free Compact Course is full-coverage, safe to use",
+      "done": false
+    },
+    {
+      "name": "C Programming",
+      "instructor": "Sachin Mittal",
+      "done": false
+    },
+    {
+      "name": "Data Structures",
+      "instructor": "Sachin Mittal — includes AVL Tree & Heap, not in DA course",
+      "done": false
+    },
+    {
+      "name": "Algorithms + DA-Algo delta",
+      "instructor": "Sachin Mittal — CS Algorithms (DP, all graph algos) full, + ~2-3hrs DA delta (Python syntax + Bellman-Ford) folded in at the end",
+      "done": false
+    },
+    {
+      "name": "Digital Logic",
+      "instructor": "Deepak Poonia",
+      "done": false
+    },
+    {
+      "name": "Computer Organization & Architecture",
+      "instructor": "Deepak Poonia",
+      "done": false
+    },
+    {
+      "name": "Operating Systems",
+      "instructor": "Sachin Mittal",
+      "done": false
+    },
+    {
+      "name": "DBMS + DA Warehousing delta",
+      "instructor": "Deepak Poonia — CS DBMS (superset) full, + ~4hr DA Warehousing module folded in at the end",
+      "done": false
+    },
+    {
+      "name": "Computer Networks",
+      "instructor": "Sachin Mittal",
+      "done": false
+    },
+    {
+      "name": "Theory of Computation",
+      "instructor": "Deepak Poonia — kept at end per his request",
+      "done": false
+    },
+    {
+      "name": "Compiler Design",
+      "instructor": "Deepak Poonia — kept at end per his request",
+      "done": false
+    }
+  ],
+  "daTrack": [
+    {
+      "name": "Probability & Statistics (DA delta)",
+      "instructor": "Sachin Mittal — only Module 2 (joint dist, covariance, correlation) + Module 3 (CLT, confidence intervals, z/t/chi-sq tests); Module 1 already done via CS",
+      "done": false
+    },
+    {
+      "name": "Linear Algebra",
+      "instructor": "Sachin Mittal — full course, superset of CS's LA module",
+      "done": false
+    },
+    {
+      "name": "Python Programming",
+      "instructor": "Sachin Mittal",
+      "done": false
+    },
+    {
+      "name": "Calculus & Optimization",
+      "instructor": "Sachin Mittal — full course, superset of CS's Calculus module",
+      "done": false
+    },
+    {
+      "name": "Machine Learning",
+      "instructor": "Sachin Mittal",
+      "done": false
+    },
+    {
+      "name": "Artificial Intelligence",
+      "instructor": "Anjali Chauhan, Deepak Poonia",
+      "done": false
+    }
+  ],
+  "hours": {
+    "1": 0.5,
+    "2": 5,
+    "3": 5,
+    "4": 5,
+    "5": 3,
+    "6": 0
+  }
+}
