@@ -3,7 +3,9 @@
     {
       "name": "Probability & Statistics (CS)",
       "instructor": "Sachin Mittal — Engg Math Probability module",
-      "done": false
+      "done": false,
+      "topicTests": false,
+      "subjectTest": false
     },
     {
       "name": "Discrete Mathematics",
