@@ -726,6 +726,18 @@ function render(){
   const daysLeft = Math.round((endDate - today)/msDay);
   const avgPerDay = dayNumber > 0 ? hoursLogged / dayNumber : 0;
 
+  let topicTestsTotal = 0, topicTestsDone = 0, subjectTestsTotal = 0, subjectTestsDone = 0;
+  [...csTrack, ...daTrack].forEach(c => {
+    if(c.plan){
+      c.plan.forEach(p => { if(p.type==='test'){ topicTestsTotal++; if(p.done) topicTestsDone++; } });
+    } else if(c.topicTests !== undefined){
+      topicTestsTotal++; if(c.topicTests) topicTestsDone++;
+    }
+    subjectTestsTotal++;
+    const st = c.subjectTest;
+    if(st && typeof st === 'object' ? st.done : st) subjectTestsDone++;
+  });
+
   document.getElementById('statusRow').innerHTML = `
     <div class="stat">
       <div class="num">${dayNumber} / ${totalDays}</div>
@@ -746,6 +758,14 @@ function render(){
     <div class="stat ${hourDeficit>0?'warn':'ok'}">
       <div class="num">${hourDeficit>0?'-':''}${Math.abs(hourDeficit).toFixed(1)}h</div>
       <div class="lbl">hour deficit vs 5h/day target</div>
+    </div>
+    <div class="stat">
+      <div class="num">${topicTestsDone} / ${topicTestsTotal}</div>
+      <div class="lbl">topic-wise tests done</div>
+    </div>
+    <div class="stat">
+      <div class="num">${subjectTestsDone} / ${subjectTestsTotal}</div>
+      <div class="lbl">subject-wise tests done</div>
     </div>
   `;
 
