@@ -20,7 +20,8 @@
     {
       "name": "Data Structures",
       "instructor": "Sachin Mittal — includes AVL Tree & Heap, not in DA course",
-      "done": false
+      "done": false,
+      "topicTests": false
     },
     {
       "name": "Algorithms + DA-Algo delta",
