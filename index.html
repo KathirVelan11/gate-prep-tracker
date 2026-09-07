@@ -371,6 +371,7 @@ function render(){
   const dayNumber = daysSinceStart + 1;
   const totalDays = Math.round((endDate - startDate)/msDay) + 1;
   const daysLeft = Math.round((endDate - today)/msDay);
+  const avgPerDay = dayNumber > 0 ? hoursLogged / dayNumber : 0;
 
   document.getElementById('statusRow').innerHTML = `
     <div class="stat">
@@ -380,6 +381,14 @@ function render(){
     <div class="stat">
       <div class="num">${daysLeft}</div>
       <div class="lbl">days left until Dec 31</div>
+    </div>
+    <div class="stat">
+      <div class="num">${hoursLogged.toFixed(1)}h</div>
+      <div class="lbl">total hours studied</div>
+    </div>
+    <div class="stat ${avgPerDay>=5?'ok':'warn'}">
+      <div class="num">${avgPerDay.toFixed(1)}h</div>
+      <div class="lbl">avg hours/day so far</div>
     </div>
     <div class="stat ${hourDeficit>0?'warn':'ok'}">
       <div class="num">${hourDeficit>0?'-':''}${Math.abs(hourDeficit).toFixed(1)}h</div>
