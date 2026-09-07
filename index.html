@@ -95,6 +95,7 @@
 <div class="wrap">
   <h1>GATE 2027 — CS+DA Prep</h1>
   <div class="sub" id="today"></div>
+  <div class="sub" id="planNote"></div>
 
   <div class="syncbar">
     <button id="syncBtn" class="syncbtn" onclick="toggleSettings()">⚙ Sync</button>
@@ -392,6 +393,11 @@ function render(){
   `;
 
   document.getElementById('today').textContent = today.toDateString();
+
+  const planWeeks = Math.floor(totalDays/7);
+  const planExtraDays = totalDays % 7;
+  document.getElementById('planNote').textContent =
+    `Plan: ${totalDays} days (${planWeeks} weeks${planExtraDays ? ' ' + planExtraDays + ' days' : ''}) — Sep 1 to Dec 31`;
 
   const hourGrid = document.getElementById('hourGrid');
   hourGrid.innerHTML = '';
