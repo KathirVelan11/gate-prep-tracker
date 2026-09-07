@@ -88,6 +88,13 @@
   .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:8px;}
   .dot.done{background:var(--done);}
   .dot.pending{background:var(--late);}
+  .tests{margin-top:6px;}
+  .testtag{
+    display:inline-block;font-family:'SF Mono','Menlo',monospace;font-size:10px;
+    padding:3px 8px;margin-right:6px;border-radius:2px;cursor:pointer;border:1px solid;
+  }
+  .testtag.off{color:var(--late);border-color:var(--late);background:rgba(192,80,63,0.08);}
+  .testtag.on{color:var(--done);border-color:var(--done);background:rgba(74,157,110,0.1);}
 </style>
 </head>
 <body>
@@ -341,6 +348,9 @@ function logHour(){
   scheduleSave();
 }
 
+function toggleTopicTests(track,i){ const arr = track==='cs'?csTrack:daTrack; arr[i].topicTests = !arr[i].topicTests; render(); scheduleSave(); }
+function toggleSubjectTest(track,i){ const arr = track==='cs'?csTrack:daTrack; arr[i].subjectTest = !arr[i].subjectTest; render(); scheduleSave(); }
+
 function renderTrack(arr, bodyId, prefix, trackKey){
   const tbody = document.getElementById(bodyId);
   tbody.innerHTML = '';
@@ -351,9 +361,18 @@ function renderTrack(arr, bodyId, prefix, trackKey){
     if(c.done) tr.classList.add('done-row');
     tr.innerHTML = `
       <td class="wk">${prefix}${i+1}</td>
-      <td><span class="dot ${dotClass}"></span><span class="cname">${c.name}</span><br><span class="wk">${c.instructor}</span></td>
+      <td>
+        <span class="dot ${dotClass}"></span><span class="cname">${c.name}</span><br>
+        <span class="wk">${c.instructor}</span>
+        <div class="tests">
+          <span class="testtag ${c.topicTests?'on':'off'}" data-tt>Topic-wise tests</span>
+          <span class="testtag ${c.subjectTest?'on':'off'}" data-st>Subject-wise test</span>
+        </div>
+      </td>
     `;
     tr.onclick = () => toggleDone(trackKey, i);
+    tr.querySelector('[data-tt]').onclick = (e) => { e.stopPropagation(); toggleTopicTests(trackKey, i); };
+    tr.querySelector('[data-st]').onclick = (e) => { e.stopPropagation(); toggleSubjectTest(trackKey, i); };
     tbody.appendChild(tr);
   });
 }
