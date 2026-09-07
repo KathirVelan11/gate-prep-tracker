@@ -78,6 +78,7 @@
   table{width:100%;border-collapse:collapse;}
   th{text-align:left;font-family:'SF Mono','Menlo',monospace;font-size:11px;color:var(--ink-dim);font-weight:500;padding:8px 10px;border-bottom:1px solid var(--line);}
   td{padding:10px 10px;border-bottom:1px solid var(--line);font-size:14px;vertical-align:middle;}
+  tbody tr:hover td{background:rgba(230,236,232,0.04);}
   tr.current td{background:rgba(212,165,55,0.08);}
   tr.late td{background:rgba(192,80,63,0.06);}
   tr.done-row td{color:var(--ink-dim);}
@@ -88,22 +89,12 @@
   .dot.current{background:var(--current);}
   .dot.late{background:var(--late);}
   .dot.pending{background:var(--pending);border:1px solid var(--line);}
-  .ctrls{display:flex;gap:4px;white-space:nowrap;}
-  .ctrls button{
-    background:var(--bg);border:1px solid var(--line);color:var(--ink-dim);
-    width:24px;height:24px;cursor:pointer;font-size:12px;line-height:1;
-    display:flex;align-items:center;justify-content:center;
-  }
-  .ctrls button:hover{color:var(--ink);border-color:var(--ink-dim);}
-  .ctrls .mark{width:auto;padding:0 8px;font-family:'SF Mono','Menlo',monospace;font-size:10px;}
-  .ctrls .mark.on{color:var(--done);border-color:var(--done);}
 </style>
 </head>
 <body>
 <div class="wrap">
   <h1>GATE 2027 — CS+DA Prep</h1>
   <div class="sub" id="today"></div>
-  <div class="sub" id="dayCounter" style="color:var(--current);font-weight:600;"></div>
 
   <div class="syncbar">
     <button id="syncBtn" class="syncbtn" onclick="toggleSettings()">⚙ Sync</button>
@@ -121,13 +112,14 @@
       <input type="password" id="patInput" placeholder="github_pat_... or ghp_...">
       <button onclick="savePat()">Save token</button>
       <button onclick="clearPat()">Clear</button>
+      <button onclick="copyMagicLink()">Copy magic link for a new device</button>
     </div>
+    <div class="instructions" id="magicLinkNote" style="margin-top:8px;margin-bottom:0;"></div>
   </div>
 
   <div class="status-row" id="statusRow"></div>
 
   <div class="hourlog">
-    <h2>Sep 2026 daily hours (target 5h/day)</h2>
     <div class="hourgrid" id="hourGrid"></div>
     <div class="addhour">
       <span>Day (1-122):</span><input type="number" id="hDay" min="1" max="122" placeholder="7">
@@ -136,21 +128,15 @@
     </div>
   </div>
 
-  <div class="instructions">
-    Plain reference list — CS track top to bottom, then DA track after. Use the
-    arrows to reorder and "mark" to check off a course; changes sync to GitHub
-    automatically a few seconds after you stop editing.
-  </div>
-
   <h2 style="font-family:'SF Mono','Menlo',monospace;font-size:14px;color:var(--ink-dim);margin:0 0 10px;">CS TRACK</h2>
   <table>
-    <thead><tr><th>#</th><th>CS Course</th><th></th></tr></thead>
+    <thead><tr><th>#</th><th>CS Course</th></tr></thead>
     <tbody id="csBody"></tbody>
   </table>
 
   <h2 style="font-family:'SF Mono','Menlo',monospace;font-size:14px;color:var(--ink-dim);margin:28px 0 10px;">DA TRACK — after CS finishes</h2>
   <table>
-    <thead><tr><th>#</th><th>DA Course</th><th></th></tr></thead>
+    <thead><tr><th>#</th><th>DA Course</th></tr></thead>
     <tbody id="daBody"></tbody>
   </table>
 </div>
@@ -219,6 +205,21 @@ function clearPat(){
   clearPatStorage();
   document.getElementById('patInput').value = '';
   setSyncStatus('offline','');
+}
+function copyMagicLink(){
+  const pat = getPat();
+  const note = document.getElementById('magicLinkNote');
+  if(!pat){ note.textContent = 'Save a token first, then copy its magic link.'; return; }
+  const url = location.origin + location.pathname + '#pat=' + encodeURIComponent(pat);
+  const done = () => {
+    note.textContent = 'Copied. This link contains your token in plain text, same as a password — ' +
+      'only open it yourself on your own devices (e.g. from your own synced browser bookmarks or a private note). Never share or post it.';
+  };
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(url).then(done).catch(()=>{ note.textContent = 'Could not copy automatically. Link: ' + url; });
+  } else {
+    note.textContent = 'Copy this link manually: ' + url;
+  }
 }
 function setSyncStatus(text, cls){
   const el = document.getElementById('syncStatus');
@@ -323,8 +324,6 @@ async function saveToGithub(){
 }
 
 // ---- interactions ----
-function moveUp(track,i){ if(i===0) return; const arr = track==='cs'?csTrack:daTrack; [arr[i-1],arr[i]]=[arr[i],arr[i-1]]; render(); scheduleSave(); }
-function moveDown(track,i){ const arr = track==='cs'?csTrack:daTrack; if(i===arr.length-1) return; [arr[i+1],arr[i]]=[arr[i],arr[i+1]]; render(); scheduleSave(); }
 function toggleDone(track,i){ const arr = track==='cs'?csTrack:daTrack; arr[i].done = !arr[i].done; render(); scheduleSave(); }
 function logHour(){
   const d = parseInt(document.getElementById('hDay').value);
@@ -348,18 +347,15 @@ function renderTrack(arr, bodyId, prefix, trackKey, currentIdx, isLate){
   tbody.innerHTML = '';
   arr.forEach((c,i)=>{
     const tr = document.createElement('tr');
+    tr.style.cursor = 'pointer';
     let dotClass = 'pending';
     if(c.done){ dotClass = 'done'; tr.classList.add('done-row'); }
     else if(i===currentIdx){ dotClass = isLate ? 'late' : 'current'; tr.classList.add(isLate ? 'late' : 'current'); }
     tr.innerHTML = `
       <td class="wk">${prefix}${i+1}</td>
       <td><span class="dot ${dotClass}"></span><span class="cname">${c.name}</span><br><span class="wk">${c.instructor}</span></td>
-      <td class="ctrls">
-        <button onclick="moveUp('${trackKey}',${i})" title="Move up">↑</button>
-        <button onclick="moveDown('${trackKey}',${i})" title="Move down">↓</button>
-        <button class="mark ${c.done?'on':''}" onclick="toggleDone('${trackKey}',${i})">${c.done?'done':'mark'}</button>
-      </td>
     `;
+    tr.onclick = () => toggleDone(trackKey, i);
     tbody.appendChild(tr);
   });
 }
@@ -376,21 +372,26 @@ function render(){
   renderTrack(csTrack, 'csBody', 'CS', 'cs', cur && cur.track==='cs' ? cur.i : -1, isLate);
   renderTrack(daTrack, 'daBody', 'DA', 'da', cur && cur.track==='da' ? cur.i : -1, isLate);
 
+  const dayNumber = daysSinceStart + 1;
+  const totalDays = Math.round((endDate - startDate)/msDay) + 1;
+  const daysLeft = Math.round((endDate - today)/msDay);
+
   document.getElementById('statusRow').innerHTML = `
+    <div class="stat">
+      <div class="num">${dayNumber} / ${totalDays}</div>
+      <div class="lbl">day (Sep 1 – Dec 31)</div>
+    </div>
+    <div class="stat">
+      <div class="num">${daysLeft}</div>
+      <div class="lbl">days left until Dec 31</div>
+    </div>
     <div class="stat ${hourDeficit>0?'warn':'ok'}">
       <div class="num">${hourDeficit>0?'-':''}${Math.abs(hourDeficit).toFixed(1)}h</div>
       <div class="lbl">hour deficit vs 5h/day target</div>
     </div>
   `;
 
-  document.getElementById('today').textContent =
-    `Today: ${today.toDateString()} — CS track first, DA track after`;
-
-  const dayNumber = daysSinceStart + 1;
-  const totalDays = Math.round((endDate - startDate)/msDay) + 1;
-  const daysLeft = Math.round((endDate - today)/msDay);
-  document.getElementById('dayCounter').textContent =
-    `Day ${dayNumber} of ${totalDays} (Sep 1 – Dec 31) — ${daysLeft} days left until Dec 31`;
+  document.getElementById('today').textContent = today.toDateString();
 
   const hourGrid = document.getElementById('hourGrid');
   hourGrid.innerHTML = '';
@@ -422,6 +423,14 @@ function render(){
     }
   });
 }
+
+(function consumeHashToken(){
+  const m = location.hash.match(/^#pat=(.+)$/);
+  if(m){
+    try{ setPat(decodeURIComponent(m[1])); }catch(e){}
+    history.replaceState(null, '', location.pathname + location.search);
+  }
+})();
 
 render();
 if(!getPat()) document.getElementById('settingsPanel').hidden = false;
