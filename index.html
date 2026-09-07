@@ -95,6 +95,16 @@
   }
   .testtag.off{color:var(--late);border-color:var(--late);background:rgba(192,80,63,0.08);}
   .testtag.on{color:var(--done);border-color:var(--done);background:rgba(74,157,110,0.1);}
+  .planToggle{
+    font-family:'SF Mono','Menlo',monospace;font-size:10px;color:var(--ink-dim);
+    cursor:pointer;margin-top:6px;text-decoration:underline;
+  }
+  .planlist{margin-top:6px;padding:8px 10px;background:var(--bg);border:1px solid var(--line);}
+  .planrow{
+    font-family:'SF Mono','Menlo',monospace;font-size:11px;padding:3px 0;cursor:pointer;color:var(--late);
+  }
+  .planrow.done{color:var(--done);text-decoration:line-through;}
+  .planrow.final{border-top:1px solid var(--line);margin-top:4px;padding-top:6px;font-weight:600;}
 </style>
 </head>
 <body>
@@ -168,19 +178,114 @@ const GH_PATH = 'progress.json';
 const GH_BRANCH = 'main';
 const PAT_KEY = 'gateTrackerGhPat';
 
+function mods(names){ return names.map(name => ({name, lectureDone:false, testDone:false})); }
+
 let csTrack = [
-  {name:"Probability & Statistics (CS)", instructor:"Sachin Mittal — Engg Math Probability module", done:true},
-  {name:"Discrete Mathematics", instructor:"Deepak Poonia — free Compact Course is full-coverage, safe to use", done:false},
-  {name:"C Programming", instructor:"Sachin Mittal", done:false},
-  {name:"Data Structures", instructor:"Sachin Mittal — includes AVL Tree & Heap, not in DA course", done:false},
-  {name:"Algorithms + DA-Algo delta", instructor:"Sachin Mittal — CS Algorithms (DP, all graph algos) full, + ~2-3hrs DA delta (Python syntax + Bellman-Ford) folded in at the end", done:false},
-  {name:"Digital Logic", instructor:"Deepak Poonia", done:false},
-  {name:"Computer Organization & Architecture", instructor:"Deepak Poonia", done:false},
-  {name:"Operating Systems", instructor:"Sachin Mittal", done:false},
-  {name:"DBMS + DA Warehousing delta", instructor:"Deepak Poonia — CS DBMS (superset) full, + ~4hr DA Warehousing module folded in at the end", done:false},
-  {name:"Computer Networks", instructor:"Sachin Mittal", done:false},
-  {name:"Theory of Computation", instructor:"Deepak Poonia — kept at end per his request", done:false},
-  {name:"Compiler Design", instructor:"Deepak Poonia — kept at end per his request", done:false},
+  {name:"Probability & Statistics (CS)", instructor:"Sachin Mittal — Engg Math Probability module", done:true, modules: mods([
+    "Probability Basics & Inclusion-Exclusion",
+    "Conditional Probability, Bayes' Theorem & Independence",
+    "Random Variables & PMF",
+    "Expectation & Variance",
+    "Discrete Distributions (Bernoulli, Binomial, Poisson)",
+    "Continuous Distributions (Uniform, Normal, Exponential)",
+    "Statistics: Mean, Mode, Median",
+  ])},
+  {name:"Discrete Mathematics", instructor:"Deepak Poonia — free Compact Course is full-coverage, safe to use", done:false, modules: mods([
+    "Basic Proof Techniques",
+    "Introduction to Discrete Mathematics",
+    "Propositional Logic",
+    "First Order Logic",
+    "Set Theory",
+    "Function",
+    "Group Theory",
+    "Combinatorics",
+    "Graph Theory",
+  ])},
+  {name:"C Programming", instructor:"Sachin Mittal", done:false, modules: mods([
+    "Basics: Number Systems, Operators & Control Flow",
+    "Functions, Memory Layout & Storage Classes",
+    "Recursion, Pointers, Arrays & Structures",
+  ])},
+  {name:"Data Structures", instructor:"Sachin Mittal — includes AVL Tree & Heap, not in DA course", done:false, modules: mods([
+    "Linked List",
+    "Asymptotic Analysis",
+    "Stack and Queue",
+    "Binary Trees",
+    "AVL Tree",
+    "Heap",
+    "Hashing",
+    "Row Major & Column Major Arrays",
+  ])},
+  {name:"Algorithms + DA-Algo delta", instructor:"Sachin Mittal — CS Algorithms (DP, all graph algos) full, + ~2-3hrs DA delta (Python syntax + Bellman-Ford) folded in at the end", done:false, modules: mods([
+    "Recurrence Relations & Recursive Time Complexity",
+    "Divide and Conquer — Part 1",
+    "Maximum and Minimum of Numbers",
+    "Divide and Conquer — Part 2",
+    "Sorting Algorithms",
+    "BFS & DFS",
+    "Shortest Path Algorithms (Greedy)",
+    "Minimum Spanning Tree Algorithms",
+    "More Greedy Algorithms (Huffman, Knapsack)",
+    "Dynamic Programming",
+    "More Dynamic Programming",
+    "DA delta: Python syntax + Bellman-Ford",
+  ])},
+  {name:"Digital Logic", instructor:"Deepak Poonia", done:false, modules: mods([
+    "Boolean Algebra & Minimization",
+    "Number System",
+    "Combinational Circuits",
+    "Functional Completeness",
+    "Sequential Circuits",
+  ])},
+  {name:"Computer Organization & Architecture", instructor:"Deepak Poonia", done:false, modules: mods([
+    "Basic Components & Main Memory",
+    "The CPU",
+    "Cache Memory",
+    "Pipeline",
+    "I/O Interfacing, Interrupts & DMA",
+    "Floating Point Representation",
+  ])},
+  {name:"Operating Systems", instructor:"Sachin Mittal", done:false, modules: mods([
+    "Process Management & CPU Scheduling",
+    "Inter-Process Communication & Synchronization",
+    "Deadlocks",
+    "Memory Management (Paging, Segmentation, TLB)",
+    "File Systems",
+  ])},
+  {name:"DBMS + DA Warehousing delta", instructor:"Deepak Poonia — CS DBMS (superset) full, + ~4hr DA Warehousing module folded in at the end", done:false, modules: mods([
+    "Relational Model & Normalization",
+    "Relational Algebra",
+    "Tuple Relational Calculus (TRC)",
+    "SQL",
+    "Magnetic Disk",
+    "File Organization & Indexing",
+    "Transaction Management & Recovery",
+    "ER Model",
+    "DA delta: Data Warehousing",
+  ])},
+  {name:"Computer Networks", instructor:"Sachin Mittal", done:false, modules: mods([
+    "IP Addressing, Subnetting & Supernetting",
+    "Data Link Layer — Error Control & Flow Control",
+    "Data Link Layer — MAC Protocols, ARP, DHCP",
+    "Network Layer",
+    "Transport Layer",
+    "Application Layer",
+  ])},
+  {name:"Theory of Computation", instructor:"Deepak Poonia — kept at end per his request", done:false, modules: mods([
+    "Regular Languages & Finite Automata",
+    "CFLs, Grammars & Pushdown Automata",
+    "Identification of Language Class",
+    "Closure Properties",
+    "Turing Machines & Undecidability",
+    "Countability",
+  ])},
+  {name:"Compiler Design", instructor:"Deepak Poonia — kept at end per his request", done:false, modules: mods([
+    "Compiler Overview & Lexical Analyzer",
+    "Syntax Analysis (Top-Down Parsing)",
+    "Bottom-Up Parsing",
+    "Syntax Directed Translation & SDD",
+    "Intermediate Code & Code Optimization",
+  ])},
 ];
 
 let daTrack = [
@@ -272,6 +377,24 @@ async function ghPut(body){
   });
 }
 
+function mergeTrack(defaults, loaded){
+  return defaults.map(def => {
+    const match = loaded.find(l => l.name === def.name);
+    if(!match) return def;
+    const merged = { ...def, done: !!match.done };
+    if(match.subjectTest !== undefined) merged.subjectTest = !!match.subjectTest;
+    if(def.modules){
+      merged.modules = def.modules.map(dm => {
+        const lm = match.modules && match.modules.find(x => x.name === dm.name);
+        return lm ? { ...dm, lectureDone: !!lm.lectureDone, testDone: !!lm.testDone } : dm;
+      });
+    } else if(match.topicTests !== undefined){
+      merged.topicTests = !!match.topicTests;
+    }
+    return merged;
+  });
+}
+
 async function loadFromGithub(){
   if(!getPat()){ setSyncStatus('offline',''); return; }
   setSyncStatus('loading…','pending');
@@ -291,8 +414,8 @@ async function loadFromGithub(){
     const data = await res.json();
     fileSha = data.sha;
     const parsed = JSON.parse(b64DecodeUnicode(data.content.replace(/\n/g,'')));
-    if(parsed.csTrack) csTrack = parsed.csTrack;
-    if(parsed.daTrack) daTrack = parsed.daTrack;
+    if(parsed.csTrack) csTrack = mergeTrack(csTrack, parsed.csTrack);
+    if(parsed.daTrack) daTrack = mergeTrack(daTrack, parsed.daTrack);
     if(parsed.hours) hours = parsed.hours;
     setSyncStatus('synced','ok');
     render();
@@ -350,6 +473,34 @@ function logHour(){
 
 function toggleTopicTests(track,i){ const arr = track==='cs'?csTrack:daTrack; arr[i].topicTests = !arr[i].topicTests; render(); scheduleSave(); }
 function toggleSubjectTest(track,i){ const arr = track==='cs'?csTrack:daTrack; arr[i].subjectTest = !arr[i].subjectTest; render(); scheduleSave(); }
+function toggleModuleLecture(track,i,mi){ const arr = track==='cs'?csTrack:daTrack; arr[i].modules[mi].lectureDone = !arr[i].modules[mi].lectureDone; render(); scheduleSave(); }
+function toggleModuleTest(track,i,mi){ const arr = track==='cs'?csTrack:daTrack; arr[i].modules[mi].testDone = !arr[i].modules[mi].testDone; render(); scheduleSave(); }
+
+const expandedPlans = new Set();
+function toggleExpand(key){ if(expandedPlans.has(key)) expandedPlans.delete(key); else expandedPlans.add(key); render(); }
+
+function buildPlanHtml(c, trackKey, i){
+  if(!c.modules){
+    return `<div class="tests">
+      <span class="testtag ${c.topicTests?'on':'off'}" data-tt>Topic-wise tests</span>
+      <span class="testtag ${c.subjectTest?'on':'off'}" data-st>Subject-wise test</span>
+    </div>`;
+  }
+  const key = trackKey + '-' + i;
+  const expanded = expandedPlans.has(key);
+  const totalItems = c.modules.length*2 + 1;
+  let rows = '';
+  c.modules.forEach((m,mi)=>{
+    const n1 = mi*2+1, n2 = mi*2+2;
+    rows += `<div class="planrow ${m.lectureDone?'done':''}" data-mod="${mi}">${n1}. Module — ${m.name}</div>`;
+    rows += `<div class="planrow ${m.testDone?'done':''}" data-modtest="${mi}">${n2}. &rarr; Topic-wise test: ${m.name}</div>`;
+  });
+  rows += `<div class="planrow final ${c.subjectTest?'done':''}" data-st>${totalItems}. Subject-wise test — ${c.name}</div>`;
+  return `
+    <div class="planToggle" data-expand>${expanded?'▾ Hide':'▸ Show'} module + test plan (${totalItems} items)</div>
+    <div class="planlist" ${expanded?'':'hidden'}>${rows}</div>
+  `;
+}
 
 function renderTrack(arr, bodyId, prefix, trackKey){
   const tbody = document.getElementById(bodyId);
@@ -364,15 +515,26 @@ function renderTrack(arr, bodyId, prefix, trackKey){
       <td>
         <span class="dot ${dotClass}"></span><span class="cname">${c.name}</span><br>
         <span class="wk">${c.instructor}</span>
-        <div class="tests">
-          <span class="testtag ${c.topicTests?'on':'off'}" data-tt>Topic-wise tests</span>
-          <span class="testtag ${c.subjectTest?'on':'off'}" data-st>Subject-wise test</span>
-        </div>
+        ${buildPlanHtml(c, trackKey, i)}
       </td>
     `;
     tr.onclick = () => toggleDone(trackKey, i);
-    tr.querySelector('[data-tt]').onclick = (e) => { e.stopPropagation(); toggleTopicTests(trackKey, i); };
-    tr.querySelector('[data-st]').onclick = (e) => { e.stopPropagation(); toggleSubjectTest(trackKey, i); };
+    if(c.modules){
+      const key = trackKey + '-' + i;
+      tr.querySelector('[data-expand]').onclick = (e) => { e.stopPropagation(); toggleExpand(key); };
+      tr.querySelectorAll('[data-mod]').forEach(el=>{
+        const mi = parseInt(el.getAttribute('data-mod'));
+        el.onclick = (e) => { e.stopPropagation(); toggleModuleLecture(trackKey, i, mi); };
+      });
+      tr.querySelectorAll('[data-modtest]').forEach(el=>{
+        const mi = parseInt(el.getAttribute('data-modtest'));
+        el.onclick = (e) => { e.stopPropagation(); toggleModuleTest(trackKey, i, mi); };
+      });
+      tr.querySelector('[data-st]').onclick = (e) => { e.stopPropagation(); toggleSubjectTest(trackKey, i); };
+    } else {
+      tr.querySelector('[data-tt]').onclick = (e) => { e.stopPropagation(); toggleTopicTests(trackKey, i); };
+      tr.querySelector('[data-st]').onclick = (e) => { e.stopPropagation(); toggleSubjectTest(trackKey, i); };
+    }
     tbody.appendChild(tr);
   });
 }
