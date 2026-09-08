@@ -19,7 +19,8 @@
           "type": "test",
           "name": "Topic Test 3",
           "coverage": "Bayes Theorem, Conditional Probability",
-          "done": false
+          "done": true,
+          "score": "20.33/25"
         },
         {
           "type": "module",
@@ -45,7 +46,8 @@
           "type": "test",
           "name": "Topic Test 4",
           "coverage": "Complete Probability",
-          "done": false
+          "done": false,
+          "score": ""
         },
         {
           "type": "module",
@@ -87,7 +89,8 @@
           "type": "test",
           "name": "Topic Test 1",
           "coverage": "Propositional logic, First order logic",
-          "done": false
+          "done": false,
+          "score": ""
         },
         {
           "type": "module",
@@ -103,7 +106,8 @@
           "type": "test",
           "name": "Topic Test 2",
           "coverage": "Set Theory, Functions, Relations, Lattices",
-          "done": false
+          "done": false,
+          "score": ""
         },
         {
           "type": "module",
@@ -114,7 +118,8 @@
           "type": "test",
           "name": "Topic Test 3",
           "coverage": "Group Theory",
-          "done": false
+          "done": false,
+          "score": ""
         },
         {
           "type": "module",
@@ -125,7 +130,8 @@
           "type": "test",
           "name": "Topic Test 4",
           "coverage": "Combinatorics",
-          "done": false
+          "done": false,
+          "score": ""
         },
         {
           "type": "module",
@@ -136,7 +142,8 @@
           "type": "test",
           "name": "Topic Test 5",
           "coverage": "Graph Theory",
-          "done": false
+          "done": false,
+          "score": ""
         }
       ],
       "subjectTest": {
@@ -158,7 +165,8 @@
           "type": "test",
           "name": "Topic Test 1",
           "coverage": "Number Rep., Control Statements, Operators",
-          "done": false
+          "done": false,
+          "score": ""
         },
         {
           "type": "module",
@@ -174,13 +182,15 @@
           "type": "test",
           "name": "Topic Test 2",
           "coverage": "Compilation, Storage Class, Function, Recursion, Pointers",
-          "done": false
+          "done": false,
+          "score": ""
         },
         {
           "type": "test",
           "name": "Topic Test 3",
           "coverage": "Pointers, Strings, Structures, DMA",
-          "done": false
+          "done": false,
+          "score": ""
         }
       ],
       "subjectTest": {
@@ -202,7 +212,8 @@
           "type": "test",
           "name": "Topic Test 1",
           "coverage": "Linked List",
-          "done": false
+          "done": false,
+          "score": ""
         },
         {
           "type": "module",
@@ -213,7 +224,8 @@
           "type": "test",
           "name": "Topic Test 2",
           "coverage": "Asymptotic Notations, Loops TC",
-          "done": false
+          "done": false,
+          "score": ""
         },
         {
           "type": "module",
@@ -224,7 +236,8 @@
           "type": "test",
           "name": "Topic Test 3",
           "coverage": "Stack and Queue",
-          "done": false
+          "done": false,
+          "score": ""
         },
         {
           "type": "module",
@@ -245,7 +258,8 @@
           "type": "test",
           "name": "Topic Test 4",
           "coverage": "Combinatorics in Trees (BST, AVL, Heap)",
-          "done": false
+          "done": false,
+          "score": ""
         },
         {
           "type": "module",
@@ -256,7 +270,8 @@
           "type": "test",
           "name": "Topic Test 5",
           "coverage": "Hashing with Probability",
-          "done": false
+          "done": false,
+          "score": ""
         },
         {
           "type": "module",
@@ -283,7 +298,8 @@
           "type": "test",
           "name": "Topic Test 2",
           "coverage": "Recurrence relation",
-          "done": false
+          "done": false,
+          "score": ""
         },
         {
           "type": "module",
@@ -304,7 +320,8 @@
           "type": "test",
           "name": "Topic Test 1",
           "coverage": "Divide and Conquer",
-          "done": false
+          "done": false,
+          "score": ""
         },
         {
           "type": "module",
@@ -335,7 +352,8 @@
           "type": "test",
           "name": "Topic Test 3",
           "coverage": "Greedy Algorithms",
-          "done": false
+          "done": false,
+          "score": ""
         },
         {
           "type": "module",
@@ -351,7 +369,8 @@
           "type": "test",
           "name": "Topic Test 4",
           "coverage": "Dynamic Programming",
-          "done": false
+          "done": false,
+          "score": ""
         },
         {
           "type": "module",
@@ -362,7 +381,8 @@
           "type": "test",
           "name": "DSA Topic Test 6 (DA)",
           "coverage": "Graph traversals, shortest path",
-          "done": false
+          "done": false,
+          "score": ""
         }
       ],
       "subjectTest": {
@@ -389,13 +409,15 @@
           "type": "test",
           "name": "Topic Test 1",
           "coverage": "Boolean Algebra, Minimization, Number System",
-          "done": false
+          "done": false,
+          "score": ""
         },
         {
           "type": "test",
           "name": "Topic Test 4 (Extra)",
           "coverage": "Boolean Algebra, Minimization",
-          "done": false
+          "done": false,
+          "score": ""
         },
         {
           "type": "module",
@@ -406,7 +428,8 @@
           "type": "test",
           "name": "Topic Test 2",
           "coverage": "Combinational Circuits",
-          "done": false
+          "done": false,
+          "score": ""
         },
         {
           "type": "module",
@@ -422,7 +445,8 @@
           "type": "test",
           "name": "Topic Test 3",
           "coverage": "Sequential Circuits",
-          "done": false
+          "done": false,
+          "score": ""
         }
       ],
       "subjectTest": {
@@ -449,7 +473,8 @@
           "type": "test",
           "name": "Topic Test 1",
           "coverage": "Basics, Addressing Modes, Control Unit",
-          "done": false
+          "done": false,
+          "score": ""
         },
         {
           "type": "module",
@@ -460,7 +485,8 @@
           "type": "test",
           "name": "Topic Test 3",
           "coverage": "Cache Memory",
-          "done": false
+          "done": false,
+          "score": ""
         },
         {
           "type": "module",
@@ -471,7 +497,8 @@
           "type": "test",
           "name": "Topic Test 2",
           "coverage": "Pipelining",
-          "done": false
+          "done": false,
+          "score": ""
         },
         {
           "type": "module",
@@ -482,7 +509,8 @@
           "type": "test",
           "name": "Topic Test 4",
           "coverage": "I/O Interfacing, Magnetic Disk",
-          "done": false
+          "done": false,
+          "score": ""
         },
         {
           "type": "module",
@@ -509,7 +537,8 @@
           "type": "test",
           "name": "Topic Test 1",
           "coverage": "Scheduling",
-          "done": false
+          "done": false,
+          "score": ""
         },
         {
           "type": "module",
@@ -525,7 +554,8 @@
           "type": "test",
           "name": "Topic Test 3",
           "coverage": "Memory Management",
-          "done": false
+          "done": false,
+          "score": ""
         },
         {
           "type": "module",
@@ -536,7 +566,8 @@
           "type": "test",
           "name": "Topic Test 2",
           "coverage": "Synchronisation, Deadlock",
-          "done": false
+          "done": false,
+          "score": ""
         },
         {
           "type": "module",
@@ -547,7 +578,8 @@
           "type": "test",
           "name": "Topic Test 4",
           "coverage": "File system, Fork, System calls",
-          "done": false
+          "done": false,
+          "score": ""
         }
       ],
       "subjectTest": {
@@ -569,7 +601,8 @@
           "type": "test",
           "name": "Topic Test 1",
           "coverage": "Normalization",
-          "done": false
+          "done": false,
+          "score": ""
         },
         {
           "type": "module",
@@ -590,7 +623,8 @@
           "type": "test",
           "name": "Topic Test 3",
           "coverage": "Queries, SQL, TRC, Relational Algebra",
-          "done": false
+          "done": false,
+          "score": ""
         },
         {
           "type": "module",
@@ -606,7 +640,8 @@
           "type": "test",
           "name": "Topic Test 4",
           "coverage": "Indexing, B Tree, B+ Tree",
-          "done": false
+          "done": false,
+          "score": ""
         },
         {
           "type": "module",
@@ -617,7 +652,8 @@
           "type": "test",
           "name": "Topic Test 5",
           "coverage": "Transaction management",
-          "done": false
+          "done": false,
+          "score": ""
         },
         {
           "type": "module",
@@ -628,7 +664,8 @@
           "type": "test",
           "name": "Topic Test 2",
           "coverage": "ER Model, Integrity Constraints",
-          "done": false
+          "done": false,
+          "score": ""
         },
         {
           "type": "module",
@@ -639,13 +676,15 @@
           "type": "test",
           "name": "DBMS Topic Test - 5 (DA)",
           "coverage": "Data warehouse modeling, Concept hierarchies",
-          "done": false
+          "done": false,
+          "score": ""
         },
         {
           "type": "test",
           "name": "DBMS Subject Wise (DA)",
           "coverage": "Complete GATE DA DBMS — pick 1 of 3 available",
-          "done": false
+          "done": false,
+          "score": ""
         }
       ],
       "subjectTest": {
@@ -677,7 +716,8 @@
           "type": "test",
           "name": "Topic Test 1",
           "coverage": "IP addressing, Data Link layer",
-          "done": false
+          "done": false,
+          "score": ""
         },
         {
           "type": "module",
@@ -688,13 +728,15 @@
           "type": "test",
           "name": "Topic Test 2",
           "coverage": "Network Layer",
-          "done": false
+          "done": false,
+          "score": ""
         },
         {
           "type": "test",
           "name": "Topic Test 3",
           "coverage": "Routing algorithms, Transport layer",
-          "done": false
+          "done": false,
+          "score": ""
         },
         {
           "type": "module",
@@ -710,7 +752,8 @@
           "type": "test",
           "name": "Topic Test 4",
           "coverage": "Transport layer, Application Layer",
-          "done": false
+          "done": false,
+          "score": ""
         }
       ],
       "subjectTest": {
@@ -732,13 +775,15 @@
           "type": "test",
           "name": "Topic Test 1",
           "coverage": "Finite Automata",
-          "done": false
+          "done": false,
+          "score": ""
         },
         {
           "type": "test",
           "name": "Topic Test 2",
           "coverage": "Regular Expression",
-          "done": false
+          "done": false,
+          "score": ""
         },
         {
           "type": "module",
@@ -749,7 +794,8 @@
           "type": "test",
           "name": "Topic Test 3",
           "coverage": "CFG, PDA",
-          "done": false
+          "done": false,
+          "score": ""
         },
         {
           "type": "module",
@@ -765,7 +811,8 @@
           "type": "test",
           "name": "Topic Test 4",
           "coverage": "Closure Properties, Language Class Detection",
-          "done": false
+          "done": false,
+          "score": ""
         },
         {
           "type": "module",
@@ -776,7 +823,8 @@
           "type": "test",
           "name": "Topic Test 5",
           "coverage": "Decidability, Undecidability",
-          "done": false
+          "done": false,
+          "score": ""
         },
         {
           "type": "module",
@@ -787,7 +835,8 @@
           "type": "test",
           "name": "Topic Test 6",
           "coverage": "Countability",
-          "done": false
+          "done": false,
+          "score": ""
         }
       ],
       "subjectTest": {
@@ -819,7 +868,8 @@
           "type": "test",
           "name": "Topic Test 1",
           "coverage": "Lexical, Syntax Analysis, Parsers",
-          "done": false
+          "done": false,
+          "score": ""
         },
         {
           "type": "module",
@@ -830,7 +880,8 @@
           "type": "test",
           "name": "Topic Test 2",
           "coverage": "Semantic Analysis, SDT, SDD, Parser",
-          "done": false
+          "done": false,
+          "score": ""
         },
         {
           "type": "module",
@@ -841,7 +892,8 @@
           "type": "test",
           "name": "Topic Test 3",
           "coverage": "Intermediate Codes, DAG, SSA, Code Optimisation",
-          "done": false
+          "done": false,
+          "score": ""
         }
       ],
       "subjectTest": {
@@ -865,7 +917,8 @@
           "type": "test",
           "name": "Probability & Stats Topic Test - 4",
           "coverage": "Conditional expectation, Variance, Correlation, Covariance",
-          "done": false
+          "done": false,
+          "score": ""
         },
         {
           "type": "module",
@@ -876,7 +929,8 @@
           "type": "test",
           "name": "Probability & Stats Topic Test - 5",
           "coverage": "t-distribution, chi-squared, z-test, t-test",
-          "done": false
+          "done": false,
+          "score": ""
         }
       ],
       "subjectTest": {
@@ -898,13 +952,15 @@
           "type": "test",
           "name": "Linear Algebra Topic Wise Test - 1",
           "coverage": "Linear independence, systems of linear equations, eigenvalues & eigenvectors",
-          "done": false
+          "done": false,
+          "score": ""
         },
         {
           "type": "test",
           "name": "Linear Algebra Topic Wise Test - 2",
           "coverage": "Linear independence, systems, eigenvalues, eigenvectors",
-          "done": false
+          "done": false,
+          "score": ""
         },
         {
           "type": "module",
@@ -920,7 +976,8 @@
           "type": "test",
           "name": "Linear Algebra Topic Wise Test - 3",
           "coverage": "Vector space, subspaces, Change of Basis, Linear Transformation",
-          "done": false
+          "done": false,
+          "score": ""
         },
         {
           "type": "module",
@@ -931,7 +988,8 @@
           "type": "test",
           "name": "Linear Algebra Topic Wise Test - 5",
           "coverage": "Singular value decomposition",
-          "done": false
+          "done": false,
+          "score": ""
         },
         {
           "type": "module",
@@ -942,7 +1000,8 @@
           "type": "test",
           "name": "Linear Algebra Topic Wise Test - 4",
           "coverage": "Projection matrix, Partition Matrix",
-          "done": false
+          "done": false,
+          "score": ""
         }
       ],
       "subjectTest": {
@@ -969,7 +1028,8 @@
           "type": "test",
           "name": "Python Topic Test - 1",
           "coverage": "Python Programming Fundamentals",
-          "done": false
+          "done": false,
+          "score": ""
         },
         {
           "type": "module",
@@ -980,7 +1040,8 @@
           "type": "test",
           "name": "Python Topic Test - 2",
           "coverage": "Python Advanced",
-          "done": false
+          "done": false,
+          "score": ""
         }
       ],
       "subjectTest": {
@@ -1007,7 +1068,8 @@
           "type": "test",
           "name": "Calculus & Optimization Topic Test - 1",
           "coverage": "Limit, Continuity",
-          "done": false
+          "done": false,
+          "score": ""
         },
         {
           "type": "module",
@@ -1018,7 +1080,8 @@
           "type": "test",
           "name": "Calculus & Optimization Topic Test - 2",
           "coverage": "Differentiability, Maxima & Minima",
-          "done": false
+          "done": false,
+          "score": ""
         },
         {
           "type": "module",
@@ -1034,7 +1097,8 @@
           "type": "test",
           "name": "Calculus & Optimization Topic Test - 3",
           "coverage": "Taylor series, Optimization (single variable)",
-          "done": false
+          "done": false,
+          "score": ""
         },
         {
           "type": "module",
@@ -1055,7 +1119,8 @@
           "type": "test",
           "name": "Calculus & Optimization Topic Test - 4",
           "coverage": "Calculus (comprehensive)",
-          "done": false
+          "done": false,
+          "score": ""
         }
       ],
       "subjectTest": {
@@ -1077,7 +1142,8 @@
           "type": "test",
           "name": "ML Topic Test - 1",
           "coverage": "Linear regression, Logistic regression",
-          "done": false
+          "done": false,
+          "score": ""
         },
         {
           "type": "module",
@@ -1088,7 +1154,8 @@
           "type": "test",
           "name": "ML Topic Test - 2",
           "coverage": "K-nearest neighbour",
-          "done": false
+          "done": false,
+          "score": ""
         },
         {
           "type": "module",
@@ -1099,7 +1166,8 @@
           "type": "test",
           "name": "ML Topic Test - 3",
           "coverage": "Support Vector Machines",
-          "done": false
+          "done": false,
+          "score": ""
         },
         {
           "type": "module",
@@ -1110,7 +1178,8 @@
           "type": "test",
           "name": "ML Topic Test - 5",
           "coverage": "LOO, K-folds cross-validation",
-          "done": false
+          "done": false,
+          "score": ""
         },
         {
           "type": "module",
@@ -1121,7 +1190,8 @@
           "type": "test",
           "name": "ML Topic Test - 7",
           "coverage": "Precision Recall, Bias-Variance Tradeoff",
-          "done": false
+          "done": false,
+          "score": ""
         },
         {
           "type": "module",
@@ -1132,7 +1202,8 @@
           "type": "test",
           "name": "ML Topic Test - 6",
           "coverage": "Principal Component Analysis",
-          "done": false
+          "done": false,
+          "score": ""
         },
         {
           "type": "module",
@@ -1143,7 +1214,8 @@
           "type": "test",
           "name": "ML Topic Test - 4",
           "coverage": "Decision Trees",
-          "done": false
+          "done": false,
+          "score": ""
         },
         {
           "type": "module",
@@ -1154,7 +1226,8 @@
           "type": "test",
           "name": "ML Topic Test - 8",
           "coverage": "Clustering algorithms",
-          "done": false
+          "done": false,
+          "score": ""
         },
         {
           "type": "module",
@@ -1165,13 +1238,15 @@
           "type": "test",
           "name": "ML Topic Test - 10",
           "coverage": "Neural Networks, LDA",
-          "done": false
+          "done": false,
+          "score": ""
         },
         {
           "type": "test",
           "name": "ML Topic Test - 9",
           "coverage": "All ML topics",
-          "done": false
+          "done": false,
+          "score": ""
         }
       ],
       "subjectTest": {
@@ -1186,22 +1261,6 @@
       "plan": [
         {
           "type": "module",
-          "name": "Module 1: Propositional Logic",
-          "done": false
-        },
-        {
-          "type": "module",
-          "name": "Module 2: Predicate Logic (First Order Logic)",
-          "done": false
-        },
-        {
-          "type": "test",
-          "name": "AI Topic Test - 1",
-          "coverage": "Propositional & Predicate logic",
-          "done": false
-        },
-        {
-          "type": "module",
           "name": "Module 3: Bayesian Network Representation (Probability Recap, BN Structure, Reasoning Types, Independencies, D-Separation, Markov Blanket)",
           "done": false
         },
@@ -1209,7 +1268,8 @@
           "type": "test",
           "name": "AI Topic Test - 2",
           "coverage": "Conditional independence, D Separation, Markov Blanket",
-          "done": false
+          "done": false,
+          "score": ""
         },
         {
           "type": "module",
@@ -1225,7 +1285,8 @@
           "type": "test",
           "name": "AI Topic Test - 3",
           "coverage": "Search Algorithms (A*, Alpha-Beta)",
-          "done": false
+          "done": false,
+          "score": ""
         },
         {
           "type": "module",
@@ -1235,7 +1296,7 @@
       ],
       "subjectTest": {
         "done": false,
-        "note": "no AI subject-wise test currently listed on GO Classes' DA Test Series"
+        "note": "no AI subject-wise test currently listed on GO Classes' DA Test Series. Module 1 (Propositional Logic) and Module 2 (Predicate Logic) skipped here — identical content to CS's Discrete Mathematics Modules 3-4, already covered via CS track. AI Topic Test 1 (which tested that content) skipped for the same reason."
       }
     }
   ],
