@@ -480,6 +480,7 @@ let daTrack = [
 let hours = {1:0.5, 2:5, 3:5, 4:5, 5:3, 6:0};
 
 function fmtDate(d){return d.toLocaleDateString('en-GB',{day:'numeric',month:'short'});}
+function ordinal(n){ const s=["th","st","nd","rd"], v=n%100; return n+(s[(v-20)%10]||s[v]||s[0]); }
 
 // ---- localStorage token helpers ----
 function getPat(){ try{ return localStorage.getItem(PAT_KEY) || ''; }catch(e){ return ''; } }
@@ -557,26 +558,47 @@ async function ghPut(body){
   });
 }
 
+// Union merge: a true/non-empty value on EITHER side wins. This means merging
+// in an older or stale copy (e.g. a GitHub fetch that hasn't caught up yet)
+// can only add progress, never erase progress already recorded locally.
 function mergeTrack(defaults, loaded){
   return defaults.map(def => {
     const match = loaded.find(l => l.name === def.name);
     if(!match) return def;
-    const merged = { ...def, done: !!match.done };
+    const merged = { ...def, done: !!def.done || !!match.done };
     if(def.plan){
       merged.plan = def.plan.map(dp => {
         const lp = match.plan && match.plan.find(x => x.type===dp.type && x.name===dp.name);
         if(!lp) return dp;
-        const item = { ...dp, done: !!lp.done };
-        if(dp.type === 'test') item.score = lp.score || '';
+        const item = { ...dp, done: !!dp.done || !!lp.done };
+        if(dp.type === 'test') item.score = dp.score || lp.score || '';
         return item;
       });
-      merged.subjectTest = { ...def.subjectTest, done: match.subjectTest ? !!match.subjectTest.done : false };
+      const defST = !!(def.subjectTest && def.subjectTest.done);
+      const matchST = !!(match.subjectTest && match.subjectTest.done);
+      merged.subjectTest = { ...def.subjectTest, done: defST || matchST };
     } else if(match.subjectTest !== undefined){
-      merged.subjectTest = !!match.subjectTest;
-      if(match.topicTests !== undefined) merged.topicTests = !!match.topicTests;
+      merged.subjectTest = !!def.subjectTest || !!match.subjectTest;
+      if(match.topicTests !== undefined) merged.topicTests = !!def.topicTests || !!match.topicTests;
     }
     return merged;
   });
+}
+
+// ---- localStorage progress fallback (instant, survives a refresh even with no/slow GitHub sync) ----
+const LOCAL_KEY = 'gateTrackerProgress';
+function saveLocal(){
+  try{ localStorage.setItem(LOCAL_KEY, JSON.stringify({csTrack, daTrack, hours})); }catch(e){}
+}
+function loadLocal(){
+  try{
+    const raw = localStorage.getItem(LOCAL_KEY);
+    if(!raw) return;
+    const parsed = JSON.parse(raw);
+    if(parsed.csTrack) csTrack = mergeTrack(csTrack, parsed.csTrack);
+    if(parsed.daTrack) daTrack = mergeTrack(daTrack, parsed.daTrack);
+    if(parsed.hours) hours = { ...hours, ...parsed.hours };
+  }catch(e){}
 }
 
 async function loadFromGithub(){
@@ -600,9 +622,12 @@ async function loadFromGithub(){
     const parsed = JSON.parse(b64DecodeUnicode(data.content.replace(/\n/g,'')));
     if(parsed.csTrack) csTrack = mergeTrack(csTrack, parsed.csTrack);
     if(parsed.daTrack) daTrack = mergeTrack(daTrack, parsed.daTrack);
-    if(parsed.hours) hours = parsed.hours;
+    // local values win on same-day collisions, since a locally-logged hour not
+    // yet pushed to GitHub (e.g. debounce hadn't fired) must not be erased here
+    if(parsed.hours) hours = { ...parsed.hours, ...hours };
     setSyncStatus('synced','ok');
     render();
+    saveLocal();
   }catch(e){
     setSyncStatus('offline (network)','error');
   }
@@ -612,10 +637,13 @@ function scheduleSave(){
   if(!getPat()) return;
   setSyncStatus('pending…','pending');
   clearTimeout(saveTimer);
-  saveTimer = setTimeout(saveToGithub, 3000);
+  // short delay only to collapse two actions fired in the same instant into one
+  // API call (e.g. Enter immediately followed by the input losing focus) —
+  // not a "wait before it's safe" delay, since localStorage already has it.
+  saveTimer = setTimeout(saveToGithub, 400);
 }
 
-async function saveToGithub(){
+async function saveToGithub(isRetry){
   if(!getPat() || syncing) return;
   syncing = true;
   setSyncStatus('saving…','pending');
@@ -628,6 +656,27 @@ async function saveToGithub(){
     };
     if(fileSha) body.sha = fileSha;
     const res = await ghPut(body);
+    if(res.status === 409 && !isRetry){
+      // Someone else (another tab/device) saved first, so our sha is stale.
+      // Pull their copy, union-merge it into what's on screen (nobody's
+      // progress is lost either way), then retry the save once with the
+      // refreshed sha.
+      setSyncStatus('resolving conflict…','pending');
+      const getRes = await ghGet();
+      if(getRes.ok){
+        const data = await getRes.json();
+        fileSha = data.sha;
+        const parsed = JSON.parse(b64DecodeUnicode(data.content.replace(/\n/g,'')));
+        if(parsed.csTrack) csTrack = mergeTrack(csTrack, parsed.csTrack);
+        if(parsed.daTrack) daTrack = mergeTrack(daTrack, parsed.daTrack);
+        if(parsed.hours) hours = { ...parsed.hours, ...hours };
+        render();
+        saveLocal();
+      }
+      syncing = false;
+      await saveToGithub(true);
+      return;
+    }
     if(!res.ok){
       setSyncStatus('save failed ('+res.status+')','error');
       syncing = false;
@@ -643,7 +692,10 @@ async function saveToGithub(){
 }
 
 // ---- interactions ----
-function toggleDone(track,i){ const arr = track==='cs'?csTrack:daTrack; arr[i].done = !arr[i].done; render(); scheduleSave(); }
+// Every mutation saves to localStorage synchronously (saveLocal) before the
+// debounced GitHub push (scheduleSave) — so a refresh can never lose it, even
+// if the 3s GitHub debounce hasn't fired yet or there's no token configured.
+function toggleDone(track,i){ const arr = track==='cs'?csTrack:daTrack; arr[i].done = !arr[i].done; render(); saveLocal(); scheduleSave(); }
 function logHour(){
   const d = parseInt(document.getElementById('hDay').value);
   const v = parseFloat(document.getElementById('hVal').value);
@@ -652,27 +704,30 @@ function logHour(){
   document.getElementById('hDay').value='';
   document.getElementById('hVal').value='';
   render();
+  saveLocal();
   scheduleSave();
 }
 
-function toggleTopicTests(track,i){ const arr = track==='cs'?csTrack:daTrack; arr[i].topicTests = !arr[i].topicTests; render(); scheduleSave(); }
-function toggleSubjectTest(track,i){ const arr = track==='cs'?csTrack:daTrack; arr[i].subjectTest = !arr[i].subjectTest; render(); scheduleSave(); }
-function togglePlanItem(track,i,idx){ const arr = track==='cs'?csTrack:daTrack; arr[i].plan[idx].done = !arr[i].plan[idx].done; render(); scheduleSave(); }
+function toggleTopicTests(track,i){ const arr = track==='cs'?csTrack:daTrack; arr[i].topicTests = !arr[i].topicTests; render(); saveLocal(); scheduleSave(); }
+function toggleSubjectTest(track,i){ const arr = track==='cs'?csTrack:daTrack; arr[i].subjectTest = !arr[i].subjectTest; render(); saveLocal(); scheduleSave(); }
+function togglePlanItem(track,i,idx){ const arr = track==='cs'?csTrack:daTrack; arr[i].plan[idx].done = !arr[i].plan[idx].done; render(); saveLocal(); scheduleSave(); }
 function escapeAttr(s){ return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;'); }
 function saveScoreAndToggle(track,i,idx,value){
   const arr = track==='cs'?csTrack:daTrack;
   arr[i].plan[idx].score = value;
   arr[i].plan[idx].done = !arr[i].plan[idx].done;
   render();
+  saveLocal();
   scheduleSave();
 }
 function saveScoreOnly(track,i,idx,value){
   const arr = track==='cs'?csTrack:daTrack;
   if(arr[i].plan[idx].score === value) return;
   arr[i].plan[idx].score = value;
+  saveLocal();
   scheduleSave();
 }
-function toggleCourseSubjectTest(track,i){ const arr = track==='cs'?csTrack:daTrack; arr[i].subjectTest.done = !arr[i].subjectTest.done; render(); scheduleSave(); }
+function toggleCourseSubjectTest(track,i){ const arr = track==='cs'?csTrack:daTrack; arr[i].subjectTest.done = !arr[i].subjectTest.done; render(); saveLocal(); scheduleSave(); }
 
 const expandedPlans = new Set();
 function toggleExpand(key){ if(expandedPlans.has(key)) expandedPlans.delete(key); else expandedPlans.add(key); render(); }
@@ -756,7 +811,6 @@ function render(){
   const totalTargetHoursSoFar = daysSinceStart >= 0 ? (daysSinceStart+1)*5 : 0;
   let hoursLogged = 0;
   Object.values(hours).forEach(h=>hoursLogged+=h);
-  const hourDeficit = totalTargetHoursSoFar - hoursLogged;
 
   renderTrack(csTrack, 'csBody', 'CS', 'cs');
   renderTrack(daTrack, 'daBody', 'DA', 'da');
@@ -765,6 +819,11 @@ function render(){
   const totalDays = Math.round((endDate - startDate)/msDay) + 1;
   const daysLeft = Math.round((endDate - today)/msDay);
   const avgPerDay = dayNumber > 0 ? hoursLogged / dayNumber : 0;
+
+  let studiedDays = 0;
+  Object.entries(hours).forEach(([day, h]) => {
+    if(parseInt(day) < dayNumber && h > 0) studiedDays++;
+  });
 
   let topicTestsTotal = 0, topicTestsDone = 0, subjectTestsTotal = 0, subjectTestsDone = 0;
   [...csTrack, ...daTrack].forEach(c => {
@@ -780,12 +839,16 @@ function render(){
 
   document.getElementById('statusRow').innerHTML = `
     <div class="stat">
-      <div class="num">${dayNumber} / ${totalDays}</div>
-      <div class="lbl">day (Sep 1 – Dec 31)</div>
+      <div class="num">${ordinal(dayNumber)}</div>
+      <div class="lbl">day since beginning on Sep 1</div>
     </div>
     <div class="stat">
       <div class="num">${daysLeft}</div>
       <div class="lbl">days left until Dec 31</div>
+    </div>
+    <div class="stat">
+      <div class="num">${studiedDays}</div>
+      <div class="lbl">completed days studied (excl. today)</div>
     </div>
     <div class="stat">
       <div class="num">${hoursLogged.toFixed(1)}h</div>
@@ -794,10 +857,6 @@ function render(){
     <div class="stat ${avgPerDay>=5?'ok':'warn'}">
       <div class="num">${avgPerDay.toFixed(1)}h</div>
       <div class="lbl">avg hours/day so far</div>
-    </div>
-    <div class="stat ${hourDeficit>0?'warn':'ok'}">
-      <div class="num">${hourDeficit>0?'-':''}${Math.abs(hourDeficit).toFixed(1)}h</div>
-      <div class="lbl">hour deficit vs 5h/day target</div>
     </div>
     <div class="stat">
       <div class="num">${topicTestsDone} / ${topicTestsTotal}</div>
@@ -855,6 +914,7 @@ function render(){
   }
 })();
 
+loadLocal();
 render();
 if(!getPat()) document.getElementById('settingsPanel').hidden = false;
 loadFromGithub();
