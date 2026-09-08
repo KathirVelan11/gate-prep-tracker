@@ -537,6 +537,7 @@ function b64DecodeUnicode(str){
 let fileSha = null;
 let saveTimer = null;
 let syncing = false;
+let resaveQueued = false;
 
 async function ghGet(){
   const pat = getPat();
@@ -636,16 +637,24 @@ function scheduleSave(){
   if(!getPat()) return;
   setSyncStatus('pending…','pending');
   clearTimeout(saveTimer);
-  // short delay only to collapse two actions fired in the same instant into one
+  // tiny delay only to collapse two actions fired in the same instant into one
   // API call (e.g. Enter immediately followed by the input losing focus) —
   // not a "wait before it's safe" delay, since localStorage already has it.
-  saveTimer = setTimeout(saveToGithub, 400);
+  saveTimer = setTimeout(saveToGithub, 150);
 }
 
 async function saveToGithub(isRetry){
-  if(!getPat() || syncing) return;
+  if(!getPat()) return;
+  if(syncing){
+    // a save is already in flight (e.g. from the previous action) — queue
+    // this one instead of silently dropping it, so nothing you did is ever
+    // skipped just because it landed while a network call was still running.
+    resaveQueued = true;
+    return;
+  }
   syncing = true;
   setSyncStatus('saving…','pending');
+  let needsRetry = false;
   try{
     const payload = { csTrack, daTrack, hours };
     const body = {
@@ -672,22 +681,20 @@ async function saveToGithub(isRetry){
         render();
         saveLocal();
       }
-      syncing = false;
-      await saveToGithub(true);
-      return;
-    }
-    if(!res.ok){
+      needsRetry = true;
+    } else if(!res.ok){
       setSyncStatus('save failed ('+res.status+')','error');
-      syncing = false;
-      return;
+    } else {
+      const data = await res.json();
+      fileSha = data.content.sha;
+      setSyncStatus('synced','ok');
     }
-    const data = await res.json();
-    fileSha = data.content.sha;
-    setSyncStatus('synced','ok');
   }catch(e){
     setSyncStatus('offline (network)','error');
   }
   syncing = false;
+  if(needsRetry){ await saveToGithub(true); return; }
+  if(resaveQueued){ resaveQueued = false; saveToGithub(); }
 }
 
 // ---- interactions ----
@@ -817,12 +824,8 @@ function render(){
   const dayNumber = daysSinceStart + 1;
   const totalDays = Math.round((endDate - startDate)/msDay) + 1;
   const daysLeft = Math.round((endDate - today)/msDay);
-  const avgPerDay = dayNumber > 0 ? hoursLogged / dayNumber : 0;
-
-  let studiedDays = 0;
-  Object.entries(hours).forEach(([day, h]) => {
-    if(parseInt(day) < dayNumber && h > 0) studiedDays++;
-  });
+  const loggedDaysCount = Object.keys(hours).length;
+  const avgPerDay = loggedDaysCount > 0 ? hoursLogged / loggedDaysCount : 0;
 
   let topicTestsTotal = 0, topicTestsDone = 0, subjectTestsTotal = 0, subjectTestsDone = 0;
   [...csTrack, ...daTrack].forEach(c => {
@@ -846,16 +849,12 @@ function render(){
       <div class="lbl">days left until Dec 31</div>
     </div>
     <div class="stat">
-      <div class="num">${studiedDays}</div>
-      <div class="lbl">completed days studied (excl. today)</div>
-    </div>
-    <div class="stat">
       <div class="num">${hoursLogged.toFixed(1)}h</div>
       <div class="lbl">total hours studied</div>
     </div>
-    <div class="stat ${avgPerDay>=5?'ok':'warn'}">
+    <div class="stat ${avgPerDay>=8?'ok':'warn'}">
       <div class="num">${avgPerDay.toFixed(1)}h</div>
-      <div class="lbl">avg hours/day so far</div>
+      <div class="lbl">avg hours/day logged</div>
     </div>
     <div class="stat">
       <div class="num">${topicTestsDone} / ${topicTestsTotal}</div>
