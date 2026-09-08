@@ -105,6 +105,14 @@
   }
   .planrow.done{color:var(--done);text-decoration:line-through;}
   .planrow.final{border-top:1px solid var(--line);margin-top:4px;padding-top:6px;font-weight:600;}
+  .planrow.testrow{display:flex;align-items:center;justify-content:space-between;gap:10px;}
+  .planrow.testrow .planlabel{flex:1;}
+  .scoreInput{
+    flex-shrink:0;width:64px;background:var(--bg);border:1px solid var(--line);color:var(--current);
+    font-family:'SF Mono','Menlo',monospace;font-size:11px;padding:3px 6px;text-align:right;
+  }
+  .scoreInput:focus{outline:none;border-color:var(--current);}
+  .scoreInput::placeholder{color:var(--ink-dim);}
 </style>
 </head>
 <body>
@@ -181,7 +189,7 @@ const PAT_KEY = 'gateTrackerGhPat';
 function mkPlan(items){
   return items.map(it => it[0]==='m'
     ? {type:'module', name: it[1], done:false}
-    : {type:'test', name: it[1], coverage: it[2], done:false});
+    : {type:'test', name: it[1], coverage: it[2], done:false, score:''});
 }
 
 let csTrack = [
@@ -560,7 +568,10 @@ function mergeTrack(defaults, loaded){
     if(def.plan){
       merged.plan = def.plan.map(dp => {
         const lp = match.plan && match.plan.find(x => x.type===dp.type && x.name===dp.name);
-        return lp ? { ...dp, done: !!lp.done } : dp;
+        if(!lp) return dp;
+        const item = { ...dp, done: !!lp.done };
+        if(dp.type === 'test') item.score = lp.score || '';
+        return item;
       });
       merged.subjectTest = { ...def.subjectTest, done: match.subjectTest ? !!match.subjectTest.done : false };
     } else if(match.subjectTest !== undefined){
@@ -650,6 +661,20 @@ function logHour(){
 function toggleTopicTests(track,i){ const arr = track==='cs'?csTrack:daTrack; arr[i].topicTests = !arr[i].topicTests; render(); scheduleSave(); }
 function toggleSubjectTest(track,i){ const arr = track==='cs'?csTrack:daTrack; arr[i].subjectTest = !arr[i].subjectTest; render(); scheduleSave(); }
 function togglePlanItem(track,i,idx){ const arr = track==='cs'?csTrack:daTrack; arr[i].plan[idx].done = !arr[i].plan[idx].done; render(); scheduleSave(); }
+function escapeAttr(s){ return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;'); }
+function saveScoreAndToggle(track,i,idx,value){
+  const arr = track==='cs'?csTrack:daTrack;
+  arr[i].plan[idx].score = value;
+  arr[i].plan[idx].done = !arr[i].plan[idx].done;
+  render();
+  scheduleSave();
+}
+function saveScoreOnly(track,i,idx,value){
+  const arr = track==='cs'?csTrack:daTrack;
+  if(arr[i].plan[idx].score === value) return;
+  arr[i].plan[idx].score = value;
+  scheduleSave();
+}
 function toggleCourseSubjectTest(track,i){ const arr = track==='cs'?csTrack:daTrack; arr[i].subjectTest.done = !arr[i].subjectTest.done; render(); scheduleSave(); }
 
 const expandedPlans = new Set();
@@ -668,8 +693,14 @@ function buildPlanHtml(c, trackKey, i){
   let rows = '';
   c.plan.forEach((p,idx)=>{
     const n = idx + 1;
-    const label = p.type === 'module' ? `Module — ${p.name}` : `${p.name} — ${p.coverage}`;
-    rows += `<div class="planrow ${p.done?'done':''}" data-idx="${idx}">${n}. ${label}</div>`;
+    if(p.type === 'module'){
+      rows += `<div class="planrow ${p.done?'done':''}" data-idx="${idx}">${n}. Module — ${p.name}</div>`;
+    } else {
+      rows += `<div class="planrow testrow ${p.done?'done':''}" data-idx="${idx}">
+        <span class="planlabel">${n}. ${p.name} — ${p.coverage}</span>
+        <input type="text" class="scoreInput" data-scoreinput="${idx}" value="${escapeAttr(p.score||'')}" placeholder="score">
+      </div>`;
+    }
   });
   rows += `<div class="planrow final ${c.subjectTest.done?'done':''}" data-st>${total}. Subject-wise test — ${c.subjectTest.note}</div>`;
   return `
@@ -701,6 +732,18 @@ function renderTrack(arr, bodyId, prefix, trackKey){
       tr.querySelectorAll('[data-idx]').forEach(el=>{
         const idx = parseInt(el.getAttribute('data-idx'));
         el.onclick = (e) => { e.stopPropagation(); togglePlanItem(trackKey, i, idx); };
+      });
+      tr.querySelectorAll('[data-scoreinput]').forEach(el=>{
+        const idx = parseInt(el.getAttribute('data-scoreinput'));
+        el.onclick = (e) => { e.stopPropagation(); };
+        el.onkeydown = (e) => {
+          if(e.key === 'Enter'){
+            e.stopPropagation();
+            e.preventDefault();
+            saveScoreAndToggle(trackKey, i, idx, el.value);
+          }
+        };
+        el.onblur = () => { saveScoreOnly(trackKey, i, idx, el.value); };
       });
       tr.querySelector('[data-st]').onclick = (e) => { e.stopPropagation(); toggleCourseSubjectTest(trackKey, i); };
     } else {
