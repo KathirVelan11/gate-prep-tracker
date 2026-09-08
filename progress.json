@@ -8,12 +8,12 @@
         {
           "type": "module",
           "name": "Probability Basics & Inclusion-Exclusion",
-          "done": false
+          "done": true
         },
         {
           "type": "module",
           "name": "Conditional Probability, Bayes' Theorem & Independence",
-          "done": false
+          "done": true
         },
         {
           "type": "test",
@@ -24,22 +24,22 @@
         {
           "type": "module",
           "name": "Random Variables & PMF",
-          "done": false
+          "done": true
         },
         {
           "type": "module",
           "name": "Expectation & Variance",
-          "done": false
+          "done": true
         },
         {
           "type": "module",
           "name": "Discrete Distributions (Bernoulli, Binomial, Poisson)",
-          "done": false
+          "done": true
         },
         {
           "type": "module",
           "name": "Continuous Distributions (Uniform, Normal, Exponential)",
-          "done": false
+          "done": true
         },
         {
           "type": "test",
@@ -50,7 +50,7 @@
         {
           "type": "module",
           "name": "Statistics: Mean, Mode, Median",
-          "done": false
+          "done": true
         }
       ],
       "subjectTest": {
@@ -357,6 +357,12 @@
           "type": "module",
           "name": "DA delta: Python syntax + Bellman-Ford",
           "done": false
+        },
+        {
+          "type": "test",
+          "name": "DSA Topic Test 6 (DA)",
+          "coverage": "Graph traversals, shortest path",
+          "done": false
         }
       ],
       "subjectTest": {
@@ -512,17 +518,6 @@
         },
         {
           "type": "module",
-          "name": "Deadlocks",
-          "done": false
-        },
-        {
-          "type": "test",
-          "name": "Topic Test 2",
-          "coverage": "Synchronisation, Deadlock",
-          "done": false
-        },
-        {
-          "type": "module",
           "name": "Memory Management (Paging, Segmentation, TLB)",
           "done": false
         },
@@ -530,6 +525,17 @@
           "type": "test",
           "name": "Topic Test 3",
           "coverage": "Memory Management",
+          "done": false
+        },
+        {
+          "type": "module",
+          "name": "Deadlocks",
+          "done": false
+        },
+        {
+          "type": "test",
+          "name": "Topic Test 2",
+          "coverage": "Synchronisation, Deadlock",
           "done": false
         },
         {
@@ -628,11 +634,23 @@
           "type": "module",
           "name": "DA delta: Data Warehousing",
           "done": false
+        },
+        {
+          "type": "test",
+          "name": "DBMS Topic Test - 5 (DA)",
+          "coverage": "Data warehouse modeling, Concept hierarchies",
+          "done": false
+        },
+        {
+          "type": "test",
+          "name": "DBMS Subject Wise (DA)",
+          "coverage": "Complete GATE DA DBMS — pick 1 of 3 available",
+          "done": false
         }
       ],
       "subjectTest": {
         "done": false,
-        "note": "pick 1 of 3 available — Complete Database Syllabus"
+        "note": "pick 1 of 3 available — Complete Database Syllabus (CS-flavored). Doing both this and the DA-flavored subject test above since you're prepping for both exams on the same syllabus."
       }
     },
     {
@@ -835,33 +853,390 @@
   "daTrack": [
     {
       "name": "Probability & Statistics (DA delta)",
-      "instructor": "Sachin Mittal — only Module 2 (joint dist, covariance, correlation) + Module 3 (CLT, confidence intervals, z/t/chi-sq tests); Module 1 already done via CS",
-      "done": false
+      "instructor": "Sachin Mittal — real course page: Module 0 (Counting), Probability Module 1, Module 2, Module 3 (Statistics & Hypothesis Testing). Module 1 already done via CS; Module 0 (Counting) already covered via CS Discrete Mathematics' Combinatorics module, so skipped here.",
+      "done": false,
+      "plan": [
+        {
+          "type": "module",
+          "name": "Module 2: Joint PMF, Conditional & Total Expectation, Continuous Joint Distributions (Joint PDF/CDF), Covariance & Covariance Matrix, Correlation",
+          "done": false
+        },
+        {
+          "type": "test",
+          "name": "Probability & Stats Topic Test - 4",
+          "coverage": "Conditional expectation, Variance, Correlation, Covariance",
+          "done": false
+        },
+        {
+          "type": "module",
+          "name": "Module 3: Sampling Distributions & CLT, Confidence Intervals, Hypothesis Testing (z-test, t-test, Type 1/2 Error), Chi-squared Test",
+          "done": false
+        },
+        {
+          "type": "test",
+          "name": "Probability & Stats Topic Test - 5",
+          "coverage": "t-distribution, chi-squared, z-test, t-test",
+          "done": false
+        }
+      ],
+      "subjectTest": {
+        "done": false,
+        "note": "pick 1 of 3 available — Complete GATE DA Probability"
+      }
     },
     {
       "name": "Linear Algebra",
       "instructor": "Sachin Mittal — full course, superset of CS's LA module",
-      "done": false
+      "done": false,
+      "plan": [
+        {
+          "type": "module",
+          "name": "Basics of Linear Algebra (independence, Ax=b, rank, determinant, inverse, eigenvalues/eigenvectors, LU decomposition)",
+          "done": false
+        },
+        {
+          "type": "test",
+          "name": "Linear Algebra Topic Wise Test - 1",
+          "coverage": "Linear independence, systems of linear equations, eigenvalues & eigenvectors",
+          "done": false
+        },
+        {
+          "type": "test",
+          "name": "Linear Algebra Topic Wise Test - 2",
+          "coverage": "Linear independence, systems, eigenvalues, eigenvectors",
+          "done": false
+        },
+        {
+          "type": "module",
+          "name": "Vector Space, Subspaces & Four Fundamental Subspaces",
+          "done": false
+        },
+        {
+          "type": "module",
+          "name": "Change of Basis, Linear Transformation & Diagonalization",
+          "done": false
+        },
+        {
+          "type": "test",
+          "name": "Linear Algebra Topic Wise Test - 3",
+          "coverage": "Vector space, subspaces, Change of Basis, Linear Transformation",
+          "done": false
+        },
+        {
+          "type": "module",
+          "name": "Projection, Gram-Schmidt & Singular Value Decomposition (SVD)",
+          "done": false
+        },
+        {
+          "type": "test",
+          "name": "Linear Algebra Topic Wise Test - 5",
+          "coverage": "Singular value decomposition",
+          "done": false
+        },
+        {
+          "type": "module",
+          "name": "Positive Definite Matrices, Partition Matrix & Projection Matrices",
+          "done": false
+        },
+        {
+          "type": "test",
+          "name": "Linear Algebra Topic Wise Test - 4",
+          "coverage": "Projection matrix, Partition Matrix",
+          "done": false
+        }
+      ],
+      "subjectTest": {
+        "done": false,
+        "note": "pick 1 of 2 available — Complete GATE DA Linear Algebra"
+      }
     },
     {
       "name": "Python Programming",
       "instructor": "Sachin Mittal",
-      "done": false
+      "done": false,
+      "plan": [
+        {
+          "type": "module",
+          "name": "Python Basics: Variables, Operators, Conditionals, Strings, Lists, Loops, List Comprehension",
+          "done": false
+        },
+        {
+          "type": "module",
+          "name": "References/Objects, Functions & Arguments (Default, Keyword, Variable, Tuples)",
+          "done": false
+        },
+        {
+          "type": "test",
+          "name": "Python Topic Test - 1",
+          "coverage": "Python Programming Fundamentals",
+          "done": false
+        },
+        {
+          "type": "module",
+          "name": "Zip/Lambda, Dictionary, Sets, OOP Concepts, Linked List & Recursion Basics + Practice in Python",
+          "done": false
+        },
+        {
+          "type": "test",
+          "name": "Python Topic Test - 2",
+          "coverage": "Python Advanced",
+          "done": false
+        }
+      ],
+      "subjectTest": {
+        "done": false,
+        "note": "no dedicated Python subject test in GO Classes' DA series — the DSA subject tests cover combined Python+DSA scope, already handled via the CS track"
+      }
     },
     {
       "name": "Calculus & Optimization",
       "instructor": "Sachin Mittal — full course, superset of CS's Calculus module",
-      "done": false
+      "done": false,
+      "plan": [
+        {
+          "type": "module",
+          "name": "Limits, Indeterminate Forms & L'Hopital's Rule",
+          "done": false
+        },
+        {
+          "type": "module",
+          "name": "Continuity & Introduction to Differentiability",
+          "done": false
+        },
+        {
+          "type": "test",
+          "name": "Calculus & Optimization Topic Test - 1",
+          "coverage": "Limit, Continuity",
+          "done": false
+        },
+        {
+          "type": "module",
+          "name": "Maxima & Minima, Derivative Tests & Mean Value Theorems",
+          "done": false
+        },
+        {
+          "type": "test",
+          "name": "Calculus & Optimization Topic Test - 2",
+          "coverage": "Differentiability, Maxima & Minima",
+          "done": false
+        },
+        {
+          "type": "module",
+          "name": "Integration",
+          "done": false
+        },
+        {
+          "type": "module",
+          "name": "Taylor Series",
+          "done": false
+        },
+        {
+          "type": "test",
+          "name": "Calculus & Optimization Topic Test - 3",
+          "coverage": "Taylor series, Optimization (single variable)",
+          "done": false
+        },
+        {
+          "type": "module",
+          "name": "Multivariate Calculus: Partial Differentiation, Chain Rule, Gradient & Directional Derivatives, Contour Maps",
+          "done": false
+        },
+        {
+          "type": "module",
+          "name": "Matrix Calculus, Positive Definite Matrices & Quadratic Form",
+          "done": false
+        },
+        {
+          "type": "module",
+          "name": "Unconstrained & Constrained Optimization (Convex Functions, Gradient Descent, Equality/Inequality Constraints, KKT Conditions)",
+          "done": false
+        },
+        {
+          "type": "test",
+          "name": "Calculus & Optimization Topic Test - 4",
+          "coverage": "Calculus (comprehensive)",
+          "done": false
+        }
+      ],
+      "subjectTest": {
+        "done": false,
+        "note": "pick 1 of 2 available — Complete GATE DA Calculus & Optimisation"
+      }
     },
     {
       "name": "Machine Learning",
       "instructor": "Sachin Mittal",
-      "done": false
+      "done": false,
+      "plan": [
+        {
+          "type": "module",
+          "name": "Linear & Logistic Regression (Gradient Descent, Polynomial Regression, Regularization)",
+          "done": false
+        },
+        {
+          "type": "test",
+          "name": "ML Topic Test - 1",
+          "coverage": "Linear regression, Logistic regression",
+          "done": false
+        },
+        {
+          "type": "module",
+          "name": "K-Nearest Neighbours & Naive Bayes",
+          "done": false
+        },
+        {
+          "type": "test",
+          "name": "ML Topic Test - 2",
+          "coverage": "K-nearest neighbour",
+          "done": false
+        },
+        {
+          "type": "module",
+          "name": "Support Vector Machines (Hard & Soft Margin)",
+          "done": false
+        },
+        {
+          "type": "test",
+          "name": "ML Topic Test - 3",
+          "coverage": "Support Vector Machines",
+          "done": false
+        },
+        {
+          "type": "module",
+          "name": "Cross-Validation (Leave-One-Out, K-folds)",
+          "done": false
+        },
+        {
+          "type": "test",
+          "name": "ML Topic Test - 5",
+          "coverage": "LOO, K-folds cross-validation",
+          "done": false
+        },
+        {
+          "type": "module",
+          "name": "Evaluation Metrics (Precision/Recall/F1/ROC) & Bias-Variance Tradeoff",
+          "done": false
+        },
+        {
+          "type": "test",
+          "name": "ML Topic Test - 7",
+          "coverage": "Precision Recall, Bias-Variance Tradeoff",
+          "done": false
+        },
+        {
+          "type": "module",
+          "name": "Perceptron & Principal Component Analysis (PCA)",
+          "done": false
+        },
+        {
+          "type": "test",
+          "name": "ML Topic Test - 6",
+          "coverage": "Principal Component Analysis",
+          "done": false
+        },
+        {
+          "type": "module",
+          "name": "Decision Trees",
+          "done": false
+        },
+        {
+          "type": "test",
+          "name": "ML Topic Test - 4",
+          "coverage": "Decision Trees",
+          "done": false
+        },
+        {
+          "type": "module",
+          "name": "Clustering (K-means, Hierarchical)",
+          "done": false
+        },
+        {
+          "type": "test",
+          "name": "ML Topic Test - 8",
+          "coverage": "Clustering algorithms",
+          "done": false
+        },
+        {
+          "type": "module",
+          "name": "Neural Networks (Feedforward, Backpropagation) & Linear Discriminant Analysis (LDA)",
+          "done": false
+        },
+        {
+          "type": "test",
+          "name": "ML Topic Test - 10",
+          "coverage": "Neural Networks, LDA",
+          "done": false
+        },
+        {
+          "type": "test",
+          "name": "ML Topic Test - 9",
+          "coverage": "All ML topics",
+          "done": false
+        }
+      ],
+      "subjectTest": {
+        "done": false,
+        "note": "pick 1 of 2 available — Complete GATE DA Machine Learning"
+      }
     },
     {
       "name": "Artificial Intelligence",
       "instructor": "Anjali Chauhan, Deepak Poonia",
-      "done": false
+      "done": false,
+      "plan": [
+        {
+          "type": "module",
+          "name": "Module 1: Propositional Logic",
+          "done": false
+        },
+        {
+          "type": "module",
+          "name": "Module 2: Predicate Logic (First Order Logic)",
+          "done": false
+        },
+        {
+          "type": "test",
+          "name": "AI Topic Test - 1",
+          "coverage": "Propositional & Predicate logic",
+          "done": false
+        },
+        {
+          "type": "module",
+          "name": "Module 3: Bayesian Network Representation (Probability Recap, BN Structure, Reasoning Types, Independencies, D-Separation, Markov Blanket)",
+          "done": false
+        },
+        {
+          "type": "test",
+          "name": "AI Topic Test - 2",
+          "coverage": "Conditional independence, D Separation, Markov Blanket",
+          "done": false
+        },
+        {
+          "type": "module",
+          "name": "Module 4: Informed & Uninformed Search Algorithms (DFS, BFS, UCS, Greedy Best-First, Beam Search, Hill Climbing, A*, IDA*)",
+          "done": false
+        },
+        {
+          "type": "module",
+          "name": "Adversarial Search / Game Search (Minimax, Alpha-Beta Pruning)",
+          "done": false
+        },
+        {
+          "type": "test",
+          "name": "AI Topic Test - 3",
+          "coverage": "Search Algorithms (A*, Alpha-Beta)",
+          "done": false
+        },
+        {
+          "type": "module",
+          "name": "Inference (Exact Inference by Enumeration, Variable Elimination, Approximate/Sampling Inference)",
+          "done": false
+        }
+      ],
+      "subjectTest": {
+        "done": false,
+        "note": "no AI subject-wise test currently listed on GO Classes' DA Test Series"
+      }
     }
   ],
   "hours": {
