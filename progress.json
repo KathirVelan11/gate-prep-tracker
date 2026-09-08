@@ -46,8 +46,8 @@
           "type": "test",
           "name": "Topic Test 4",
           "coverage": "Complete Probability",
-          "done": false,
-          "score": ""
+          "done": true,
+          "score": "23/35"
         },
         {
           "type": "module",
