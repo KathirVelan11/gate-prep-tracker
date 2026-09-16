@@ -197,7 +197,7 @@
 
   <h2 style="font-family:'SF Mono','Menlo',monospace;font-size:14px;color:var(--ink-dim);margin:28px 0 6px;">GATE CS SUBJECT-WISE MARKS — 2016 to 2026</h2>
   <div style="font-family:'SF Mono','Menlo',monospace;font-size:11px;color:var(--ink-dim);margin-bottom:12px;line-height:1.5;">
-    Every question in each year's official CS paper was read and classified by hand, subject by subject — not pulled from a coaching site's tags. Every year sums to exactly 85 marks (the CS-specific portion, excluding the 15-mark General Aptitude section). GATE publishes no official subject-wise breakdown, so this is as close to ground truth as it gets short of doing it yourself from the same source papers.
+    Every question in every session of every year's official CS paper was read and classified by hand, subject by subject — not pulled from a coaching site's tags. GATE runs CS as two independently-written sessions (forenoon/afternoon) in most years — 2016, 2017, 2021, 2024, 2025, and 2026 each had two sessions, both read and averaged together below; 2018, 2019, 2020, 2022, and 2023 were confirmed single-session. Every year sums to exactly 85 marks (the CS-specific portion, excluding the 15-mark General Aptitude section). GATE publishes no official subject-wise breakdown, so this is as close to ground truth as it gets short of doing it yourself from the same source papers.
   </div>
   <div style="overflow-x:auto;">
   <table style="min-width:820px;">
@@ -523,26 +523,29 @@ let daTrack = [
 
 let hours = {1:0.5, 2:5, 3:5, 4:5, 5:3, 6:0};
 
-// GATE CS subject-wise marks, 2016-2026. Every question in every year's
-// official paper was individually read and classified by hand (not sourced
-// from any coaching-site tags). Each year sums to exactly 85 marks (the
-// CS-specific portion, excluding the 15-mark General Aptitude section).
+// GATE CS subject-wise marks, 2016-2026. Every question in every session of
+// every year's official paper was individually read and classified by hand
+// (not sourced from any coaching-site tags). Years with two GATE sessions
+// (2016, 2017, 2021, 2024, 2025, 2026) show the average of both sessions;
+// years confirmed single-session (2018, 2019, 2020, 2022, 2023) show that
+// session directly. Each year sums to exactly 85 marks (the CS-specific
+// portion, excluding the 15-mark General Aptitude section).
 const gateYears = ['2016','2017','2018','2019','2020','2021','2022','2023','2024','2025','2026'];
 const gateWeightage = [
-  {name:"Discrete Math",        marks:{2016:9,2017:7,2018:9,2019:6,2020:8,2021:9,2022:13,2023:12,2024:8,2025:6,2026:5}},
-  {name:"Linear Algebra",       marks:{2016:1,2017:5,2018:3,2019:3,2020:2,2021:2,2022:5,2023:2,2024:3,2025:3,2026:2}},
-  {name:"Calculus",             marks:{2016:1,2017:2,2018:1,2019:1,2020:1,2021:1,2022:1,2023:2,2024:1,2025:1,2026:3}},
-  {name:"Probability",          marks:{2016:3,2017:1,2018:3,2019:3,2020:2,2021:5,2022:0,2023:2,2024:4,2025:5,2026:3}},
-  {name:"Digital Logic",        marks:{2016:5,2017:4,2018:4,2019:7,2020:4,2021:5,2022:2,2023:6,2024:6,2025:8,2026:6}},
-  {name:"COA",                  marks:{2016:7,2017:11,2018:10,2019:4,2020:11,2021:6,2022:10,2023:9,2024:10,2025:7,2026:9}},
-  {name:"Operating Systems",    marks:{2016:9,2017:6,2018:9,2019:10,2020:10,2021:6,2022:10,2023:10,2024:8,2025:9,2026:10}},
-  {name:"DBMS",                 marks:{2016:5,2017:8,2018:6,2019:8,2020:8,2021:8,2022:7,2023:5,2024:8,2025:8,2026:6}},
-  {name:"C Programming",        marks:{2016:4,2017:9,2018:6,2019:10,2020:5,2021:4,2022:5,2023:1,2024:4,2025:5,2026:2}},
-  {name:"Algorithms",           marks:{2016:10,2017:6,2018:10,2019:6,2020:7,2021:10,2022:6,2023:4,2024:5,2025:7,2026:11}},
-  {name:"Theory of Computation",marks:{2016:9,2017:10,2018:8,2019:8,2020:9,2021:8,2022:8,2023:8,2024:7,2025:8,2026:6}},
-  {name:"Compiler Design",      marks:{2016:7,2017:6,2018:5,2019:6,2020:4,2021:8,2022:4,2023:8,2024:8,2025:6,2026:5}},
-  {name:"Computer Networks",    marks:{2016:10,2017:8,2018:7,2019:9,2020:6,2021:9,2022:10,2023:8,2024:9,2025:6,2026:8}},
-  {name:"Data Structures",      marks:{2016:5,2017:2,2018:4,2019:4,2020:8,2021:4,2022:4,2023:8,2024:4,2025:6,2026:9}},
+  {name:"Discrete Math",        marks:{2016:9.5,2017:6.5,2018:9.0,2019:6.0,2020:8.0,2021:6.5,2022:13.0,2023:12.0,2024:8.5,2025:4.5,2026:4.5}},
+  {name:"Linear Algebra",       marks:{2016:1.5,2017:4.0,2018:3.0,2019:3.0,2020:2.0,2021:2.5,2022:5.0,2023:2.0,2024:2.5,2025:3.5,2026:2.5}},
+  {name:"Calculus",             marks:{2016:1.0,2017:1.5,2018:1.0,2019:1.0,2020:1.0,2021:1.0,2022:1.0,2023:2.0,2024:1.0,2025:1.0,2026:3.0}},
+  {name:"Probability",          marks:{2016:2.0,2017:3.5,2018:3.0,2019:3.0,2020:2.0,2021:5.0,2022:0.0,2023:2.0,2024:3.5,2025:4.5,2026:3.0}},
+  {name:"Digital Logic",        marks:{2016:3.5,2017:6.5,2018:4.0,2019:7.0,2020:4.0,2021:5.5,2022:2.0,2023:6.0,2024:5.5,2025:7.0,2026:6.0}},
+  {name:"COA",                  marks:{2016:8.5,2017:9.0,2018:10.0,2019:4.0,2020:11.0,2021:7.5,2022:10.0,2023:9.0,2024:9.5,2025:9.5,2026:9.5}},
+  {name:"Operating Systems",    marks:{2016:9.0,2017:6.0,2018:9.0,2019:10.0,2020:10.0,2021:6.5,2022:10.0,2023:10.0,2024:9.0,2025:8.0,2026:9.5}},
+  {name:"DBMS",                 marks:{2016:5.0,2017:8.0,2018:6.0,2019:8.0,2020:8.0,2021:8.0,2022:7.0,2023:5.0,2024:8.0,2025:8.5,2026:6.0}},
+  {name:"C Programming",        marks:{2016:3.5,2017:7.5,2018:6.0,2019:10.0,2020:5.0,2021:3.5,2022:5.0,2023:1.0,2024:4.0,2025:5.5,2026:3.0}},
+  {name:"Algorithms",           marks:{2016:10.0,2017:9.0,2018:10.0,2019:6.0,2020:7.0,2021:11.5,2022:6.0,2023:4.0,2024:5.5,2025:7.5,2026:11.0}},
+  {name:"Theory of Computation",marks:{2016:9.0,2017:9.5,2018:8.0,2019:8.0,2020:9.0,2021:8.5,2022:8.0,2023:8.0,2024:7.0,2025:7.5,2026:5.5}},
+  {name:"Compiler Design",      marks:{2016:6.0,2017:5.0,2018:5.0,2019:6.0,2020:4.0,2021:8.0,2022:4.0,2023:8.0,2024:8.0,2025:6.0,2026:5.5}},
+  {name:"Computer Networks",    marks:{2016:9.5,2017:6.5,2018:7.0,2019:9.0,2020:6.0,2021:8.0,2022:10.0,2023:8.0,2024:9.0,2025:6.0,2026:8.5}},
+  {name:"Data Structures",      marks:{2016:7.0,2017:2.5,2018:4.0,2019:4.0,2020:8.0,2021:3.0,2022:4.0,2023:8.0,2024:4.0,2025:6.0,2026:7.5}},
 ];
 function renderWeightageTable(){
   const tbody = document.getElementById('weightageBody');
@@ -550,7 +553,7 @@ function renderWeightageTable(){
   tbody.innerHTML = gateWeightage.map(row=>{
     const vals = gateYears.map(y=>row.marks[y]);
     const avg = vals.reduce((a,b)=>a+b,0) / vals.length;
-    return `<tr><td>${row.name}</td>${vals.map(v=>`<td class="wk">${v}</td>`).join('')}<td class="wk">${avg.toFixed(1)}</td></tr>`;
+    return `<tr><td>${row.name}</td>${vals.map(v=>`<td class="wk">${v.toFixed(1)}</td>`).join('')}<td class="wk">${avg.toFixed(1)}</td></tr>`;
   }).join('');
 }
 
