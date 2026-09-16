@@ -169,6 +169,32 @@
     <tbody id="daBody"></tbody>
   </table>
 
+  <h2 style="font-family:'SF Mono','Menlo',monospace;font-size:14px;color:var(--ink-dim);margin:28px 0 6px;">MEASURED LECTURE HOURS (GoClasses)</h2>
+  <div style="font-family:'SF Mono','Menlo',monospace;font-size:11px;color:var(--ink-dim);margin-bottom:12px;line-height:1.5;">
+    Real per-lecture durations pulled directly from GoClasses.in for 12 subjects — full detail (every lecture, plus which ones failed to load) is in the
+    <a href="https://claude.ai/artifact/VDsZxivTgLtNjBcHqR4HBK" target="_blank" style="color:var(--current);">live breakdown</a>.
+    Some of these no longer map cleanly onto the current CS track below — flagged per row.
+  </div>
+  <div style="overflow-x:auto;">
+  <table style="min-width:640px;">
+    <thead><tr><th>Course</th><th>Measured</th><th>Coverage</th><th>Note</th></tr></thead>
+    <tbody>
+      <tr><td>Computer Organization & Architecture</td><td class="wk">99h 18m</td><td class="wk">48/48</td><td>Recovered from a prior session's transcript, not re-verified this session</td></tr>
+      <tr><td>Operating Systems</td><td class="wk">68h 45m</td><td class="wk">39/54</td><td>—</td></tr>
+      <tr><td>Discrete Mathematics</td><td class="wk">152h 59m</td><td class="wk">265/377</td><td>—</td></tr>
+      <tr><td>Linear Algebra</td><td class="wk">49h 59m</td><td class="wk">87/94</td><td>—</td></tr>
+      <tr><td>DBMS</td><td class="wk">130h 14m</td><td class="wk">80/105</td><td>Includes ~4h DA-Warehousing delta no longer in this row's scope</td></tr>
+      <tr><td>C Programming</td><td class="wk">25h 21m</td><td class="wk">55/67</td><td>—</td></tr>
+      <tr><td>Digital Logic</td><td class="wk">30h 26m</td><td class="wk">13/46</td><td>Only 13 of 46 lectures had a readable duration — likely a large undercount</td></tr>
+      <tr><td>Data Structures</td><td class="wk">30h 39m</td><td class="wk">66/108</td><td>—</td></tr>
+      <tr><td>Algorithms</td><td class="wk">—</td><td class="wk">—</td><td>Tool only measured the DA-delta (Python+Bellman-Ford), since removed from this row; the core course itself was completed before this tracker existed and was never measured</td></tr>
+      <tr><td>Computer Networks</td><td class="wk">—</td><td class="wk">—</td><td>Doesn't exist as its own course in the GoClasses bundle</td></tr>
+      <tr><td>Calculus & Optimization</td><td class="wk">—</td><td class="wk">—</td><td>Doesn't exist as its own course in the GoClasses bundle</td></tr>
+      <tr><td>Probability & Statistics (CS)</td><td class="wk">—</td><td class="wk">—</td><td>Bundled inside the same Engineering Mathematics course as CS's unused LA/Calculus slices — not isolated by this tool</td></tr>
+    </tbody>
+  </table>
+  </div>
+
   <h2 style="font-family:'SF Mono','Menlo',monospace;font-size:14px;color:var(--ink-dim);margin:28px 0 6px;">GATE CS SUBJECT-WISE MARKS — 2016 to 2026</h2>
   <div style="font-family:'SF Mono','Menlo',monospace;font-size:11px;color:var(--ink-dim);margin-bottom:12px;line-height:1.5;">
     Every question in each year's official CS paper was read and classified by hand, subject by subject — not pulled from a coaching site's tags. Every year sums to exactly 85 marks (the CS-specific portion, excluding the 15-mark General Aptitude section). GATE publishes no official subject-wise breakdown, so this is as close to ground truth as it gets short of doing it yourself from the same source papers.
