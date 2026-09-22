@@ -73,7 +73,7 @@
         {
           "type": "module",
           "name": "The CPU",
-          "done": false
+          "done": true
         },
         {
           "type": "test",
