@@ -63,7 +63,7 @@
     {
       "name": "Computer Organization & Architecture",
       "instructor": "Deepak Poonia",
-      "done": true,
+      "done": false,
       "plan": [
         {
           "type": "module",
