@@ -3,7 +3,7 @@
     {
       "name": "Probability & Statistics (CS)",
       "instructor": "Sachin Mittal — Engg Math Probability module",
-      "done": false,
+      "done": true,
       "plan": [
         {
           "type": "module",
@@ -57,401 +57,7 @@
       ],
       "subjectTest": {
         "done": false,
-        "note": "shared Eng Maths subject test (covers LA+Probability+Calculus — DA track does LA & Calculus separately); pick 1 of 3 available"
-      }
-    },
-    {
-      "name": "Discrete Mathematics",
-      "instructor": "Deepak Poonia — free Compact Course is full-coverage, safe to use",
-      "done": false,
-      "plan": [
-        {
-          "type": "module",
-          "name": "Basic Proof Techniques",
-          "done": false
-        },
-        {
-          "type": "module",
-          "name": "Introduction to Discrete Mathematics",
-          "done": false
-        },
-        {
-          "type": "module",
-          "name": "Propositional Logic",
-          "done": false
-        },
-        {
-          "type": "module",
-          "name": "First Order Logic",
-          "done": false
-        },
-        {
-          "type": "test",
-          "name": "Topic Test 1",
-          "coverage": "Propositional logic, First order logic",
-          "done": false,
-          "score": ""
-        },
-        {
-          "type": "module",
-          "name": "Set Theory",
-          "done": false
-        },
-        {
-          "type": "module",
-          "name": "Function",
-          "done": false
-        },
-        {
-          "type": "test",
-          "name": "Topic Test 2",
-          "coverage": "Set Theory, Functions, Relations, Lattices",
-          "done": false,
-          "score": ""
-        },
-        {
-          "type": "module",
-          "name": "Group Theory",
-          "done": false
-        },
-        {
-          "type": "test",
-          "name": "Topic Test 3",
-          "coverage": "Group Theory",
-          "done": false,
-          "score": ""
-        },
-        {
-          "type": "module",
-          "name": "Combinatorics",
-          "done": false
-        },
-        {
-          "type": "test",
-          "name": "Topic Test 4",
-          "coverage": "Combinatorics",
-          "done": false,
-          "score": ""
-        },
-        {
-          "type": "module",
-          "name": "Graph Theory",
-          "done": false
-        },
-        {
-          "type": "test",
-          "name": "Topic Test 5",
-          "coverage": "Graph Theory",
-          "done": false,
-          "score": ""
-        }
-      ],
-      "subjectTest": {
-        "done": false,
-        "note": "pick 1 of 3 available — Complete Discrete Maths Syllabus"
-      }
-    },
-    {
-      "name": "C Programming",
-      "instructor": "Sachin Mittal",
-      "done": false,
-      "plan": [
-        {
-          "type": "module",
-          "name": "Basics: Number Systems, Operators & Control Flow",
-          "done": false
-        },
-        {
-          "type": "test",
-          "name": "Topic Test 1",
-          "coverage": "Number Rep., Control Statements, Operators",
-          "done": false,
-          "score": ""
-        },
-        {
-          "type": "module",
-          "name": "Functions, Memory Layout & Storage Classes",
-          "done": false
-        },
-        {
-          "type": "module",
-          "name": "Recursion, Pointers, Arrays & Structures",
-          "done": false
-        },
-        {
-          "type": "test",
-          "name": "Topic Test 2",
-          "coverage": "Compilation, Storage Class, Function, Recursion, Pointers",
-          "done": false,
-          "score": ""
-        },
-        {
-          "type": "test",
-          "name": "Topic Test 3",
-          "coverage": "Pointers, Strings, Structures, DMA",
-          "done": false,
-          "score": ""
-        }
-      ],
-      "subjectTest": {
-        "done": false,
-        "note": "pick 1 of 3 available — Complete C Programming Syllabus"
-      }
-    },
-    {
-      "name": "Data Structures",
-      "instructor": "Sachin Mittal — includes AVL Tree & Heap, not in DA course",
-      "done": false,
-      "plan": [
-        {
-          "type": "module",
-          "name": "Linked List",
-          "done": false
-        },
-        {
-          "type": "test",
-          "name": "Topic Test 1",
-          "coverage": "Linked List",
-          "done": false,
-          "score": ""
-        },
-        {
-          "type": "module",
-          "name": "Asymptotic Analysis",
-          "done": false
-        },
-        {
-          "type": "test",
-          "name": "Topic Test 2",
-          "coverage": "Asymptotic Notations, Loops TC",
-          "done": false,
-          "score": ""
-        },
-        {
-          "type": "module",
-          "name": "Stack and Queue",
-          "done": false
-        },
-        {
-          "type": "test",
-          "name": "Topic Test 3",
-          "coverage": "Stack and Queue",
-          "done": false,
-          "score": ""
-        },
-        {
-          "type": "module",
-          "name": "Binary Trees",
-          "done": false
-        },
-        {
-          "type": "module",
-          "name": "AVL Tree",
-          "done": false
-        },
-        {
-          "type": "module",
-          "name": "Heap",
-          "done": false
-        },
-        {
-          "type": "test",
-          "name": "Topic Test 4",
-          "coverage": "Combinatorics in Trees (BST, AVL, Heap)",
-          "done": false,
-          "score": ""
-        },
-        {
-          "type": "module",
-          "name": "Hashing",
-          "done": false
-        },
-        {
-          "type": "test",
-          "name": "Topic Test 5",
-          "coverage": "Hashing with Probability",
-          "done": false,
-          "score": ""
-        },
-        {
-          "type": "module",
-          "name": "Row Major & Column Major Arrays",
-          "done": false
-        }
-      ],
-      "subjectTest": {
-        "done": false,
-        "note": "pick 1 of 3 available — Complete DS Syllabus"
-      }
-    },
-    {
-      "name": "Algorithms + DA-Algo delta",
-      "instructor": "Sachin Mittal — CS Algorithms (DP, all graph algos) full, + ~2-3hrs DA delta (Python syntax + Bellman-Ford) folded in at the end",
-      "done": false,
-      "plan": [
-        {
-          "type": "module",
-          "name": "Recurrence Relations & Recursive Time Complexity",
-          "done": false
-        },
-        {
-          "type": "test",
-          "name": "Topic Test 2",
-          "coverage": "Recurrence relation",
-          "done": false,
-          "score": ""
-        },
-        {
-          "type": "module",
-          "name": "Divide and Conquer — Part 1",
-          "done": false
-        },
-        {
-          "type": "module",
-          "name": "Maximum and Minimum of Numbers",
-          "done": false
-        },
-        {
-          "type": "module",
-          "name": "Divide and Conquer — Part 2",
-          "done": false
-        },
-        {
-          "type": "test",
-          "name": "Topic Test 1",
-          "coverage": "Divide and Conquer",
-          "done": false,
-          "score": ""
-        },
-        {
-          "type": "module",
-          "name": "Sorting Algorithms",
-          "done": false
-        },
-        {
-          "type": "module",
-          "name": "BFS & DFS",
-          "done": false
-        },
-        {
-          "type": "module",
-          "name": "Shortest Path Algorithms (Greedy)",
-          "done": false
-        },
-        {
-          "type": "module",
-          "name": "Minimum Spanning Tree Algorithms",
-          "done": false
-        },
-        {
-          "type": "module",
-          "name": "More Greedy Algorithms (Huffman, Knapsack)",
-          "done": false
-        },
-        {
-          "type": "test",
-          "name": "Topic Test 3",
-          "coverage": "Greedy Algorithms",
-          "done": false,
-          "score": ""
-        },
-        {
-          "type": "module",
-          "name": "Dynamic Programming",
-          "done": false
-        },
-        {
-          "type": "module",
-          "name": "More Dynamic Programming",
-          "done": false
-        },
-        {
-          "type": "test",
-          "name": "Topic Test 4",
-          "coverage": "Dynamic Programming",
-          "done": false,
-          "score": ""
-        },
-        {
-          "type": "module",
-          "name": "DA delta: Python syntax + Bellman-Ford",
-          "done": false
-        },
-        {
-          "type": "test",
-          "name": "DSA Topic Test 6 (DA)",
-          "coverage": "Graph traversals, shortest path",
-          "done": false,
-          "score": ""
-        }
-      ],
-      "subjectTest": {
-        "done": false,
-        "note": "pick 1 of 3 available — Complete Algorithm Syllabus"
-      }
-    },
-    {
-      "name": "Digital Logic",
-      "instructor": "Deepak Poonia",
-      "done": false,
-      "plan": [
-        {
-          "type": "module",
-          "name": "Boolean Algebra & Minimization",
-          "done": false
-        },
-        {
-          "type": "module",
-          "name": "Number System",
-          "done": false
-        },
-        {
-          "type": "test",
-          "name": "Topic Test 1",
-          "coverage": "Boolean Algebra, Minimization, Number System",
-          "done": false,
-          "score": ""
-        },
-        {
-          "type": "test",
-          "name": "Topic Test 4 (Extra)",
-          "coverage": "Boolean Algebra, Minimization",
-          "done": false,
-          "score": ""
-        },
-        {
-          "type": "module",
-          "name": "Combinational Circuits",
-          "done": false
-        },
-        {
-          "type": "test",
-          "name": "Topic Test 2",
-          "coverage": "Combinational Circuits",
-          "done": false,
-          "score": ""
-        },
-        {
-          "type": "module",
-          "name": "Functional Completeness",
-          "done": false
-        },
-        {
-          "type": "module",
-          "name": "Sequential Circuits",
-          "done": false
-        },
-        {
-          "type": "test",
-          "name": "Topic Test 3",
-          "coverage": "Sequential Circuits",
-          "done": false,
-          "score": ""
-        }
-      ],
-      "subjectTest": {
-        "done": false,
-        "note": "pick 1 of 3 available — Complete Digital Logic Syllabus"
+        "note": "shared Eng Maths subject test (covers LA+Probability+Calculus — LA and Calculus are also now prepped separately below); pick 1 of 3 available"
       }
     },
     {
@@ -462,19 +68,19 @@
         {
           "type": "module",
           "name": "Basic Components & Main Memory",
-          "done": false
+          "done": true
         },
         {
           "type": "module",
           "name": "The CPU",
-          "done": false
+          "done": true
         },
         {
           "type": "test",
           "name": "Topic Test 1",
           "coverage": "Basics, Addressing Modes, Control Unit",
-          "done": false,
-          "score": ""
+          "done": true,
+          "score": "10.33/25"
         },
         {
           "type": "module",
@@ -588,8 +194,318 @@
       }
     },
     {
-      "name": "DBMS + DA Warehousing delta",
-      "instructor": "Deepak Poonia — CS DBMS (superset) full, + ~4hr DA Warehousing module folded in at the end",
+      "name": "Computer Networks",
+      "instructor": "Sachin Mittal",
+      "done": false,
+      "plan": [
+        {
+          "type": "module",
+          "name": "IP Addressing, Subnetting & Supernetting",
+          "done": false
+        },
+        {
+          "type": "module",
+          "name": "Data Link Layer — Error Control & Flow Control",
+          "done": false
+        },
+        {
+          "type": "module",
+          "name": "Data Link Layer — MAC Protocols, ARP, DHCP",
+          "done": false
+        },
+        {
+          "type": "test",
+          "name": "Topic Test 1",
+          "coverage": "IP addressing, Data Link layer",
+          "done": false,
+          "score": ""
+        },
+        {
+          "type": "module",
+          "name": "Network Layer",
+          "done": false
+        },
+        {
+          "type": "test",
+          "name": "Topic Test 2",
+          "coverage": "Network Layer",
+          "done": false,
+          "score": ""
+        },
+        {
+          "type": "test",
+          "name": "Topic Test 3",
+          "coverage": "Routing algorithms, Transport layer",
+          "done": false,
+          "score": ""
+        },
+        {
+          "type": "module",
+          "name": "Transport Layer",
+          "done": false
+        },
+        {
+          "type": "module",
+          "name": "Application Layer",
+          "done": false
+        },
+        {
+          "type": "test",
+          "name": "Topic Test 4",
+          "coverage": "Transport layer, Application Layer",
+          "done": false,
+          "score": ""
+        }
+      ],
+      "subjectTest": {
+        "done": false,
+        "note": "pick 1 of 3 available — Complete CN Syllabus"
+      }
+    },
+    {
+      "name": "Discrete Mathematics",
+      "instructor": "Deepak Poonia — free Compact Course is full-coverage, safe to use",
+      "done": false,
+      "plan": [
+        {
+          "type": "module",
+          "name": "Basic Proof Techniques",
+          "done": false
+        },
+        {
+          "type": "module",
+          "name": "Introduction to Discrete Mathematics",
+          "done": false
+        },
+        {
+          "type": "module",
+          "name": "Propositional Logic",
+          "done": false
+        },
+        {
+          "type": "module",
+          "name": "First Order Logic",
+          "done": false
+        },
+        {
+          "type": "test",
+          "name": "Topic Test 1",
+          "coverage": "Propositional logic, First order logic",
+          "done": false,
+          "score": ""
+        },
+        {
+          "type": "module",
+          "name": "Set Theory",
+          "done": false
+        },
+        {
+          "type": "module",
+          "name": "Function",
+          "done": false
+        },
+        {
+          "type": "test",
+          "name": "Topic Test 2",
+          "coverage": "Set Theory, Functions, Relations, Lattices",
+          "done": false,
+          "score": ""
+        },
+        {
+          "type": "module",
+          "name": "Group Theory",
+          "done": false
+        },
+        {
+          "type": "test",
+          "name": "Topic Test 3",
+          "coverage": "Group Theory",
+          "done": false,
+          "score": ""
+        },
+        {
+          "type": "module",
+          "name": "Combinatorics",
+          "done": false
+        },
+        {
+          "type": "test",
+          "name": "Topic Test 4",
+          "coverage": "Combinatorics",
+          "done": false,
+          "score": ""
+        },
+        {
+          "type": "module",
+          "name": "Graph Theory",
+          "done": false
+        },
+        {
+          "type": "test",
+          "name": "Topic Test 5",
+          "coverage": "Graph Theory",
+          "done": false,
+          "score": ""
+        }
+      ],
+      "subjectTest": {
+        "done": false,
+        "note": "pick 1 of 3 available — Complete Discrete Maths Syllabus"
+      }
+    },
+    {
+      "name": "Linear Algebra",
+      "instructor": "Sachin Mittal — DA's full Linear Algebra course, reused here since GATE CS's own Engineering Mathematics section also requires LA (deeper than the CS-only slice strictly needs, but built from real course data)",
+      "done": false,
+      "plan": [
+        {
+          "type": "module",
+          "name": "Basics of Linear Algebra (independence, Ax=b, rank, determinant, inverse, eigenvalues/eigenvectors, LU decomposition)",
+          "done": false
+        },
+        {
+          "type": "test",
+          "name": "Linear Algebra Topic Wise Test - 1",
+          "coverage": "Linear independence, systems of linear equations, eigenvalues & eigenvectors",
+          "done": false,
+          "score": ""
+        },
+        {
+          "type": "test",
+          "name": "Linear Algebra Topic Wise Test - 2",
+          "coverage": "Linear independence, systems, eigenvalues, eigenvectors",
+          "done": false,
+          "score": ""
+        },
+        {
+          "type": "module",
+          "name": "Vector Space, Subspaces & Four Fundamental Subspaces",
+          "done": false
+        },
+        {
+          "type": "module",
+          "name": "Change of Basis, Linear Transformation & Diagonalization",
+          "done": false
+        },
+        {
+          "type": "test",
+          "name": "Linear Algebra Topic Wise Test - 3",
+          "coverage": "Vector space, subspaces, Change of Basis, Linear Transformation",
+          "done": false,
+          "score": ""
+        },
+        {
+          "type": "module",
+          "name": "Projection, Gram-Schmidt & Singular Value Decomposition (SVD)",
+          "done": false
+        },
+        {
+          "type": "test",
+          "name": "Linear Algebra Topic Wise Test - 5",
+          "coverage": "Singular value decomposition",
+          "done": false,
+          "score": ""
+        },
+        {
+          "type": "module",
+          "name": "Positive Definite Matrices, Partition Matrix & Projection Matrices",
+          "done": false
+        },
+        {
+          "type": "test",
+          "name": "Linear Algebra Topic Wise Test - 4",
+          "coverage": "Projection matrix, Partition Matrix",
+          "done": false,
+          "score": ""
+        }
+      ],
+      "subjectTest": {
+        "done": false,
+        "note": "pick 1 of 2 available — Complete GATE DA Linear Algebra"
+      }
+    },
+    {
+      "name": "Calculus & Optimization",
+      "instructor": "Sachin Mittal — DA's full Calculus course, reused here for the same reason as Linear Algebra above",
+      "done": false,
+      "plan": [
+        {
+          "type": "module",
+          "name": "Limits, Indeterminate Forms & L'Hopital's Rule",
+          "done": false
+        },
+        {
+          "type": "module",
+          "name": "Continuity & Introduction to Differentiability",
+          "done": false
+        },
+        {
+          "type": "test",
+          "name": "Calculus & Optimization Topic Test - 1",
+          "coverage": "Limit, Continuity",
+          "done": false,
+          "score": ""
+        },
+        {
+          "type": "module",
+          "name": "Maxima & Minima, Derivative Tests & Mean Value Theorems",
+          "done": false
+        },
+        {
+          "type": "test",
+          "name": "Calculus & Optimization Topic Test - 2",
+          "coverage": "Differentiability, Maxima & Minima",
+          "done": false,
+          "score": ""
+        },
+        {
+          "type": "module",
+          "name": "Integration",
+          "done": false
+        },
+        {
+          "type": "module",
+          "name": "Taylor Series",
+          "done": false
+        },
+        {
+          "type": "test",
+          "name": "Calculus & Optimization Topic Test - 3",
+          "coverage": "Taylor series, Optimization (single variable)",
+          "done": false,
+          "score": ""
+        },
+        {
+          "type": "module",
+          "name": "Multivariate Calculus: Partial Differentiation, Chain Rule, Gradient & Directional Derivatives, Contour Maps",
+          "done": false
+        },
+        {
+          "type": "module",
+          "name": "Matrix Calculus, Positive Definite Matrices & Quadratic Form",
+          "done": false
+        },
+        {
+          "type": "module",
+          "name": "Unconstrained & Constrained Optimization (Convex Functions, Gradient Descent, Equality/Inequality Constraints, KKT Conditions)",
+          "done": false
+        },
+        {
+          "type": "test",
+          "name": "Calculus & Optimization Topic Test - 4",
+          "coverage": "Calculus (comprehensive)",
+          "done": false,
+          "score": ""
+        }
+      ],
+      "subjectTest": {
+        "done": false,
+        "note": "pick 1 of 2 available — Complete GATE DA Calculus & Optimisation"
+      }
+    },
+    {
+      "name": "DBMS",
+      "instructor": "Deepak Poonia",
       "done": false,
       "plan": [
         {
@@ -666,239 +582,302 @@
           "coverage": "ER Model, Integrity Constraints",
           "done": false,
           "score": ""
-        },
-        {
-          "type": "module",
-          "name": "DA delta: Data Warehousing",
-          "done": false
-        },
-        {
-          "type": "test",
-          "name": "DBMS Topic Test - 5 (DA)",
-          "coverage": "Data warehouse modeling, Concept hierarchies",
-          "done": false,
-          "score": ""
-        },
-        {
-          "type": "test",
-          "name": "DBMS Subject Wise (DA)",
-          "coverage": "Complete GATE DA DBMS — pick 1 of 3 available",
-          "done": false,
-          "score": ""
         }
       ],
       "subjectTest": {
         "done": false,
-        "note": "pick 1 of 3 available — Complete Database Syllabus (CS-flavored). Doing both this and the DA-flavored subject test above since you're prepping for both exams on the same syllabus."
+        "note": "pick 1 of 3 available — Complete Database Syllabus"
       }
     },
     {
-      "name": "Computer Networks",
+      "name": "C Programming",
       "instructor": "Sachin Mittal",
       "done": false,
       "plan": [
         {
           "type": "module",
-          "name": "IP Addressing, Subnetting & Supernetting",
-          "done": false
-        },
-        {
-          "type": "module",
-          "name": "Data Link Layer — Error Control & Flow Control",
-          "done": false
-        },
-        {
-          "type": "module",
-          "name": "Data Link Layer — MAC Protocols, ARP, DHCP",
+          "name": "Basics: Number Systems, Operators & Control Flow",
           "done": false
         },
         {
           "type": "test",
           "name": "Topic Test 1",
-          "coverage": "IP addressing, Data Link layer",
+          "coverage": "Number Rep., Control Statements, Operators",
           "done": false,
           "score": ""
         },
         {
           "type": "module",
-          "name": "Network Layer",
+          "name": "Functions, Memory Layout & Storage Classes",
+          "done": false
+        },
+        {
+          "type": "module",
+          "name": "Recursion, Pointers, Arrays & Structures",
           "done": false
         },
         {
           "type": "test",
           "name": "Topic Test 2",
-          "coverage": "Network Layer",
+          "coverage": "Compilation, Storage Class, Function, Recursion, Pointers",
           "done": false,
           "score": ""
         },
         {
           "type": "test",
           "name": "Topic Test 3",
-          "coverage": "Routing algorithms, Transport layer",
-          "done": false,
-          "score": ""
-        },
-        {
-          "type": "module",
-          "name": "Transport Layer",
-          "done": false
-        },
-        {
-          "type": "module",
-          "name": "Application Layer",
-          "done": false
-        },
-        {
-          "type": "test",
-          "name": "Topic Test 4",
-          "coverage": "Transport layer, Application Layer",
+          "coverage": "Pointers, Strings, Structures, DMA",
           "done": false,
           "score": ""
         }
       ],
       "subjectTest": {
         "done": false,
-        "note": "pick 1 of 3 available — Complete CN Syllabus"
+        "note": "pick 1 of 3 available — Complete C Programming Syllabus"
       }
     },
     {
-      "name": "Theory of Computation",
-      "instructor": "Deepak Poonia — kept at end per his request",
+      "name": "Digital Logic",
+      "instructor": "Deepak Poonia",
       "done": false,
       "plan": [
         {
           "type": "module",
-          "name": "Regular Languages & Finite Automata",
+          "name": "Boolean Algebra & Minimization",
+          "done": false
+        },
+        {
+          "type": "module",
+          "name": "Number System",
           "done": false
         },
         {
           "type": "test",
           "name": "Topic Test 1",
-          "coverage": "Finite Automata",
+          "coverage": "Boolean Algebra, Minimization, Number System",
           "done": false,
           "score": ""
         },
         {
           "type": "test",
-          "name": "Topic Test 2",
-          "coverage": "Regular Expression",
+          "name": "Topic Test 4 (Extra)",
+          "coverage": "Boolean Algebra, Minimization",
           "done": false,
           "score": ""
         },
         {
           "type": "module",
-          "name": "CFLs, Grammars & Pushdown Automata",
+          "name": "Combinational Circuits",
+          "done": false
+        },
+        {
+          "type": "test",
+          "name": "Topic Test 2",
+          "coverage": "Combinational Circuits",
+          "done": false,
+          "score": ""
+        },
+        {
+          "type": "module",
+          "name": "Functional Completeness",
+          "done": false
+        },
+        {
+          "type": "module",
+          "name": "Sequential Circuits",
           "done": false
         },
         {
           "type": "test",
           "name": "Topic Test 3",
-          "coverage": "CFG, PDA",
+          "coverage": "Sequential Circuits",
+          "done": false,
+          "score": ""
+        }
+      ],
+      "subjectTest": {
+        "done": false,
+        "note": "pick 1 of 3 available — Complete Digital Logic Syllabus"
+      }
+    },
+    {
+      "name": "Data Structures",
+      "instructor": "Sachin Mittal — includes AVL Tree & Heap, not in DA course",
+      "done": false,
+      "plan": [
+        {
+          "type": "module",
+          "name": "Linked List",
+          "done": false
+        },
+        {
+          "type": "test",
+          "name": "Topic Test 1",
+          "coverage": "Linked List",
           "done": false,
           "score": ""
         },
         {
           "type": "module",
-          "name": "Identification of Language Class",
+          "name": "Asymptotic Analysis",
+          "done": false
+        },
+        {
+          "type": "test",
+          "name": "Topic Test 2",
+          "coverage": "Asymptotic Notations, Loops TC",
+          "done": false,
+          "score": ""
+        },
+        {
+          "type": "module",
+          "name": "Stack and Queue",
+          "done": false
+        },
+        {
+          "type": "test",
+          "name": "Topic Test 3",
+          "coverage": "Stack and Queue",
+          "done": false,
+          "score": ""
+        },
+        {
+          "type": "module",
+          "name": "Binary Trees",
           "done": false
         },
         {
           "type": "module",
-          "name": "Closure Properties",
+          "name": "AVL Tree",
+          "done": false
+        },
+        {
+          "type": "module",
+          "name": "Heap",
           "done": false
         },
         {
           "type": "test",
           "name": "Topic Test 4",
-          "coverage": "Closure Properties, Language Class Detection",
+          "coverage": "Combinatorics in Trees (BST, AVL, Heap)",
           "done": false,
           "score": ""
         },
         {
           "type": "module",
-          "name": "Turing Machines & Undecidability",
+          "name": "Hashing",
           "done": false
         },
         {
           "type": "test",
           "name": "Topic Test 5",
-          "coverage": "Decidability, Undecidability",
+          "coverage": "Hashing with Probability",
           "done": false,
           "score": ""
         },
         {
           "type": "module",
-          "name": "Countability",
+          "name": "Row Major & Column Major Arrays",
           "done": false
-        },
-        {
-          "type": "test",
-          "name": "Topic Test 6",
-          "coverage": "Countability",
-          "done": false,
-          "score": ""
         }
       ],
       "subjectTest": {
         "done": false,
-        "note": "pick 1 of 3 available — Complete TOC Syllabus"
+        "note": "pick 1 of 3 available — Complete DS Syllabus"
       }
     },
     {
-      "name": "Compiler Design",
-      "instructor": "Deepak Poonia — kept at end per his request",
+      "name": "Algorithms",
+      "instructor": "Sachin Mittal — DP, all graph algorithms",
       "done": false,
       "plan": [
         {
           "type": "module",
-          "name": "Compiler Overview & Lexical Analyzer",
-          "done": false
-        },
-        {
-          "type": "module",
-          "name": "Syntax Analysis (Top-Down Parsing)",
-          "done": false
-        },
-        {
-          "type": "module",
-          "name": "Bottom-Up Parsing",
-          "done": false
-        },
-        {
-          "type": "test",
-          "name": "Topic Test 1",
-          "coverage": "Lexical, Syntax Analysis, Parsers",
-          "done": false,
-          "score": ""
-        },
-        {
-          "type": "module",
-          "name": "Syntax Directed Translation & SDD",
+          "name": "Recurrence Relations & Recursive Time Complexity",
           "done": false
         },
         {
           "type": "test",
           "name": "Topic Test 2",
-          "coverage": "Semantic Analysis, SDT, SDD, Parser",
+          "coverage": "Recurrence relation",
           "done": false,
           "score": ""
         },
         {
           "type": "module",
-          "name": "Intermediate Code & Code Optimization",
+          "name": "Divide and Conquer — Part 1",
+          "done": false
+        },
+        {
+          "type": "module",
+          "name": "Maximum and Minimum of Numbers",
+          "done": false
+        },
+        {
+          "type": "module",
+          "name": "Divide and Conquer — Part 2",
+          "done": false
+        },
+        {
+          "type": "test",
+          "name": "Topic Test 1",
+          "coverage": "Divide and Conquer",
+          "done": false,
+          "score": ""
+        },
+        {
+          "type": "module",
+          "name": "Sorting Algorithms",
+          "done": false
+        },
+        {
+          "type": "module",
+          "name": "BFS & DFS",
+          "done": false
+        },
+        {
+          "type": "module",
+          "name": "Shortest Path Algorithms (Greedy)",
+          "done": false
+        },
+        {
+          "type": "module",
+          "name": "Minimum Spanning Tree Algorithms",
+          "done": false
+        },
+        {
+          "type": "module",
+          "name": "More Greedy Algorithms (Huffman, Knapsack)",
           "done": false
         },
         {
           "type": "test",
           "name": "Topic Test 3",
-          "coverage": "Intermediate Codes, DAG, SSA, Code Optimisation",
+          "coverage": "Greedy Algorithms",
+          "done": false,
+          "score": ""
+        },
+        {
+          "type": "module",
+          "name": "Dynamic Programming",
+          "done": false
+        },
+        {
+          "type": "module",
+          "name": "More Dynamic Programming",
+          "done": false
+        },
+        {
+          "type": "test",
+          "name": "Topic Test 4",
+          "coverage": "Dynamic Programming",
           "done": false,
           "score": ""
         }
       ],
       "subjectTest": {
         "done": false,
-        "note": "only 2 variants listed on GO Classes, marked Coming Soon — check availability"
+        "note": "pick 1 of 3 available — Complete Algorithm Syllabus"
       }
     }
   ],
@@ -1308,6 +1287,20 @@
     "5": 3,
     "6": 0,
     "7": 3.5,
-    "8": 5
+    "8": 5,
+    "9": 0,
+    "10": 0,
+    "11": 0,
+    "12": 0,
+    "13": 0,
+    "14": 0,
+    "15": 0,
+    "16": 6,
+    "17": 0.75,
+    "18": 2.5,
+    "19": 1.25,
+    "20": 5,
+    "21": 5,
+    "22": 6
   }
 }
