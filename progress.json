@@ -79,8 +79,8 @@
           "type": "test",
           "name": "Topic Test 1",
           "coverage": "Basics, Addressing Modes, Control Unit",
-          "done": false,
-          "score": ""
+          "done": true,
+          "score": "10.33/25"
         },
         {
           "type": "module",
