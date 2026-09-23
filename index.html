@@ -1047,6 +1047,28 @@ function saveTestDate(track,i,idx,value){
   saveLocal();
   scheduleSave();
 }
+// Dates are stored internally as ISO (yyyy-mm-dd, sorts correctly) but always
+// typed and shown as dd/mm/yyyy, per request.
+function isoToDMY(iso){
+  if(!iso) return '';
+  const [y,m,d] = iso.split('-');
+  if(!y||!m||!d) return '';
+  return `${d}/${m}/${y}`;
+}
+function dmyToIso(dmy){
+  const m = dmy.trim().match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+  if(!m) return null;
+  const d = parseInt(m[1]), mo = parseInt(m[2]), y = parseInt(m[3]);
+  if(d<1||d>31||mo<1||mo>12) return null;
+  return `${y}-${String(mo).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+}
+function formatDateTyping(v){
+  const digits = v.replace(/\D/g,'').slice(0,8);
+  let out = digits.slice(0,2);
+  if(digits.length > 2) out += '/' + digits.slice(2,4);
+  if(digits.length > 4) out += '/' + digits.slice(4,8);
+  return out;
+}
 function renderTestsPanel(){
   const body = document.getElementById('testsListBody');
   const groups = [];
@@ -1073,15 +1095,31 @@ function renderTestsPanel(){
           <span class="tname">${p.done?'✓':'—'} ${p.name} <span class="cov">— ${p.coverage}</span></span>
           <span class="tscore ${p.score?'':'empty'}">${p.score ? p.score : 'no marks'}</span>
           <span class="tdate">
-            <input type="date" value="${escapeAttr(p.date||'')}" data-track="${g.trackKey}" data-i="${g.i}" data-idx="${idx}">
+            <input type="text" inputmode="numeric" placeholder="dd/mm/yyyy" maxlength="10" value="${escapeAttr(isoToDMY(p.date))}" data-datefield data-track="${g.trackKey}" data-i="${g.i}" data-idx="${idx}">
           </span>
         </div>
       `).join('')}
     </div>
   `).join('');
-  body.querySelectorAll('input[type=date]').forEach(el=>{
-    el.onchange = () => {
-      saveTestDate(el.getAttribute('data-track'), parseInt(el.getAttribute('data-i')), parseInt(el.getAttribute('data-idx')), el.value);
+  body.querySelectorAll('[data-datefield]').forEach(el=>{
+    el.oninput = () => {
+      const pos = el.selectionStart;
+      const before = el.value.length;
+      el.value = formatDateTyping(el.value);
+      const after = el.value.length;
+      el.setSelectionRange(pos + (after-before), pos + (after-before));
+    };
+    el.onblur = () => {
+      const track = el.getAttribute('data-track'), i = parseInt(el.getAttribute('data-i')), idx = parseInt(el.getAttribute('data-idx'));
+      const v = el.value.trim();
+      if(!v){ saveTestDate(track, i, idx, ''); return; }
+      const iso = dmyToIso(v);
+      if(!iso){
+        el.style.borderColor = 'var(--late)';
+        return;
+      }
+      el.style.borderColor = '';
+      saveTestDate(track, i, idx, iso);
     };
   });
 }
