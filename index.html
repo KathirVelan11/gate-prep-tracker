@@ -114,6 +114,7 @@
   .scoreInput::placeholder{color:var(--ink-dim);}
 
   .testsFab{
+    display:block;margin-top:10px;
     background:var(--panel);border:1px solid var(--line);color:var(--ink);
     padding:9px 14px;font-family:'SF Mono','Menlo',monospace;font-size:12px;cursor:pointer;
   }
@@ -170,6 +171,7 @@
     <div class="todaybadge">
       <div class="tlabel">TODAY</div>
       <div class="tdate" id="today"></div>
+      <button class="testsFab" onclick="toggleTestsPanel()">📋 All tests & marks</button>
     </div>
   </div>
   <div class="sub" id="planNote"></div>
@@ -177,7 +179,6 @@
   <div class="syncbar">
     <button id="syncBtn" class="syncbtn" onclick="toggleSettings()">⚙ Sync</button>
     <span id="syncStatus" class="syncstatus">offline</span>
-    <button class="testsFab" onclick="toggleTestsPanel()">📋 All tests & marks</button>
   </div>
   <div id="settingsPanel" class="settings" hidden>
     <div class="instructions">
