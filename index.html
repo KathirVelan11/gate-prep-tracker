@@ -112,9 +112,61 @@
   }
   .scoreInput:focus{outline:none;border-color:var(--current);}
   .scoreInput::placeholder{color:var(--ink-dim);}
+
+  .testsFab{
+    position:fixed;top:20px;left:20px;z-index:50;
+    background:var(--panel);border:1px solid var(--line);color:var(--ink);
+    padding:9px 14px;font-family:'SF Mono','Menlo',monospace;font-size:12px;cursor:pointer;
+  }
+  .testsFab:hover{border-color:var(--current);color:var(--current);}
+  .testsOverlay{
+    position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:60;
+  }
+  .testsPanel{
+    position:fixed;top:0;left:0;bottom:0;width:min(560px,92vw);
+    background:var(--bg);border-right:1px solid var(--line);z-index:61;
+    overflow-y:auto;padding:20px 18px 60px;box-shadow:4px 0 24px rgba(0,0,0,0.4);
+  }
+  .testsPanelHead{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;}
+  .testsPanelHead h2{font-size:16px;margin:0;}
+  .closeBtn{
+    background:none;border:1px solid var(--line);color:var(--ink-dim);
+    padding:4px 10px;font-family:'SF Mono','Menlo',monospace;font-size:12px;cursor:pointer;
+  }
+  .closeBtn:hover{color:var(--ink);border-color:var(--ink-dim);}
+  .testsSub{font-family:'SF Mono','Menlo',monospace;font-size:11px;color:var(--ink-dim);margin-bottom:14px;line-height:1.5;}
+  .testGroup{margin-bottom:18px;}
+  .testGroup .gname{font-family:'SF Mono','Menlo',monospace;font-size:12px;color:var(--current);margin-bottom:6px;font-weight:600;}
+  .testRow{
+    display:flex;align-items:center;gap:10px;padding:7px 0;
+    border-bottom:1px solid var(--line);font-family:'SF Mono','Menlo',monospace;font-size:11px;
+  }
+  .testRow .tname{flex:1;min-width:0;}
+  .testRow .tname .cov{color:var(--ink-dim);}
+  .testRow .tscore{width:56px;flex-shrink:0;color:var(--current);text-align:right;}
+  .testRow .tscore.empty{color:var(--ink-dim);}
+  .testRow .tdate{flex-shrink:0;}
+  .testRow .tdate input{
+    background:var(--panel);border:1px solid var(--line);color:var(--ink);
+    padding:4px 6px;font-family:inherit;font-size:11px;width:128px;
+  }
+  .testRow .tdate input:focus{outline:none;border-color:var(--current);}
+  .testEmpty{font-family:'SF Mono','Menlo',monospace;font-size:11px;color:var(--ink-dim);padding:20px 0;}
 </style>
 </head>
 <body>
+<button class="testsFab" onclick="toggleTestsPanel()">📋 All tests & marks</button>
+
+<div id="testsOverlay" class="testsOverlay" hidden onclick="toggleTestsPanel()"></div>
+<div id="testsPanel" class="testsPanel" hidden>
+  <div class="testsPanelHead">
+    <h2>All tests & marks</h2>
+    <button class="closeBtn" onclick="toggleTestsPanel()">✕ Close</button>
+  </div>
+  <div class="testsSub">Every topic-wise and subject-wise test you've logged, pulled straight from the marks you entered on the home page — chapter-wise, grouped by course. Nothing here is editable except the date, which is optional and only lives here.</div>
+  <div id="testsListBody"></div>
+</div>
+
 <div class="wrap">
   <div class="headerRow">
     <h1>GATE 2027 — CS+DA Prep</h1>
@@ -169,41 +221,13 @@
     <tbody id="daBody"></tbody>
   </table>
 
-  <h2 style="font-family:'SF Mono','Menlo',monospace;font-size:14px;color:var(--ink-dim);margin:28px 0 6px;">MEASURED LECTURE HOURS (GoClasses)</h2>
-  <div style="font-family:'SF Mono','Menlo',monospace;font-size:11px;color:var(--ink-dim);margin-bottom:12px;line-height:1.5;">
-    Real per-lecture durations pulled directly from GoClasses.in for 12 subjects — full detail (every lecture, plus which ones failed to load) is in the
-    <a href="https://claude.ai/artifact/VDsZxivTgLtNjBcHqR4HBK" target="_blank" style="color:var(--current);">live breakdown</a>.
-    Some of these no longer map cleanly onto the current CS track below — flagged per row.
-  </div>
-  <div style="overflow-x:auto;">
-  <table style="min-width:640px;">
-    <thead><tr><th>Course</th><th>Measured</th><th>Coverage</th><th>Note</th></tr></thead>
-    <tbody>
-      <tr><td>Computer Organization & Architecture</td><td class="wk">99h 18m</td><td class="wk">48/48</td><td>Recovered from a prior session's transcript, not re-verified this session</td></tr>
-      <tr><td>Operating Systems</td><td class="wk">68h 45m</td><td class="wk">39/54</td><td>—</td></tr>
-      <tr><td>Discrete Mathematics</td><td class="wk">152h 59m</td><td class="wk">265/377</td><td>—</td></tr>
-      <tr><td>Linear Algebra</td><td class="wk">49h 59m</td><td class="wk">87/94</td><td>—</td></tr>
-      <tr><td>DBMS</td><td class="wk">130h 14m</td><td class="wk">80/105</td><td>Includes ~4h DA-Warehousing delta no longer in this row's scope</td></tr>
-      <tr><td>C Programming</td><td class="wk">25h 21m</td><td class="wk">55/67</td><td>—</td></tr>
-      <tr><td>Digital Logic</td><td class="wk">30h 26m</td><td class="wk">13/46</td><td>Only 13 of 46 lectures had a readable duration — likely a large undercount</td></tr>
-      <tr><td>Data Structures</td><td class="wk">30h 39m</td><td class="wk">66/108</td><td>—</td></tr>
-      <tr><td>Algorithms</td><td class="wk">—</td><td class="wk">—</td><td>Tool only measured the DA-delta (Python+Bellman-Ford), since removed from this row; the core course itself was completed before this tracker existed and was never measured</td></tr>
-      <tr><td>Computer Networks</td><td class="wk">—</td><td class="wk">—</td><td>Doesn't exist as its own course in the GoClasses bundle</td></tr>
-      <tr><td>Calculus & Optimization</td><td class="wk">—</td><td class="wk">—</td><td>Doesn't exist as its own course in the GoClasses bundle</td></tr>
-      <tr><td>Probability & Statistics (CS)</td><td class="wk">—</td><td class="wk">—</td><td>Bundled inside the same Engineering Mathematics course as CS's unused LA/Calculus slices — not isolated by this tool</td></tr>
-    </tbody>
-  </table>
-  </div>
-
   <h2 style="font-family:'SF Mono','Menlo',monospace;font-size:14px;color:var(--ink-dim);margin:28px 0 6px;">GATE CS SUBJECT-WISE MARKS — 2016 to 2026</h2>
   <div style="font-family:'SF Mono','Menlo',monospace;font-size:11px;color:var(--ink-dim);margin-bottom:12px;line-height:1.5;">
-    Every question in every session of every year's official CS paper was read and classified by hand, subject by subject — not pulled from a coaching site's tags. GATE runs CS as two independently-written sessions (forenoon/afternoon) in most years — 2016, 2017, 2021, 2024, 2025, and 2026 each had two sessions, both read and averaged together below; 2018, 2019, 2020, 2022, and 2023 were confirmed single-session. Every year sums to exactly 85 marks (the CS-specific portion, excluding the 15-mark General Aptitude section). GATE publishes no official subject-wise breakdown, so this is as close to ground truth as it gets short of doing it yourself from the same source papers.
+    Every question in every session of every year's official CS paper was read and classified by hand, subject by subject — not pulled from a coaching site's tags. GATE runs CS as two independently-written sessions (forenoon/afternoon, same day) in most years — 2016, 2017, 2021, 2024, 2025, and 2026 each had two, shown here as separate columns (S1/S2) rather than pre-averaged; 2018, 2019, 2020, 2022, and 2023 were confirmed single-session. Every single session column sums to exactly 85 marks on its own. Avg is the mean across all 17 real sessions. GATE publishes no official subject-wise breakdown, so this is as close to ground truth as it gets short of doing it yourself from the same source papers.
   </div>
   <div style="overflow-x:auto;">
-  <table style="min-width:820px;">
-    <thead><tr>
-      <th>Subject</th><th>'16</th><th>'17</th><th>'18</th><th>'19</th><th>'20</th><th>'21</th><th>'22</th><th>'23</th><th>'24</th><th>'25</th><th>'26</th><th>Avg</th>
-    </tr></thead>
+  <table style="min-width:1400px;">
+    <thead><tr id="weightageHead"></tr></thead>
     <tbody id="weightageBody"></tbody>
   </table>
   </div>
@@ -523,37 +547,52 @@ let daTrack = [
 
 let hours = {1:0.5, 2:5, 3:5, 4:5, 5:3, 6:0};
 
-// GATE CS subject-wise marks, 2016-2026. Every question in every session of
-// every year's official paper was individually read and classified by hand
-// (not sourced from any coaching-site tags). Years with two GATE sessions
-// (2016, 2017, 2021, 2024, 2025, 2026) show the average of both sessions;
-// years confirmed single-session (2018, 2019, 2020, 2022, 2023) show that
-// session directly. Each year sums to exactly 85 marks (the CS-specific
-// portion, excluding the 15-mark General Aptitude section).
-const gateYears = ['2016','2017','2018','2019','2020','2021','2022','2023','2024','2025','2026'];
+// GATE CS subject-wise marks, 2016-2026, one column per REAL session (not
+// pre-averaged). Every question in every session of every year's official
+// paper was individually read and classified by hand (not sourced from any
+// coaching-site tags). 2016, 2017, 2021, 2024, 2025, 2026 each had two
+// independently-written sessions (forenoon/afternoon, same day) — both
+// appear below as separate columns. 2018, 2019, 2020, 2022, 2023 were
+// confirmed single-session. Every single column sums to exactly 85 marks
+// on its own (the CS-specific portion, excluding the 15-mark GA section).
+const gateSessionCols = [
+  {key:'2016-1', label:"'16-S1"}, {key:'2016-2', label:"'16-S2"},
+  {key:'2017-1', label:"'17-S1"}, {key:'2017-2', label:"'17-S2"},
+  {key:'2018',   label:"'18"},
+  {key:'2019',   label:"'19"},
+  {key:'2020',   label:"'20"},
+  {key:'2021-1', label:"'21-S1"}, {key:'2021-2', label:"'21-S2"},
+  {key:'2022',   label:"'22"},
+  {key:'2023',   label:"'23"},
+  {key:'2024-1', label:"'24-S1"}, {key:'2024-2', label:"'24-S2"},
+  {key:'2025-1', label:"'25-S1"}, {key:'2025-2', label:"'25-S2"},
+  {key:'2026-1', label:"'26-S1"}, {key:'2026-2', label:"'26-S2"},
+];
 const gateWeightage = [
-  {name:"Discrete Math",        marks:{2016:9.5,2017:6.5,2018:9.0,2019:6.0,2020:8.0,2021:6.5,2022:13.0,2023:12.0,2024:8.5,2025:4.5,2026:4.5}},
-  {name:"Linear Algebra",       marks:{2016:1.5,2017:4.0,2018:3.0,2019:3.0,2020:2.0,2021:2.5,2022:5.0,2023:2.0,2024:2.5,2025:3.5,2026:2.5}},
-  {name:"Calculus",             marks:{2016:1.0,2017:1.5,2018:1.0,2019:1.0,2020:1.0,2021:1.0,2022:1.0,2023:2.0,2024:1.0,2025:1.0,2026:3.0}},
-  {name:"Probability",          marks:{2016:2.0,2017:3.5,2018:3.0,2019:3.0,2020:2.0,2021:5.0,2022:0.0,2023:2.0,2024:3.5,2025:4.5,2026:3.0}},
-  {name:"Digital Logic",        marks:{2016:3.5,2017:6.5,2018:4.0,2019:7.0,2020:4.0,2021:5.5,2022:2.0,2023:6.0,2024:5.5,2025:7.0,2026:6.0}},
-  {name:"COA",                  marks:{2016:8.5,2017:9.0,2018:10.0,2019:4.0,2020:11.0,2021:7.5,2022:10.0,2023:9.0,2024:9.5,2025:9.5,2026:9.5}},
-  {name:"Operating Systems",    marks:{2016:9.0,2017:6.0,2018:9.0,2019:10.0,2020:10.0,2021:6.5,2022:10.0,2023:10.0,2024:9.0,2025:8.0,2026:9.5}},
-  {name:"DBMS",                 marks:{2016:5.0,2017:8.0,2018:6.0,2019:8.0,2020:8.0,2021:8.0,2022:7.0,2023:5.0,2024:8.0,2025:8.5,2026:6.0}},
-  {name:"C Programming",        marks:{2016:3.5,2017:7.5,2018:6.0,2019:10.0,2020:5.0,2021:3.5,2022:5.0,2023:1.0,2024:4.0,2025:5.5,2026:3.0}},
-  {name:"Algorithms",           marks:{2016:10.0,2017:9.0,2018:10.0,2019:6.0,2020:7.0,2021:11.5,2022:6.0,2023:4.0,2024:5.5,2025:7.5,2026:11.0}},
-  {name:"Theory of Computation",marks:{2016:9.0,2017:9.5,2018:8.0,2019:8.0,2020:9.0,2021:8.5,2022:8.0,2023:8.0,2024:7.0,2025:7.5,2026:5.5}},
-  {name:"Compiler Design",      marks:{2016:6.0,2017:5.0,2018:5.0,2019:6.0,2020:4.0,2021:8.0,2022:4.0,2023:8.0,2024:8.0,2025:6.0,2026:5.5}},
-  {name:"Computer Networks",    marks:{2016:9.5,2017:6.5,2018:7.0,2019:9.0,2020:6.0,2021:8.0,2022:10.0,2023:8.0,2024:9.0,2025:6.0,2026:8.5}},
-  {name:"Data Structures",      marks:{2016:7.0,2017:2.5,2018:4.0,2019:4.0,2020:8.0,2021:3.0,2022:4.0,2023:8.0,2024:4.0,2025:6.0,2026:7.5}},
+  {name:"Discrete Math",        marks:{'2016-1':9,'2016-2':10,'2017-1':7,'2017-2':6,'2018':9,'2019':6,'2020':8,'2021-1':9,'2021-2':4,'2022':13,'2023':12,'2024-1':8,'2024-2':9,'2025-1':6,'2025-2':3,'2026-1':5,'2026-2':4}},
+  {name:"Linear Algebra",       marks:{'2016-1':1,'2016-2':2,'2017-1':5,'2017-2':3,'2018':3,'2019':3,'2020':2,'2021-1':2,'2021-2':3,'2022':5,'2023':2,'2024-1':3,'2024-2':2,'2025-1':3,'2025-2':4,'2026-1':2,'2026-2':3}},
+  {name:"Calculus",             marks:{'2016-1':1,'2016-2':1,'2017-1':2,'2017-2':1,'2018':1,'2019':1,'2020':1,'2021-1':1,'2021-2':1,'2022':1,'2023':2,'2024-1':1,'2024-2':1,'2025-1':1,'2025-2':1,'2026-1':3,'2026-2':3}},
+  {name:"Probability",          marks:{'2016-1':3,'2016-2':1,'2017-1':1,'2017-2':6,'2018':3,'2019':3,'2020':2,'2021-1':5,'2021-2':5,'2022':0,'2023':2,'2024-1':4,'2024-2':3,'2025-1':5,'2025-2':4,'2026-1':3,'2026-2':3}},
+  {name:"Digital Logic",        marks:{'2016-1':5,'2016-2':2,'2017-1':4,'2017-2':9,'2018':4,'2019':7,'2020':4,'2021-1':5,'2021-2':6,'2022':2,'2023':6,'2024-1':6,'2024-2':5,'2025-1':8,'2025-2':6,'2026-1':6,'2026-2':6}},
+  {name:"COA",                  marks:{'2016-1':7,'2016-2':10,'2017-1':11,'2017-2':7,'2018':10,'2019':4,'2020':11,'2021-1':6,'2021-2':9,'2022':10,'2023':9,'2024-1':10,'2024-2':9,'2025-1':7,'2025-2':12,'2026-1':9,'2026-2':10}},
+  {name:"Operating Systems",    marks:{'2016-1':9,'2016-2':9,'2017-1':6,'2017-2':6,'2018':9,'2019':10,'2020':10,'2021-1':6,'2021-2':7,'2022':10,'2023':10,'2024-1':8,'2024-2':10,'2025-1':9,'2025-2':7,'2026-1':10,'2026-2':9}},
+  {name:"DBMS",                 marks:{'2016-1':5,'2016-2':5,'2017-1':8,'2017-2':8,'2018':6,'2019':8,'2020':8,'2021-1':8,'2021-2':8,'2022':7,'2023':5,'2024-1':8,'2024-2':8,'2025-1':8,'2025-2':9,'2026-1':6,'2026-2':6}},
+  {name:"C Programming",        marks:{'2016-1':4,'2016-2':3,'2017-1':9,'2017-2':6,'2018':6,'2019':10,'2020':5,'2021-1':4,'2021-2':3,'2022':5,'2023':1,'2024-1':4,'2024-2':4,'2025-1':5,'2025-2':6,'2026-1':2,'2026-2':4}},
+  {name:"Algorithms",           marks:{'2016-1':10,'2016-2':10,'2017-1':6,'2017-2':12,'2018':10,'2019':6,'2020':7,'2021-1':10,'2021-2':13,'2022':6,'2023':4,'2024-1':5,'2024-2':6,'2025-1':7,'2025-2':8,'2026-1':11,'2026-2':11}},
+  {name:"Theory of Computation",marks:{'2016-1':9,'2016-2':9,'2017-1':10,'2017-2':9,'2018':8,'2019':8,'2020':9,'2021-1':8,'2021-2':9,'2022':8,'2023':8,'2024-1':7,'2024-2':7,'2025-1':8,'2025-2':7,'2026-1':6,'2026-2':5}},
+  {name:"Compiler Design",      marks:{'2016-1':7,'2016-2':5,'2017-1':6,'2017-2':4,'2018':5,'2019':6,'2020':4,'2021-1':8,'2021-2':8,'2022':4,'2023':8,'2024-1':8,'2024-2':8,'2025-1':6,'2025-2':6,'2026-1':5,'2026-2':6}},
+  {name:"Computer Networks",    marks:{'2016-1':10,'2016-2':9,'2017-1':8,'2017-2':5,'2018':7,'2019':9,'2020':6,'2021-1':9,'2021-2':7,'2022':10,'2023':8,'2024-1':9,'2024-2':9,'2025-1':6,'2025-2':6,'2026-1':8,'2026-2':9}},
+  {name:"Data Structures",      marks:{'2016-1':5,'2016-2':9,'2017-1':2,'2017-2':3,'2018':4,'2019':4,'2020':8,'2021-1':4,'2021-2':2,'2022':4,'2023':8,'2024-1':4,'2024-2':4,'2025-1':6,'2025-2':6,'2026-1':9,'2026-2':6}},
 ];
 function renderWeightageTable(){
+  const thead = document.getElementById('weightageHead');
   const tbody = document.getElementById('weightageBody');
-  if(!tbody) return;
+  if(!tbody || !thead) return;
+  thead.innerHTML = '<th>Subject</th>' + gateSessionCols.map(c=>`<th>${c.label}</th>`).join('') + '<th>Avg</th>';
   tbody.innerHTML = gateWeightage.map(row=>{
-    const vals = gateYears.map(y=>row.marks[y]);
+    const vals = gateSessionCols.map(c=>row.marks[c.key]);
     const avg = vals.reduce((a,b)=>a+b,0) / vals.length;
-    return `<tr><td>${row.name}</td>${vals.map(v=>`<td class="wk">${v.toFixed(1)}</td>`).join('')}<td class="wk">${avg.toFixed(1)}</td></tr>`;
+    return `<tr><td>${row.name}</td>${vals.map(v=>`<td class="wk">${v}</td>`).join('')}<td class="wk">${avg.toFixed(1)}</td></tr>`;
   }).join('');
 }
 
@@ -650,7 +689,10 @@ function mergeTrack(defaults, loaded){
         const lp = match.plan && match.plan.find(x => x.type===dp.type && x.name===dp.name);
         if(!lp) return dp;
         const item = { ...dp, done: !!dp.done || !!lp.done };
-        if(dp.type === 'test') item.score = dp.score || lp.score || '';
+        if(dp.type === 'test'){
+          item.score = dp.score || lp.score || '';
+          item.date = dp.date || lp.date || '';
+        }
         return item;
       });
       const defST = !!(def.subjectTest && def.subjectTest.done);
@@ -804,6 +846,7 @@ function saveScoreAndToggle(track,i,idx,value){
   render();
   saveLocal();
   scheduleSave();
+  refreshTestsPanelIfOpen();
 }
 function saveScoreOnly(track,i,idx,value){
   const arr = track==='cs'?csTrack:daTrack;
@@ -811,6 +854,11 @@ function saveScoreOnly(track,i,idx,value){
   arr[i].plan[idx].score = value;
   saveLocal();
   scheduleSave();
+  refreshTestsPanelIfOpen();
+}
+function refreshTestsPanelIfOpen(){
+  const panel = document.getElementById('testsPanel');
+  if(panel && !panel.hidden) renderTestsPanel();
 }
 function toggleCourseSubjectTest(track,i){ const arr = track==='cs'?csTrack:daTrack; arr[i].subjectTest.done = !arr[i].subjectTest.done; render(); saveLocal(); scheduleSave(); }
 
@@ -978,6 +1026,65 @@ function render(){
       cell.innerHTML = `<div class="d">${m.name} ${d}</div><div class="v">${display}</div>`;
       hourGrid.appendChild(cell);
     }
+  });
+}
+
+// ---- side panel: all tests & marks, chapter-wise, with an optional date ----
+// The date lives only here (on the same plan-item object as score/done, as
+// `date`) — it is never entered or shown on the home page, only in this panel,
+// and is entirely optional per the user's request ("if I wish will enter date
+// else no, my wish").
+function toggleTestsPanel(){
+  const panel = document.getElementById('testsPanel');
+  const overlay = document.getElementById('testsOverlay');
+  const opening = panel.hidden;
+  panel.hidden = !opening;
+  overlay.hidden = !opening;
+  if(opening) renderTestsPanel();
+}
+function saveTestDate(track,i,idx,value){
+  const arr = track==='cs'?csTrack:daTrack;
+  if(arr[i].plan[idx].date === value) return;
+  arr[i].plan[idx].date = value;
+  saveLocal();
+  scheduleSave();
+}
+function renderTestsPanel(){
+  const body = document.getElementById('testsListBody');
+  const groups = [];
+  [['cs',csTrack],['da',daTrack]].forEach(([trackKey, arr])=>{
+    arr.forEach((c,i)=>{
+      if(!c.plan) return;
+      const tests = [];
+      c.plan.forEach((p,idx)=>{
+        if(p.type !== 'test') return;
+        tests.push({p, idx});
+      });
+      if(tests.length) groups.push({courseName:c.name, trackKey, i, tests});
+    });
+  });
+  if(!groups.length){
+    body.innerHTML = '<div class="testEmpty">No tests logged yet. Enter marks on the home page and they\'ll show up here.</div>';
+    return;
+  }
+  body.innerHTML = groups.map(g => `
+    <div class="testGroup">
+      <div class="gname">${g.courseName}</div>
+      ${g.tests.map(({p,idx}) => `
+        <div class="testRow">
+          <span class="tname">${p.done?'✓':'—'} ${p.name} <span class="cov">— ${p.coverage}</span></span>
+          <span class="tscore ${p.score?'':'empty'}">${p.score ? p.score : 'no marks'}</span>
+          <span class="tdate">
+            <input type="date" value="${escapeAttr(p.date||'')}" data-track="${g.trackKey}" data-i="${g.i}" data-idx="${idx}">
+          </span>
+        </div>
+      `).join('')}
+    </div>
+  `).join('');
+  body.querySelectorAll('input[type=date]').forEach(el=>{
+    el.onchange = () => {
+      saveTestDate(el.getAttribute('data-track'), parseInt(el.getAttribute('data-i')), parseInt(el.getAttribute('data-idx')), el.value);
+    };
   });
 }
 
