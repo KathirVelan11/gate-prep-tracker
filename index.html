@@ -114,7 +114,6 @@
   .scoreInput::placeholder{color:var(--ink-dim);}
 
   .testsFab{
-    position:fixed;top:20px;left:20px;z-index:50;
     background:var(--panel);border:1px solid var(--line);color:var(--ink);
     padding:9px 14px;font-family:'SF Mono','Menlo',monospace;font-size:12px;cursor:pointer;
   }
@@ -155,8 +154,6 @@
 </style>
 </head>
 <body>
-<button class="testsFab" onclick="toggleTestsPanel()">📋 All tests & marks</button>
-
 <div id="testsOverlay" class="testsOverlay" hidden onclick="toggleTestsPanel()"></div>
 <div id="testsPanel" class="testsPanel" hidden>
   <div class="testsPanelHead">
@@ -180,6 +177,7 @@
   <div class="syncbar">
     <button id="syncBtn" class="syncbtn" onclick="toggleSettings()">⚙ Sync</button>
     <span id="syncStatus" class="syncstatus">offline</span>
+    <button class="testsFab" onclick="toggleTestsPanel()">📋 All tests & marks</button>
   </div>
   <div id="settingsPanel" class="settings" hidden>
     <div class="instructions">
