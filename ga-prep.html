@@ -207,6 +207,11 @@ sub{font-size:0.66em;vertical-align:sub;}
 .ex-body{max-height:0;overflow:hidden;transition:max-height .35s ease;}
 .example.open .ex-body{max-height:2200px;}
 .ex-body-inner{padding:6px 20px 20px;}
+.completed-wrap{margin-top:28px;}
+.completed-divider{display:flex;align-items:center;gap:10px;margin:0 0 14px;}
+.completed-divider::before,.completed-divider::after{content:'';flex:1;height:1px;background:var(--border);}
+.completed-divider span{font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--good);white-space:nowrap;}
+.completed-wrap .example{opacity:.72;}
 .step{display:flex;gap:12px;padding:8px 0;border-top:1px dashed var(--border);}
 .step:first-child{border-top:none;}
 .step-tag{flex:none;width:64px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--teal);text-transform:uppercase;letter-spacing:.04em;padding-top:2px;}
@@ -21300,15 +21305,48 @@ function loadChapter(id, opts){
   refreshAllDots();
 }
 
+// Splits each PYQ/Practice section's cards into "To do" and "Completed",
+// renumbering each group 1..N. Runs once per chapter load (effectively "on
+// refresh"), not live during a click, so answering a card never makes it jump
+// out from under you mid-question — it just sorts into place next time you
+// open or reload the chapter.
+function regroupCompletedSections(content){
+  content.querySelectorAll('section.block#pyq, section.block#practice').forEach(section=>{
+    const cards = Array.from(section.querySelectorAll(':scope > [data-ex]'));
+    if(!cards.length) return;
+    const todo = cards.filter(c => c.dataset.done !== '1');
+    const done = cards.filter(c => c.dataset.done === '1');
+    function renumber(card, n){
+      const numEl = card.querySelector('.ex-num');
+      if(!numEl || !numEl.firstChild) return;
+      const node = numEl.firstChild;
+      node.textContent = node.textContent.replace(/^(PYQ\s*|Q)\d+/, (m, p1) => p1 + n);
+    }
+    todo.forEach((c,i)=>{ renumber(c, i+1); section.appendChild(c); });
+    let doneWrap = section.querySelector(':scope > .completed-wrap');
+    if(done.length){
+      if(!doneWrap){
+        doneWrap = document.createElement('div');
+        doneWrap.className = 'completed-wrap';
+        doneWrap.innerHTML = '<div class="completed-divider"><span>✓ Completed</span></div>';
+        section.appendChild(doneWrap);
+      } else {
+        section.appendChild(doneWrap);
+      }
+      done.forEach((c,i)=>{ renumber(c, i+1); doneWrap.appendChild(c); });
+    } else if(doneWrap){
+      doneWrap.remove();
+    }
+  });
+}
+
 function wireChapterInteractivity(id){
   const content = document.getElementById('content');
-  content.querySelectorAll('[data-ex] .ex-head').forEach(head=>{
-    head.onclick = function(){
-      const ex = head.closest('.example');
-      ex.classList.toggle('open');
-      head.querySelector('.ex-toggle').textContent = ex.classList.contains('open') ? '×' : '+';
-      updateProgress(id);
-    };
+  // Cards render always-expanded now (no accordion) — every card is forced open.
+  content.querySelectorAll('[data-ex]').forEach(card=>{
+    card.classList.add('open');
+    const toggle = card.querySelector('.ex-toggle');
+    if(toggle) toggle.style.display = 'none';
   });
   // Every self-check and every practice/PYQ answer box gets a stable key (chapter
   // id + its position in the chapter) so which option was picked survives a
@@ -21378,39 +21416,49 @@ function wireChapterInteractivity(id){
       btn.onclick = function(e){
         e.stopPropagation();
         const current = window.ANSWERED.get(key);
+        const card = box.closest('[data-ex]');
+        // window.SOLVED (the chapterId::N / chapterId::idxN set, used by the Home
+        // page's per-chapter counts) is kept as a mirror of "this card has an
+        // answer" — answering IS solving now, there's no separate solve action.
+        const cardKey = card ? card.dataset.cardKey : null;
         if(current === i){
           clearAnswer();
           window.ANSWERED.delete(key);
+          if(card){ card.dataset.done = '0'; card.classList.remove('solved'); }
+          if(cardKey) window.SOLVED.delete(cardKey);
         } else {
           applyAnswer(i);
           window.ANSWERED.set(key, i);
+          // Card itself stays put — it does NOT jump to Completed on this click.
+          // data-done just updates so the progress bar/dashboard reflect it now;
+          // the physical move to Completed happens on next chapter load/refresh.
+          if(card){ card.dataset.done = '1'; card.classList.add('solved'); }
+          if(cardKey) window.SOLVED.add(cardKey);
         }
+        saveSolved();
         saveAnswered();
         scheduleGaSync();
         updateProgress(id);
       };
     });
   });
+  // A card counts as "done" purely by having an answered .pyq-opts box inside
+  // it — answering IS solving now, no separate mark-solved step. cardKey tags
+  // the card for the To-do/Completed split pass below.
   content.querySelectorAll('[data-ex]').forEach((card, cardIdx)=>{
     const numEl = card.querySelector('.ex-num');
-    const head = card.querySelector('.ex-head');
-    if(!numEl || !head || head.querySelector('.pyq-solve-btn')) return;
+    if(!numEl) return;
     const firstText = numEl.childNodes[0] ? numEl.childNodes[0].textContent : '';
-    // Real PYQs keep their original "chapterId::N" key (matches what was already
-    // being saved, so marks made before this change still show as solved). Every
-    // other labeled example (book-exercise "Q1", unlabeled cards, etc.) — previously
-    // untracked entirely — now gets a key based on its stable position in the
-    // chapter instead, since that's static across reloads.
     const pyqMatch = firstText.match(/^PYQ\s*(\d+)/);
-    const key = pyqMatch ? (id + '::' + pyqMatch[1]) : (id + '::idx' + cardIdx);
-    const btn = document.createElement('button');
-    btn.type = 'button';
-    btn.className = 'pyq-solve-btn';
-    btn.title = 'Mark as solved';
-    if(window.SOLVED.has(key)){ btn.classList.add('solved'); btn.textContent = '✓'; card.classList.add('solved'); }
-    btn.onclick = function(e){ e.stopPropagation(); toggleSolved(key, btn, card); };
-    head.insertBefore(btn, head.querySelector('.ex-toggle'));
+    const cardKey = pyqMatch ? (id + '::' + pyqMatch[1]) : (id + '::idx' + cardIdx);
+    card.dataset.cardKey = cardKey;
+    const optsBox = card.querySelector('.pyq-opts');
+    const optsIdx = optsBox ? Array.from(content.querySelectorAll('.pyq-opts')).indexOf(optsBox) : -1;
+    const isDone = optsIdx >= 0 && window.ANSWERED.has(id + '::opts' + optsIdx);
+    card.classList.toggle('solved', isDone);
+    card.dataset.done = isDone ? '1' : '0';
   });
+  regroupCompletedSections(content);
   const navLinks = content.querySelectorAll('nav.jump a');
   const sections = content.querySelectorAll('section.block');
   if(sections.length){
@@ -21431,8 +21479,8 @@ function wireChapterInteractivity(id){
 
 function updateProgress(id){
   const content = document.getElementById('content');
-  const total = content.querySelectorAll('[data-ex]').length + content.querySelectorAll('[data-check]').length;
-  const done = content.querySelectorAll('.example.open').length + content.querySelectorAll('.check-card[data-answered]').length;
+  const total = content.querySelectorAll('[data-ex]').length + content.querySelectorAll('.check-card').length;
+  const done = content.querySelectorAll('[data-ex][data-done="1"]').length + content.querySelectorAll('.check-card[data-answered]').length;
   const pct = total ? Math.round((done/total)*100) : 0;
   document.getElementById('progFill').style.width = pct+'%';
   document.getElementById('progPct').textContent = pct+'%';
