@@ -21808,7 +21808,15 @@ function renderHome(){
 }
 
 function route(){
-  let id = (location.hash || '').replace('#/', '');
+  const rawHash = location.hash || '';
+  // In-page section links inside a chapter ("#pyq", "#practice", "#concept",
+  // "#formulas", "#check") are plain anchors, not chapter routes — only a
+  // "#/<chapterId>" hash should ever reload/switch chapters. Without this
+  // check, clicking a chapter's own "Real GATE PYQs" nav link was matching no
+  // real chapter id and falling through to re-loading the very first chapter,
+  // which looked exactly like the whole page refreshing.
+  if(rawHash && !rawHash.startsWith('#/')) return;
+  let id = rawHash.replace('#/', '');
   if(!id){
     try{ id = localStorage.getItem('gaprep_last_chapter'); }catch(e){}
   }
