@@ -21310,48 +21310,99 @@ function wireChapterInteractivity(id){
       updateProgress(id);
     };
   });
-  content.querySelectorAll('.check-card').forEach(card=>{
-    card.querySelectorAll('.opt').forEach(btn=>{
+  // Every self-check and every practice/PYQ answer box gets a stable key (chapter
+  // id + its position in the chapter) so which option was picked survives a
+  // reload and syncs across devices — previously this reset on every page load.
+  // Clicking an option answers it; clicking the SAME option again undoes it
+  // (back to unanswered, all options re-enabled); clicking a DIFFERENT option
+  // while already answered just re-picks that one. Mirrors a normal quiz app
+  // instead of permanently locking after the first click.
+  content.querySelectorAll('.check-card').forEach((card, idx)=>{
+    const key = id + '::check' + idx;
+    const opts = Array.from(card.querySelectorAll('.opt'));
+    const ex = card.querySelector('.check-explain');
+    function applyAnswer(pickedIdx){
+      card.dataset.answered = "1";
+      opts.forEach((o,i)=>{
+        o.disabled = true;
+        o.classList.remove('correct','wrong');
+        if(o.dataset.correct === "true") o.classList.add('correct');
+        else if(i === pickedIdx) o.classList.add('wrong');
+      });
+      if(ex) ex.classList.add('show');
+    }
+    function clearAnswer(){
+      delete card.dataset.answered;
+      opts.forEach(o=>{ o.disabled = false; o.classList.remove('correct','wrong'); });
+      if(ex) ex.classList.remove('show');
+    }
+    const saved = window.ANSWERED.get(key);
+    if(saved !== undefined) applyAnswer(saved);
+    opts.forEach((btn, i)=>{
       btn.onclick = function(){
-        if(card.dataset.answered) return;
-        card.dataset.answered = "1";
-        const opts = card.querySelectorAll('.opt');
-        opts.forEach(o=>{
-          o.disabled = true;
-          if(o.dataset.correct === "true") o.classList.add('correct');
-          else if(o === btn) o.classList.add('wrong');
-        });
-        const ex = card.querySelector('.check-explain');
-        if(ex) ex.classList.add('show');
+        const current = window.ANSWERED.get(key);
+        if(current === i){
+          clearAnswer();
+          window.ANSWERED.delete(key);
+        } else {
+          applyAnswer(i);
+          window.ANSWERED.set(key, i);
+        }
+        saveAnswered();
+        scheduleGaSync();
         updateProgress(id);
       };
     });
   });
-  content.querySelectorAll('.pyq-opts').forEach(box=>{
-    box.querySelectorAll('.pyq-opt').forEach(btn=>{
+  content.querySelectorAll('.pyq-opts').forEach((box, idx)=>{
+    const key = id + '::opts' + idx;
+    const opts = Array.from(box.querySelectorAll('.pyq-opt'));
+    function applyAnswer(pickedIdx){
+      box.dataset.answered = "1";
+      opts.forEach((o,i)=>{
+        o.disabled = true;
+        o.classList.remove('correct','wrong');
+        if(o.dataset.correct === "true") o.classList.add('correct');
+        else if(i === pickedIdx) o.classList.add('wrong');
+      });
+      box.classList.add('revealed');
+    }
+    function clearAnswer(){
+      delete box.dataset.answered;
+      opts.forEach(o=>{ o.disabled = false; o.classList.remove('correct','wrong'); });
+      box.classList.remove('revealed');
+    }
+    const saved = window.ANSWERED.get(key);
+    if(saved !== undefined) applyAnswer(saved);
+    opts.forEach((btn, i)=>{
       btn.onclick = function(e){
         e.stopPropagation();
-        if(box.dataset.answered) return;
-        box.dataset.answered = "1";
-        const opts = box.querySelectorAll('.pyq-opt');
-        opts.forEach(o=>{
-          o.disabled = true;
-          if(o.dataset.correct === "true") o.classList.add('correct');
-          else if(o === btn) o.classList.add('wrong');
-        });
-        box.classList.add('revealed');
+        const current = window.ANSWERED.get(key);
+        if(current === i){
+          clearAnswer();
+          window.ANSWERED.delete(key);
+        } else {
+          applyAnswer(i);
+          window.ANSWERED.set(key, i);
+        }
+        saveAnswered();
+        scheduleGaSync();
         updateProgress(id);
       };
     });
   });
-  content.querySelectorAll('[data-ex]').forEach(card=>{
+  content.querySelectorAll('[data-ex]').forEach((card, cardIdx)=>{
     const numEl = card.querySelector('.ex-num');
     const head = card.querySelector('.ex-head');
     if(!numEl || !head || head.querySelector('.pyq-solve-btn')) return;
     const firstText = numEl.childNodes[0] ? numEl.childNodes[0].textContent : '';
-    const m = firstText.match(/^PYQ\s*(\d+)/);
-    if(!m) return;
-    const key = id + '::' + m[1];
+    // Real PYQs keep their original "chapterId::N" key (matches what was already
+    // being saved, so marks made before this change still show as solved). Every
+    // other labeled example (book-exercise "Q1", unlabeled cards, etc.) — previously
+    // untracked entirely — now gets a key based on its stable position in the
+    // chapter instead, since that's static across reloads.
+    const pyqMatch = firstText.match(/^PYQ\s*(\d+)/);
+    const key = pyqMatch ? (id + '::' + pyqMatch[1]) : (id + '::idx' + cardIdx);
     const btn = document.createElement('button');
     btn.type = 'button';
     btn.className = 'pyq-solve-btn';
@@ -21391,6 +21442,7 @@ function updateProgress(id){
     localStorage.setItem(chapterProgressKey(id), JSON.stringify({done, total, pct, ts: Date.now()}));
   }catch(e){}
   refreshDot(id, pct);
+  scheduleGaSync();
 }
 
 function refreshDot(id, pct){
@@ -21416,6 +21468,21 @@ try{
 
 function saveSolved(){
   try{ localStorage.setItem('gaprep_solved_pyqs', JSON.stringify([...window.SOLVED])); }catch(e){}
+}
+
+/* ============ SELF-CHECK / PRACTICE ANSWER TRACKING ============ */
+// Which option (by index) was picked for every .check-card and .pyq-opts box,
+// keyed by "chapterId::check<N>" / "chapterId::opts<N>" — so reopening a
+// chapter (or opening it on another device) restores the picked answer instead
+// of resetting to an unanswered state.
+window.ANSWERED = new Map();
+try{
+  const raw = localStorage.getItem('gaprep_answered');
+  if(raw) Object.entries(JSON.parse(raw)).forEach(([k,v])=>window.ANSWERED.set(k,v));
+}catch(e){}
+
+function saveAnswered(){
+  try{ localStorage.setItem('gaprep_answered', JSON.stringify(Object.fromEntries(window.ANSWERED))); }catch(e){}
 }
 
 function toggleSolved(key, btn, card){
@@ -21483,9 +21550,55 @@ function scheduleGaSync(){
   gaSyncTimer = setTimeout(saveGaToGithub, 1500);
 }
 
-// Read-modify-write against whatever the main tracker last saved, merging only
-// our own `gaPrep.solved` field (union of keys — never drops a solved mark) so
-// this never clobbers csTrack/daTrack/hours written by index.html, and vice versa.
+// Merges remote gaPrep data into our in-memory state. solved/answered are
+// unioned (additive — an answer or solved-mark never gets erased by a stale
+// remote copy). chapterProgress takes whichever side has the higher pct per
+// chapter (a scalar, not a set, so "more complete" wins rather than blending).
+// Returns true if anything in-memory actually changed.
+function mergeRemoteGaPrep(remote){
+  if(!remote) return false;
+  let changed = false;
+  (remote.solved || []).forEach(k=>{ if(!window.SOLVED.has(k)){ window.SOLVED.add(k); changed = true; } });
+  Object.entries(remote.answered || {}).forEach(([k,v])=>{
+    if(!window.ANSWERED.has(k)){ window.ANSWERED.set(k, v); changed = true; }
+  });
+  Object.entries(remote.chapterProgress || {}).forEach(([cid, rp])=>{
+    try{
+      const raw = localStorage.getItem(chapterProgressKey(cid));
+      const local = raw ? JSON.parse(raw) : null;
+      if(!local || (rp.pct||0) > (local.pct||0)){
+        localStorage.setItem(chapterProgressKey(cid), JSON.stringify(rp));
+        changed = true;
+      }
+    }catch(e){}
+  });
+  if(remote.lastChapter && !location.hash){
+    try{ localStorage.setItem('gaprep_last_chapter', remote.lastChapter); }catch(e){}
+  }
+  return changed;
+}
+
+function collectGaPrepPayload(){
+  const chapterProgress = {};
+  window.CH_ORDER.forEach(cid=>{
+    try{
+      const raw = localStorage.getItem(chapterProgressKey(cid));
+      if(raw) chapterProgress[cid] = JSON.parse(raw);
+    }catch(e){}
+  });
+  let lastChapter = null;
+  try{ lastChapter = localStorage.getItem('gaprep_last_chapter'); }catch(e){}
+  return {
+    solved: [...window.SOLVED],
+    answered: Object.fromEntries(window.ANSWERED),
+    chapterProgress,
+    lastChapter,
+  };
+}
+
+// Read-modify-write against whatever the main tracker last saved, touching only
+// our own `gaPrep` field so this never clobbers csTrack/daTrack/hours written
+// by index.html, and vice versa.
 async function saveGaToGithub(isRetry){
   if(!getPat()) return;
   if(gaSyncing){ gaResaveQueued = true; return; }
@@ -21505,10 +21618,8 @@ async function saveGaToGithub(isRetry){
       gaSyncing = false;
       return;
     }
-    const remoteSolved = (existing.gaPrep && Array.isArray(existing.gaPrep.solved)) ? existing.gaPrep.solved : [];
-    remoteSolved.forEach(k => window.SOLVED.add(k));
-    saveSolved();
-    existing.gaPrep = { solved: [...window.SOLVED] };
+    if(mergeRemoteGaPrep(existing.gaPrep)){ saveSolved(); saveAnswered(); }
+    existing.gaPrep = collectGaPrepPayload();
     const body = {
       message: 'Update GA prep progress ' + new Date().toISOString(),
       content: b64EncodeUnicode(JSON.stringify(existing, null, 2)),
@@ -21542,16 +21653,15 @@ async function loadGaFromGithub(){
     if(!res.ok){ setGaSyncStatus('token error ('+res.status+')','error'); return; }
     const data = await res.json();
     const parsed = JSON.parse(b64DecodeUnicode(data.content.replace(/\n/g,'')));
-    const remoteSolved = (parsed.gaPrep && Array.isArray(parsed.gaPrep.solved)) ? parsed.gaPrep.solved : [];
-    let changed = false;
-    remoteSolved.forEach(k => { if(!window.SOLVED.has(k)){ window.SOLVED.add(k); changed = true; } });
+    const changed = mergeRemoteGaPrep(parsed.gaPrep);
     if(changed){
       saveSolved();
+      saveAnswered();
       refreshAllDots();
       if(document.getElementById('homeTotalNum')) renderHome();
       else {
         const id = (location.hash || '').replace('#/', '');
-        if(id && window.CHAPTERS[id]) wireChapterInteractivity(id);
+        if(id && window.CHAPTERS[id]){ wireChapterInteractivity(id); updateProgress(id); }
       }
     }
     setGaSyncStatus('synced','ok');
