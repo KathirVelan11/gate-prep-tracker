@@ -9015,7 +9015,7 @@ registerChapter('problems_on_ages', 'quant', 9, 'Problems on Ages', {
 
     <div class="example" data-ex>
       <div class="ex-head"><div><span class="ex-num">Q2 · Medium<span class="src-badge src-book">Book Ex. Q7</span></span>
-      <div class="ex-q">Farah married 8 years ago; today her age is 1⅔×... (1²/₇×) her age at marriage. Her daughter's present age is 1/6 of hers. Find the daughter's age 3 years ago.</div></div><div class="ex-toggle">+</div></div>
+      <div class="ex-q">Farah married 8 years ago; today her age is 1²⁄₇× her age at marriage. Her daughter's present age is 1/6 of hers. Find the daughter's age 3 years ago.</div></div><div class="ex-toggle">+</div></div>
       <div class="ex-body"><div class="ex-body-inner">
         <div class="pyq-opts">
           <button class="pyq-opt" data-correct="false"><span class="pyq-opt-tag">(a)</span>6 years (reported the daughter's present age instead of 3 years ago)</button>
@@ -21386,6 +21386,43 @@ function regroupCompletedSections(content){
   });
 }
 
+// Deterministic (seeded) shuffle — same key always produces the same order,
+// so a question's option order doesn't change between visits (which would
+// break a previously-saved answer index), but it's no longer predictable
+// from question to question. Many of the book-exercise practice sets were
+// authored with the correct answer landing on the same letter many times in
+// a row within a chapter (not biased overall, just clustered per-chapter),
+// which made them guessable without reading the question.
+function seededShuffle(arr, seed){
+  let h = 0;
+  for(let i=0;i<seed.length;i++) h = (h*31 + seed.charCodeAt(i)) >>> 0;
+  function rand(){ h = (h*1664525 + 1013904223) >>> 0; return h / 4294967296; }
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(rand()*(i+1));
+    [a[i],a[j]] = [a[j],a[i]];
+  }
+  return a;
+}
+const OPT_LETTERS = ['(a)','(b)','(c)','(d)'];
+// Returns the new 0-based index of the correct option after shuffling, so the
+// caller can fix up a sibling "Answer: (x) ..." text that referenced the old
+// position — shuffling the buttons alone would leave that text wrong.
+function shuffleOptionGroup(container, optSelector, tagSelector, key){
+  const opts = Array.from(container.querySelectorAll(optSelector));
+  if(opts.length < 2) return opts.findIndex(o => o.dataset.correct === 'true');
+  const shuffled = seededShuffle(opts, key);
+  let correctIdx = -1;
+  shuffled.forEach((opt, i)=>{
+    container.appendChild(opt);
+    if(opt.dataset.correct === 'true') correctIdx = i;
+    if(!tagSelector) return;
+    const tag = opt.querySelector(tagSelector);
+    if(tag && OPT_LETTERS[i]) tag.textContent = OPT_LETTERS[i];
+  });
+  return correctIdx;
+}
+
 function wireChapterInteractivity(id){
   const content = document.getElementById('content');
   // Cards render always-expanded now (no accordion) — every card is forced open.
@@ -21393,6 +21430,22 @@ function wireChapterInteractivity(id){
     card.classList.add('open');
     const toggle = card.querySelector('.ex-toggle');
     if(toggle) toggle.style.display = 'none';
+  });
+  // Shuffle each question's options into a per-question-stable random order
+  // before anything below wires click handlers or restores a saved answer —
+  // both operate on DOM index, so this must happen first.
+  content.querySelectorAll('.pyq-opts').forEach((box, idx)=>{
+    const correctIdx = shuffleOptionGroup(box, '.pyq-opt', '.pyq-opt-tag', id + '::opts' + idx);
+    // The static "Answer: (x) ..." line right after .pyq-opts referenced the
+    // ORIGINAL (pre-shuffle) position — rewrite its leading letter to match
+    // where the correct option actually landed now.
+    const answerEl = box.nextElementSibling;
+    if(answerEl && answerEl.classList.contains('ex-answer') && correctIdx >= 0 && OPT_LETTERS[correctIdx]){
+      answerEl.innerHTML = answerEl.innerHTML.replace(/^Answer:\s*\([a-d]\)/, 'Answer: ' + OPT_LETTERS[correctIdx]);
+    }
+  });
+  content.querySelectorAll('.check-card').forEach((card, idx)=>{
+    shuffleOptionGroup(card, '.opt', null, id + '::check' + idx);
   });
   // Every self-check and every practice/PYQ answer box gets a stable key (chapter
   // id + its position in the chapter) so which option was picked survives a
