@@ -1399,7 +1399,7 @@
         "done": 0,
         "total": 80,
         "pct": 0,
-        "ts": 1791351677558
+        "ts": 1791353096451
       },
       "verbal_rc": {
         "done": 0,
@@ -1417,13 +1417,19 @@
         "done": 0,
         "total": 28,
         "pct": 0,
-        "ts": 1791351707358
+        "ts": 1791352658512
       },
       "average": {
         "done": 0,
         "total": 35,
         "pct": 0,
-        "ts": 1791352576688
+        "ts": 1791353094150
+      },
+      "problems_on_numbers": {
+        "done": 0,
+        "total": 26,
+        "pct": 0,
+        "ts": 1791353093679
       },
       "races_games_skill": {
         "done": 0,
@@ -1432,6 +1438,6 @@
         "ts": 1791352596249
       }
     },
-    "lastChapter": "number_system"
+    "lastChapter": "verbal_grammar"
   }
 }
