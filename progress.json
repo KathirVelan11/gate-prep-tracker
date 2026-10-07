@@ -1392,8 +1392,12 @@
     "36": 0
   },
   "gaPrep": {
-    "solved": [],
-    "answered": {},
+    "solved": [
+      "problems_on_ages::idx0"
+    ],
+    "answered": {
+      "problems_on_ages::opts0": 0
+    },
     "chapterProgress": {
       "verbal_grammar": {
         "done": 0,
@@ -1411,13 +1415,19 @@
         "done": 0,
         "total": 40,
         "pct": 0,
-        "ts": 1791352655979
+        "ts": 1791353332002
       },
       "hcf_lcm": {
         "done": 0,
         "total": 28,
         "pct": 0,
-        "ts": 1791352658512
+        "ts": 1791353335059
+      },
+      "decimal_fractions": {
+        "done": 0,
+        "total": 20,
+        "pct": 0,
+        "ts": 1791353344131
       },
       "average": {
         "done": 0,
@@ -1432,16 +1442,16 @@
         "ts": 1791353093679
       },
       "problems_on_ages": {
-        "done": 0,
+        "done": 1,
         "total": 16,
-        "pct": 0,
-        "ts": 1791353125932
+        "pct": 6,
+        "ts": 1791353441622
       },
       "surds_indices": {
         "done": 0,
         "total": 22,
         "pct": 0,
-        "ts": 1791353178706
+        "ts": 1791353225781
       },
       "logarithms": {
         "done": 0,
@@ -1456,6 +1466,6 @@
         "ts": 1791352596249
       }
     },
-    "lastChapter": "surds_indices"
+    "lastChapter": "problems_on_ages"
   }
 }
