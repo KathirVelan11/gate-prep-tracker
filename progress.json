@@ -1390,5 +1390,42 @@
     "34": 0,
     "35": 7.25,
     "36": 0
+  },
+  "gaPrep": {
+    "solved": [],
+    "answered": {},
+    "chapterProgress": {
+      "verbal_grammar": {
+        "done": 0,
+        "total": 80,
+        "pct": 0,
+        "ts": 1791351677558
+      },
+      "verbal_rc": {
+        "done": 0,
+        "total": 38,
+        "pct": 0,
+        "ts": 1791351722176
+      },
+      "number_system": {
+        "done": 0,
+        "total": 40,
+        "pct": 0,
+        "ts": 1791351728585
+      },
+      "hcf_lcm": {
+        "done": 0,
+        "total": 28,
+        "pct": 0,
+        "ts": 1791351707358
+      },
+      "average": {
+        "done": 0,
+        "total": 35,
+        "pct": 0,
+        "ts": 1791352570075
+      }
+    },
+    "lastChapter": "average"
   }
 }
