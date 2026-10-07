@@ -172,6 +172,7 @@
       <div class="tlabel">TODAY</div>
       <div class="tdate" id="today"></div>
       <button class="testsFab" onclick="toggleTestsPanel()">📋 All tests & marks</button>
+      <a class="testsFab" id="gaPrepLink" href="ga-prep.html" style="text-decoration:none;display:block;text-align:center;">📘 GA Prep (Verbal/Quant/Analytical/Spatial)</a>
     </div>
   </div>
   <div class="sub" id="planNote"></div>
@@ -938,7 +939,19 @@ function renderTrack(arr, bodyId, prefix, trackKey){
   });
 }
 
+const GA_PREP_TOTAL_PYQS = 686;
+function getGaPrepStats(){
+  let solved = 0;
+  try{
+    const raw = localStorage.getItem('gaprep_solved_pyqs');
+    if(raw) solved = JSON.parse(raw).length;
+  }catch(e){}
+  const pct = GA_PREP_TOTAL_PYQS ? Math.round((solved/GA_PREP_TOTAL_PYQS)*100) : 0;
+  return { solved, total: GA_PREP_TOTAL_PYQS, pct };
+}
+
 function render(){
+  const gaPrep = getGaPrepStats();
   const daysSinceStart = Math.floor((today - startDate)/msDay);
   const totalTargetHoursSoFar = daysSinceStart >= 0 ? (daysSinceStart+1)*5 : 0;
   let hoursLogged = 0;
@@ -989,6 +1002,10 @@ function render(){
     <div class="stat">
       <div class="num">${subjectTestsDone} / ${subjectTestsTotal}</div>
       <div class="lbl">subject-wise tests done</div>
+    </div>
+    <div class="stat ${gaPrep.pct>=100?'ok':''}">
+      <div class="num">${gaPrep.solved} / ${gaPrep.total}</div>
+      <div class="lbl">GA prep PYQs solved (${gaPrep.pct}%)</div>
     </div>
   `;
 
