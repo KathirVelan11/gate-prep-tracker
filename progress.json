@@ -1402,7 +1402,9 @@
       "problems_on_ages::idx6",
       "problems_on_ages::idx7",
       "problems_on_ages::idx9",
-      "problems_on_ages::idx10"
+      "problems_on_ages::idx10",
+      "problems_on_ages::idx11",
+      "problems_on_ages::idx12"
     ],
     "answered": {
       "problems_on_ages::opts0": 0,
@@ -1414,7 +1416,9 @@
       "problems_on_ages::opts6": 0,
       "problems_on_ages::opts7": 1,
       "problems_on_ages::opts9": 3,
-      "problems_on_ages::opts10": 3
+      "problems_on_ages::opts10": 3,
+      "problems_on_ages::opts11": 3,
+      "problems_on_ages::opts12": 2
     },
     "chapterProgress": {
       "verbal_grammar": {
@@ -1460,10 +1464,10 @@
         "ts": 1791353093679
       },
       "problems_on_ages": {
-        "done": 10,
+        "done": 12,
         "total": 16,
-        "pct": 63,
-        "ts": 1791354263655
+        "pct": 75,
+        "ts": 1791354434734
       },
       "surds_indices": {
         "done": 0,
