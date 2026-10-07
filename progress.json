@@ -1399,7 +1399,7 @@
         "done": 0,
         "total": 80,
         "pct": 0,
-        "ts": 1791353096451
+        "ts": 1791353103501
       },
       "verbal_rc": {
         "done": 0,
@@ -1423,13 +1423,31 @@
         "done": 0,
         "total": 35,
         "pct": 0,
-        "ts": 1791353094150
+        "ts": 1791353098116
       },
       "problems_on_numbers": {
         "done": 0,
         "total": 26,
         "pct": 0,
         "ts": 1791353093679
+      },
+      "problems_on_ages": {
+        "done": 0,
+        "total": 16,
+        "pct": 0,
+        "ts": 1791353125932
+      },
+      "surds_indices": {
+        "done": 0,
+        "total": 22,
+        "pct": 0,
+        "ts": 1791353178706
+      },
+      "logarithms": {
+        "done": 0,
+        "total": 27,
+        "pct": 0,
+        "ts": 1791353102618
       },
       "races_games_skill": {
         "done": 0,
@@ -1438,6 +1456,6 @@
         "ts": 1791352596249
       }
     },
-    "lastChapter": "verbal_grammar"
+    "lastChapter": "surds_indices"
   }
 }
