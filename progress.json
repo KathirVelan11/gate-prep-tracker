@@ -1393,10 +1393,14 @@
   },
   "gaPrep": {
     "solved": [
-      "problems_on_ages::idx0"
+      "problems_on_ages::idx0",
+      "problems_on_ages::idx1",
+      "problems_on_ages::idx2"
     ],
     "answered": {
-      "problems_on_ages::opts0": 0
+      "problems_on_ages::opts0": 0,
+      "problems_on_ages::opts1": 0,
+      "problems_on_ages::opts2": 0
     },
     "chapterProgress": {
       "verbal_grammar": {
@@ -1442,10 +1446,10 @@
         "ts": 1791353093679
       },
       "problems_on_ages": {
-        "done": 1,
+        "done": 3,
         "total": 16,
-        "pct": 6,
-        "ts": 1791353441622
+        "pct": 19,
+        "ts": 1791353564586
       },
       "surds_indices": {
         "done": 0,
