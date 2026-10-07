@@ -1411,7 +1411,7 @@
         "done": 0,
         "total": 40,
         "pct": 0,
-        "ts": 1791351728585
+        "ts": 1791352655979
       },
       "hcf_lcm": {
         "done": 0,
@@ -1423,9 +1423,15 @@
         "done": 0,
         "total": 35,
         "pct": 0,
-        "ts": 1791352570075
+        "ts": 1791352576688
+      },
+      "races_games_skill": {
+        "done": 0,
+        "total": 9,
+        "pct": 0,
+        "ts": 1791352596249
       }
     },
-    "lastChapter": "average"
+    "lastChapter": "number_system"
   }
 }
