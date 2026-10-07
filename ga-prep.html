@@ -21300,7 +21300,11 @@ function loadChapter(id, opts){
   });
   if(!opts.noScroll) window.scrollTo({top:0, behavior:'instant' in window ? 'instant' : 'auto'});
   wireChapterInteractivity(id);
-  updateProgress(id);
+  // Just viewing/reopening a chapter recomputes existing state — it doesn't
+  // create anything new, so it shouldn't trigger a GitHub sync on its own
+  // (every chapter visit doing so was flooding the API with saves and was
+  // the main source of 409 conflicts between this page and index.html).
+  updateProgress(id, {sync:false});
   try{ localStorage.setItem('gaprep_last_chapter', id); }catch(e){}
   refreshAllDots();
 }
@@ -21477,7 +21481,8 @@ function wireChapterInteractivity(id){
   });
 }
 
-function updateProgress(id){
+function updateProgress(id, opts){
+  opts = opts || {};
   const content = document.getElementById('content');
   const total = content.querySelectorAll('[data-ex]').length + content.querySelectorAll('.check-card').length;
   const done = content.querySelectorAll('[data-ex][data-done="1"]').length + content.querySelectorAll('.check-card[data-answered]').length;
@@ -21490,7 +21495,7 @@ function updateProgress(id){
     localStorage.setItem(chapterProgressKey(id), JSON.stringify({done, total, pct, ts: Date.now()}));
   }catch(e){}
   refreshDot(id, pct);
-  scheduleGaSync();
+  if(opts.sync !== false) scheduleGaSync();
 }
 
 function refreshDot(id, pct){
@@ -21646,8 +21651,13 @@ function collectGaPrepPayload(){
 
 // Read-modify-write against whatever the main tracker last saved, touching only
 // our own `gaPrep` field so this never clobbers csTrack/daTrack/hours written
-// by index.html, and vice versa.
-async function saveGaToGithub(isRetry){
+// by index.html, and vice versa. Retries a bounded number of times on 409
+// (another tab/device saved first) instead of giving up after one attempt —
+// with two pages (index.html + ga-prep.html) able to save concurrently, a
+// single retry can still lose the race under real traffic.
+const GA_SYNC_MAX_ATTEMPTS = 5;
+async function saveGaToGithub(attempt){
+  attempt = attempt || 1;
   if(!getPat()) return;
   if(gaSyncing){ gaResaveQueued = true; return; }
   gaSyncing = true;
@@ -21675,7 +21685,7 @@ async function saveGaToGithub(isRetry){
     };
     if(sha) body.sha = sha;
     const res = await ghPut(body);
-    if(res.status === 409 && !isRetry){
+    if(res.status === 409 && attempt < GA_SYNC_MAX_ATTEMPTS){
       needsRetry = true;
     } else if(!res.ok){
       setGaSyncStatus('save failed ('+res.status+')','error');
@@ -21688,7 +21698,13 @@ async function saveGaToGithub(isRetry){
     setGaSyncStatus('offline (network)','error');
   }
   gaSyncing = false;
-  if(needsRetry){ await saveGaToGithub(true); return; }
+  if(needsRetry){
+    // Small randomized backoff so two pages racing on every attempt don't
+    // just collide again in lockstep.
+    await new Promise(r => setTimeout(r, 300 + Math.random()*400));
+    await saveGaToGithub(attempt + 1);
+    return;
+  }
   if(gaResaveQueued){ gaResaveQueued = false; saveGaToGithub(); }
 }
 
@@ -21709,7 +21725,10 @@ async function loadGaFromGithub(){
       if(document.getElementById('homeTotalNum')) renderHome();
       else {
         const id = (location.hash || '').replace('#/', '');
-        if(id && window.CHAPTERS[id]){ wireChapterInteractivity(id); updateProgress(id); }
+        // sync:false — this is just reflecting what the remote already has,
+        // not new local state, so it must not immediately write right back
+        // (that would ping-pong between two open tabs).
+        if(id && window.CHAPTERS[id]){ wireChapterInteractivity(id); updateProgress(id, {sync:false}); }
       }
     }
     setGaSyncStatus('synced','ok');

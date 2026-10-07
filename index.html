@@ -811,7 +811,12 @@ function scheduleSave(){
   saveTimer = setTimeout(saveToGithub, 150);
 }
 
-async function saveToGithub(isRetry){
+// Retries a bounded number of times on 409 (another tab/device saved first)
+// instead of giving up after one attempt — with ga-prep.html able to save
+// concurrently to the same file, a single retry can still lose the race.
+const SYNC_MAX_ATTEMPTS = 5;
+async function saveToGithub(attempt){
+  attempt = attempt || 1;
   if(!getPat()) return;
   if(syncing){
     // a save is already in flight (e.g. from the previous action) — queue
@@ -833,10 +838,10 @@ async function saveToGithub(isRetry){
     };
     if(fileSha) body.sha = fileSha;
     const res = await ghPut(body);
-    if(res.status === 409 && !isRetry){
+    if(res.status === 409 && attempt < SYNC_MAX_ATTEMPTS){
       // Someone else (another tab/device) saved first, so our sha is stale.
       // Pull their copy, union-merge it into what's on screen (nobody's
-      // progress is lost either way), then retry the save once with the
+      // progress is lost either way), then retry the save with the
       // refreshed sha.
       setSyncStatus('resolving conflict…','pending');
       const getRes = await ghGet();
@@ -863,7 +868,11 @@ async function saveToGithub(isRetry){
     setSyncStatus('offline (network)','error');
   }
   syncing = false;
-  if(needsRetry){ await saveToGithub(true); return; }
+  if(needsRetry){
+    await new Promise(r => setTimeout(r, 300 + Math.random()*400));
+    await saveToGithub(attempt + 1);
+    return;
+  }
   if(resaveQueued){ resaveQueued = false; saveToGithub(); }
 }
 
