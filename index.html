@@ -656,6 +656,10 @@ let fileSha = null;
 let saveTimer = null;
 let syncing = false;
 let resaveQueued = false;
+// Holds whatever `gaPrep` field (GA prep tool's solved-PYQ sync) was last seen
+// in progress.json, so our own saves below round-trip it instead of dropping
+// it — this file is shared with ga-prep.html, which owns that field.
+let gaPrepRemote = null;
 
 async function ghGet(){
   const pat = getPat();
@@ -722,6 +726,21 @@ function loadLocal(){
   }catch(e){}
 }
 
+// Union-merge of GA prep's solved-PYQ keys — additive only, same philosophy as mergeTrack.
+function mergeGaPrep(a, b){
+  const solved = new Set([...(a && a.solved || []), ...(b && b.solved || [])]);
+  return { solved: [...solved] };
+}
+function mergeGaPrepIntoLocalStorage(gp){
+  if(!gp || !gp.solved) return;
+  try{
+    const raw = localStorage.getItem('gaprep_solved_pyqs');
+    const local = raw ? JSON.parse(raw) : [];
+    const merged = new Set([...local, ...gp.solved]);
+    localStorage.setItem('gaprep_solved_pyqs', JSON.stringify([...merged]));
+  }catch(e){}
+}
+
 async function loadFromGithub(){
   if(!getPat()){ setSyncStatus('offline',''); return; }
   setSyncStatus('loading…','pending');
@@ -746,6 +765,8 @@ async function loadFromGithub(){
     // local values win on same-day collisions, since a locally-logged hour not
     // yet pushed to GitHub (e.g. debounce hadn't fired) must not be erased here
     if(parsed.hours) hours = { ...parsed.hours, ...hours };
+    if(parsed.gaPrep) gaPrepRemote = mergeGaPrep(gaPrepRemote, parsed.gaPrep);
+    mergeGaPrepIntoLocalStorage(gaPrepRemote);
     setSyncStatus('synced','ok');
     render();
     saveLocal();
@@ -778,6 +799,7 @@ async function saveToGithub(isRetry){
   let needsRetry = false;
   try{
     const payload = { csTrack, daTrack, hours };
+    if(gaPrepRemote) payload.gaPrep = gaPrepRemote;
     const body = {
       message: 'Update progress ' + new Date().toISOString(),
       content: b64EncodeUnicode(JSON.stringify(payload, null, 2)),
@@ -799,6 +821,7 @@ async function saveToGithub(isRetry){
         if(parsed.csTrack) csTrack = mergeTrack(csTrack, parsed.csTrack);
         if(parsed.daTrack) daTrack = mergeTrack(daTrack, parsed.daTrack);
         if(parsed.hours) hours = { ...parsed.hours, ...hours };
+        if(parsed.gaPrep) gaPrepRemote = mergeGaPrep(gaPrepRemote, parsed.gaPrep);
         render();
         saveLocal();
       }

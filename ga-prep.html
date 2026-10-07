@@ -59,6 +59,10 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:'Inter',system-u
 .sb-brand{padding:0 18px 14px;border-bottom:1px solid var(--border);margin-bottom:10px;}
 .sb-brand .t{font-family:'Source Serif 4',serif;font-weight:700;font-size:17px;}
 .sb-brand .s{font-size:11.5px;color:var(--ink-faint);font-family:'IBM Plex Mono',monospace;margin-top:2px;}
+.ga-sync-status{font-size:10.5px;font-family:'IBM Plex Mono',monospace;color:var(--ink-faint);margin-top:6px;}
+.ga-sync-status.ok{color:var(--good);}
+.ga-sync-status.pending{color:var(--gold);}
+.ga-sync-status.error{color:var(--accent);}
 .sb-search-wrap{padding:12px 18px 4px;}
 .sb-search{
   width:100%;box-sizing:border-box;font-size:13px;font-family:inherit;color:var(--ink);
@@ -340,6 +344,7 @@ footer.done .stamp{
     <div class="sb-brand">
       <div class="t">GATE GA — Complete Prep</div>
       <div class="s">Verbal · Quant · Analytical · Spatial</div>
+      <div class="ga-sync-status" id="gaSyncStatus"></div>
     </div>
     <a class="sb-link" id="sbHomeLink" href="#/home" style="font-weight:600;">🏠&nbsp;&nbsp;Home &amp; progress</a>
     <div class="sb-search-wrap">
@@ -21422,6 +21427,137 @@ function toggleSolved(key, btn, card){
     btn.classList.add('solved'); btn.textContent = '✓'; card.classList.add('solved');
   }
   saveSolved();
+  scheduleGaSync();
+}
+
+/* ============ GITHUB SYNC (shares progress.json + PAT with the main tracker) ============ */
+const GH_OWNER = 'KathirVelan11';
+const GH_REPO = 'gate-prep-tracker';
+const GH_PATH = 'progress.json';
+const GH_BRANCH = 'main';
+const PAT_KEY = 'gateTrackerGhPat';
+
+function getPat(){ try{ return localStorage.getItem(PAT_KEY) || ''; }catch(e){ return ''; } }
+
+function b64EncodeUnicode(str){
+  return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, (m,p)=>String.fromCharCode('0x'+p)));
+}
+function b64DecodeUnicode(str){
+  return decodeURIComponent(atob(str).split('').map(c=>'%'+('00'+c.charCodeAt(0).toString(16)).slice(-2)).join(''));
+}
+
+async function ghGet(){
+  const pat = getPat();
+  const url = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${GH_PATH}?ref=${GH_BRANCH}`;
+  return fetch(url, { headers: { 'Authorization': 'token ' + pat, 'Accept': 'application/vnd.github+json' } });
+}
+async function ghPut(body){
+  const pat = getPat();
+  const url = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${GH_PATH}`;
+  return fetch(url, {
+    method: 'PUT',
+    headers: {
+      'Authorization': 'token ' + pat,
+      'Accept': 'application/vnd.github+json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+  });
+}
+
+function setGaSyncStatus(text, cls){
+  const el = document.getElementById('gaSyncStatus');
+  if(!el) return;
+  el.textContent = text;
+  el.className = 'ga-sync-status ' + (cls||'');
+}
+
+let gaSyncTimer = null;
+let gaSyncing = false;
+let gaResaveQueued = false;
+
+function scheduleGaSync(){
+  if(!getPat()){ return; }
+  setGaSyncStatus('pending…','pending');
+  clearTimeout(gaSyncTimer);
+  gaSyncTimer = setTimeout(saveGaToGithub, 1500);
+}
+
+// Read-modify-write against whatever the main tracker last saved, merging only
+// our own `gaPrep.solved` field (union of keys — never drops a solved mark) so
+// this never clobbers csTrack/daTrack/hours written by index.html, and vice versa.
+async function saveGaToGithub(isRetry){
+  if(!getPat()) return;
+  if(gaSyncing){ gaResaveQueued = true; return; }
+  gaSyncing = true;
+  setGaSyncStatus('saving…','pending');
+  let needsRetry = false;
+  try{
+    const getRes = await ghGet();
+    let existing = {};
+    let sha = null;
+    if(getRes.ok){
+      const data = await getRes.json();
+      sha = data.sha;
+      existing = JSON.parse(b64DecodeUnicode(data.content.replace(/\n/g,'')));
+    } else if(getRes.status !== 404){
+      setGaSyncStatus('token error ('+getRes.status+')','error');
+      gaSyncing = false;
+      return;
+    }
+    const remoteSolved = (existing.gaPrep && Array.isArray(existing.gaPrep.solved)) ? existing.gaPrep.solved : [];
+    remoteSolved.forEach(k => window.SOLVED.add(k));
+    saveSolved();
+    existing.gaPrep = { solved: [...window.SOLVED] };
+    const body = {
+      message: 'Update GA prep progress ' + new Date().toISOString(),
+      content: b64EncodeUnicode(JSON.stringify(existing, null, 2)),
+      branch: GH_BRANCH,
+    };
+    if(sha) body.sha = sha;
+    const res = await ghPut(body);
+    if(res.status === 409 && !isRetry){
+      needsRetry = true;
+    } else if(!res.ok){
+      setGaSyncStatus('save failed ('+res.status+')','error');
+    } else {
+      setGaSyncStatus('synced','ok');
+      refreshAllDots();
+      if(document.getElementById('homeTotalNum')) renderHome();
+    }
+  }catch(e){
+    setGaSyncStatus('offline (network)','error');
+  }
+  gaSyncing = false;
+  if(needsRetry){ await saveGaToGithub(true); return; }
+  if(gaResaveQueued){ gaResaveQueued = false; saveGaToGithub(); }
+}
+
+async function loadGaFromGithub(){
+  if(!getPat()){ setGaSyncStatus('offline',''); return; }
+  setGaSyncStatus('loading…','pending');
+  try{
+    const res = await ghGet();
+    if(res.status === 404){ setGaSyncStatus('no remote data yet','pending'); return; }
+    if(!res.ok){ setGaSyncStatus('token error ('+res.status+')','error'); return; }
+    const data = await res.json();
+    const parsed = JSON.parse(b64DecodeUnicode(data.content.replace(/\n/g,'')));
+    const remoteSolved = (parsed.gaPrep && Array.isArray(parsed.gaPrep.solved)) ? parsed.gaPrep.solved : [];
+    let changed = false;
+    remoteSolved.forEach(k => { if(!window.SOLVED.has(k)){ window.SOLVED.add(k); changed = true; } });
+    if(changed){
+      saveSolved();
+      refreshAllDots();
+      if(document.getElementById('homeTotalNum')) renderHome();
+      else {
+        const id = (location.hash || '').replace('#/', '');
+        if(id && window.CHAPTERS[id]) wireChapterInteractivity(id);
+      }
+    }
+    setGaSyncStatus('synced','ok');
+  }catch(e){
+    setGaSyncStatus('offline (network)','error');
+  }
 }
 
 function computeTotals(){
@@ -21508,6 +21644,7 @@ window.addEventListener('DOMContentLoaded', ()=>{
   buildSidebar();
   route();
   refreshAllDots();
+  loadGaFromGithub();
 });
 document.getElementById('sbHomeLink').addEventListener('click', closeSidebar);
 </script>
