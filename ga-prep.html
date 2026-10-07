@@ -21357,6 +21357,25 @@ function loadChapter(id, opts){
 // refresh"), not live during a click, so answering a card never makes it jump
 // out from under you mid-question — it just sorts into place next time you
 // open or reload the chapter.
+// Completed cards collapse by default (just the question line, with a toggle
+// to open and review it) so a long Completed list doesn't take up as much
+// scroll space as the To-do list above it — which stays always-expanded.
+function collapseCard(card){
+  card.classList.remove('open');
+  const toggle = card.querySelector('.ex-toggle');
+  if(!toggle) return;
+  toggle.style.display = '';
+  toggle.textContent = '+';
+  const head = card.querySelector('.ex-head');
+  if(head && !head.dataset.toggleWired){
+    head.dataset.toggleWired = '1';
+    head.onclick = function(){
+      card.classList.toggle('open');
+      toggle.textContent = card.classList.contains('open') ? '×' : '+';
+    };
+  }
+}
+
 function regroupCompletedSections(content){
   content.querySelectorAll('section.block#pyq, section.block#practice').forEach(section=>{
     const cards = Array.from(section.querySelectorAll(':scope > [data-ex]'));
@@ -21380,7 +21399,7 @@ function regroupCompletedSections(content){
       } else {
         section.appendChild(doneWrap);
       }
-      done.forEach((c,i)=>{ renumber(c, i+1); doneWrap.appendChild(c); });
+      done.forEach((c,i)=>{ renumber(c, i+1); doneWrap.appendChild(c); collapseCard(c); });
     } else if(doneWrap){
       doneWrap.remove();
     }
