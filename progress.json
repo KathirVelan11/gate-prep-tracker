@@ -94,8 +94,8 @@
           "type": "test",
           "name": "Topic Test 3",
           "coverage": "Cache Memory",
-          "done": false,
-          "score": "",
+          "done": true,
+          "score": "1",
           "date": "2026-10-12"
         },
         {
