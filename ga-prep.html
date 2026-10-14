@@ -21627,12 +21627,17 @@ function refreshDot(id, pct, doneOverride, totalOverride){
 }
 function refreshAllDots(){
   window.CH_ORDER.forEach(id=>{
+    // Total always comes from the chapter's current live content, never from
+    // a stored value — a stored total goes stale the moment a question is
+    // added/removed from the chapter, which previously left old counts like
+    // "14/15" on screen forever since nothing re-derives it after that edit.
     const total = chapterTotalCount(id);
     try{
       const raw = localStorage.getItem(chapterProgressKey(id));
       if(raw){
         const d = JSON.parse(raw);
-        refreshDot(id, d.pct, d.done, d.total || total);
+        const done = Math.min(d.done || 0, total);
+        refreshDot(id, d.pct, done, total);
         return;
       }
     }catch(e){}
