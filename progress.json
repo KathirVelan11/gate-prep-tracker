@@ -1414,7 +1414,8 @@
       "problems_on_ages::idx12",
       "problems_on_ages::idx13",
       "problems_on_ages::idx14",
-      "problems_on_ages::1"
+      "problems_on_ages::1",
+      "heights_distances::idx1"
     ],
     "answered": {
       "problems_on_ages::opts0": 0,
@@ -1431,7 +1432,8 @@
       "problems_on_ages::opts12": 2,
       "problems_on_ages::opts13": 3,
       "problems_on_ages::opts14": 1,
-      "problems_on_ages::opts15": 2
+      "problems_on_ages::opts15": 2,
+      "heights_distances::opts0": 0
     },
     "chapterProgress": {
       "verbal_grammar": {
@@ -1474,7 +1476,7 @@
         "done": 0,
         "total": 26,
         "pct": 0,
-        "ts": 1791353093679
+        "ts": 1791737756530
       },
       "problems_on_ages": {
         "done": 15,
@@ -1494,13 +1496,67 @@
         "pct": 0,
         "ts": 1791353102618
       },
+      "problems_on_trains": {
+        "done": 0,
+        "total": 11,
+        "pct": 0,
+        "ts": 1791981429175
+      },
       "races_games_skill": {
         "done": 0,
         "total": 9,
         "pct": 0,
-        "ts": 1791352596249
+        "ts": 1791743737526
+      },
+      "calendar_chapter": {
+        "done": 0,
+        "total": 9,
+        "pct": 0,
+        "ts": 1791743733883
+      },
+      "simple_interest": {
+        "done": 0,
+        "total": 8,
+        "pct": 0,
+        "ts": 1791743731140
+      },
+      "chain_rule": {
+        "done": 0,
+        "total": 8,
+        "pct": 0,
+        "ts": 1791743702075
+      },
+      "alligation_mixture": {
+        "done": 0,
+        "total": 8,
+        "pct": 0,
+        "ts": 1791743730720
+      },
+      "stocks_shares": {
+        "done": 0,
+        "total": 8,
+        "pct": 0,
+        "ts": 1791743679962
+      },
+      "true_discount": {
+        "done": 0,
+        "total": 8,
+        "pct": 0,
+        "ts": 1791743679614
+      },
+      "bankers_discount": {
+        "done": 0,
+        "total": 8,
+        "pct": 0,
+        "ts": 1791743678728
+      },
+      "heights_distances": {
+        "done": 1,
+        "total": 7,
+        "pct": 14,
+        "ts": 1791982692212
       }
     },
-    "lastChapter": "problems_on_ages"
+    "lastChapter": "heights_distances"
   }
 }
