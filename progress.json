@@ -1422,7 +1422,9 @@
       "heights_distances::idx4",
       "heights_distances::idx5",
       "simple_interest::idx1",
-      "simple_interest::idx2"
+      "simple_interest::idx2",
+      "simple_interest::idx3",
+      "simple_interest::idx4"
     ],
     "answered": {
       "problems_on_ages::opts0": 0,
@@ -1447,8 +1449,11 @@
       "heights_distances::opts3": 3,
       "heights_distances::opts4": 0,
       "simple_interest::opts0": 2,
-      "simple_interest::opts1": 0
+      "simple_interest::opts1": 0,
+      "simple_interest::opts2": 2,
+      "simple_interest::opts3": 3
     },
+    "hiddenCards": [],
     "chapterProgress": {
       "verbal_grammar": {
         "done": 0,
@@ -1529,10 +1534,10 @@
         "ts": 1791743733883
       },
       "simple_interest": {
-        "done": 2,
-        "total": 8,
-        "pct": 25,
-        "ts": 1791983235496
+        "done": 4,
+        "total": 7,
+        "pct": 57,
+        "ts": 1791983323148
       },
       "chain_rule": {
         "done": 0,
