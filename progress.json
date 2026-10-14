@@ -1415,7 +1415,8 @@
       "problems_on_ages::idx13",
       "problems_on_ages::idx14",
       "problems_on_ages::1",
-      "heights_distances::idx1"
+      "heights_distances::idx1",
+      "heights_distances::idx2"
     ],
     "answered": {
       "problems_on_ages::opts0": 0,
@@ -1433,7 +1434,8 @@
       "problems_on_ages::opts13": 3,
       "problems_on_ages::opts14": 1,
       "problems_on_ages::opts15": 2,
-      "heights_distances::opts0": 0
+      "heights_distances::opts0": 0,
+      "heights_distances::opts1": 1
     },
     "chapterProgress": {
       "verbal_grammar": {
@@ -1551,10 +1553,10 @@
         "ts": 1791743678728
       },
       "heights_distances": {
-        "done": 1,
+        "done": 2,
         "total": 7,
-        "pct": 14,
-        "ts": 1791982692212
+        "pct": 29,
+        "ts": 1791982753110
       }
     },
     "lastChapter": "heights_distances"
