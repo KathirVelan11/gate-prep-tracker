@@ -1426,7 +1426,9 @@
       "simple_interest::idx3",
       "simple_interest::idx4",
       "simple_interest::idx5",
-      "simple_interest::idx6"
+      "simple_interest::idx6",
+      "simple_interest::idx7",
+      "chain_rule::idx1"
     ],
     "answered": {
       "problems_on_ages::opts0": 0,
@@ -1455,7 +1457,9 @@
       "simple_interest::opts2": 2,
       "simple_interest::opts3": 3,
       "simple_interest::opts4": 3,
-      "simple_interest::opts5": 1
+      "simple_interest::opts5": 1,
+      "simple_interest::opts6": 1,
+      "chain_rule::opts0": 1
     },
     "hiddenCards": [],
     "chapterProgress": {
@@ -1538,16 +1542,16 @@
         "ts": 1791743733883
       },
       "simple_interest": {
-        "done": 6,
+        "done": 7,
         "total": 7,
-        "pct": 86,
-        "ts": 1791983381318
+        "pct": 100,
+        "ts": 1791983403878
       },
       "chain_rule": {
-        "done": 0,
-        "total": 8,
-        "pct": 0,
-        "ts": 1791982997083
+        "done": 1,
+        "total": 7,
+        "pct": 14,
+        "ts": 1791983604414
       },
       "alligation_mixture": {
         "done": 0,
@@ -1580,6 +1584,6 @@
         "ts": 1791982937069
       }
     },
-    "lastChapter": "simple_interest"
+    "lastChapter": "chain_rule"
   }
 }
