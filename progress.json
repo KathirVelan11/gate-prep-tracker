@@ -1420,7 +1420,8 @@
       "heights_distances::idx3",
       "heights_distances::idx6",
       "heights_distances::idx4",
-      "heights_distances::idx5"
+      "heights_distances::idx5",
+      "simple_interest::idx1"
     ],
     "answered": {
       "problems_on_ages::opts0": 0,
@@ -1443,7 +1444,8 @@
       "heights_distances::opts2": 3,
       "heights_distances::opts5": 0,
       "heights_distances::opts3": 3,
-      "heights_distances::opts4": 0
+      "heights_distances::opts4": 0,
+      "simple_interest::opts0": 2
     },
     "chapterProgress": {
       "verbal_grammar": {
@@ -1525,40 +1527,40 @@
         "ts": 1791743733883
       },
       "simple_interest": {
-        "done": 0,
+        "done": 1,
         "total": 8,
-        "pct": 0,
-        "ts": 1791743731140
+        "pct": 13,
+        "ts": 1791983109996
       },
       "chain_rule": {
         "done": 0,
         "total": 8,
         "pct": 0,
-        "ts": 1791743702075
+        "ts": 1791982997083
       },
       "alligation_mixture": {
         "done": 0,
         "total": 8,
         "pct": 0,
-        "ts": 1791743730720
+        "ts": 1791982993474
       },
       "stocks_shares": {
         "done": 0,
         "total": 8,
         "pct": 0,
-        "ts": 1791743679962
+        "ts": 1791982995057
       },
       "true_discount": {
         "done": 0,
         "total": 8,
         "pct": 0,
-        "ts": 1791743679614
+        "ts": 1791982974236
       },
       "bankers_discount": {
         "done": 0,
         "total": 8,
         "pct": 0,
-        "ts": 1791743678728
+        "ts": 1791982977098
       },
       "heights_distances": {
         "done": 6,
@@ -1567,6 +1569,6 @@
         "ts": 1791982937069
       }
     },
-    "lastChapter": "heights_distances"
+    "lastChapter": "simple_interest"
   }
 }
