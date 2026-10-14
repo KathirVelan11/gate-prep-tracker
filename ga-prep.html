@@ -111,8 +111,11 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:'Inter',system-u
   font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--ink-faint);width:18px;flex:none;
 }
 .sb-link.active .sb-num{color:var(--accent);}
-.sb-dot{width:6px;height:6px;border-radius:50%;background:var(--border);flex:none;margin-left:auto;}
-.sb-dot.done{background:var(--good);}
+.sb-dot{
+  font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--ink-faint);
+  flex:none;margin-left:auto;white-space:nowrap;
+}
+.sb-dot.done{color:var(--good);font-weight:600;}
 
 /* Mobile: sidebar becomes a slide-out drawer */
 .sb-toggle{
@@ -21609,21 +21612,45 @@ function updateProgress(id, opts){
   try{
     localStorage.setItem(chapterProgressKey(id), JSON.stringify({done, total, pct, ts: Date.now()}));
   }catch(e){}
-  refreshDot(id, pct);
+  refreshDot(id, pct, done, total);
   if(opts.sync !== false) scheduleGaSync();
 }
 
-function refreshDot(id, pct){
+// Total question count per chapter, computed once (not just after visiting
+// it) by parsing the chapter's stored HTML string in a detached element —
+// so every chapter shows "0 / N" from the very first load, not a bare dot.
+function chapterTotalCount(id){
+  const ch = window.CHAPTERS[id];
+  if(!ch) return 0;
+  if(ch._total !== undefined) return ch._total;
+  const tmp = document.createElement('div');
+  tmp.innerHTML = ch.html;
+  ch._total = tmp.querySelectorAll('[data-ex]').length + tmp.querySelectorAll('.check-card').length;
+  return ch._total;
+}
+function refreshDot(id, pct, doneOverride, totalOverride){
   const dot = document.getElementById('dot-' + id);
   if(!dot) return;
-  dot.classList.toggle('done', pct === 100);
+  const total = totalOverride !== undefined ? totalOverride : chapterTotalCount(id);
+  let done = doneOverride;
+  if(done === undefined){
+    done = (total > 0 && pct !== undefined) ? Math.round((pct/100) * total) : 0;
+  }
+  dot.textContent = total ? `${done}/${total}` : '';
+  dot.classList.toggle('done', total > 0 && done === total);
 }
 function refreshAllDots(){
   window.CH_ORDER.forEach(id=>{
+    const total = chapterTotalCount(id);
     try{
       const raw = localStorage.getItem(chapterProgressKey(id));
-      if(raw){ const d = JSON.parse(raw); refreshDot(id, d.pct); }
+      if(raw){
+        const d = JSON.parse(raw);
+        refreshDot(id, d.pct, d.done, d.total || total);
+        return;
+      }
     }catch(e){}
+    refreshDot(id, 0, 0, total);
   });
 }
 
