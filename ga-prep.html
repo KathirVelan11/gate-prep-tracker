@@ -231,6 +231,13 @@ sub{font-size:0.66em;vertical-align:sub;}
 .ex-q{font-size:14.5px;color:var(--ink);margin-top:4px;line-height:1.5;}
 .ex-toggle{flex:none;width:24px;height:24px;border-radius:7px;background:var(--surface-2);display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--ink-soft);transition:transform .2s;}
 .example.open .ex-toggle{transform:rotate(45deg);}
+.ex-del{
+  flex:none;width:24px;height:24px;border-radius:7px;background:var(--surface-2);
+  display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--ink-faint);
+  transition:.12s;
+}
+.ex-del:hover{background:var(--bad,#c0503f);color:#fff;}
+.example.ex-hidden{display:none;}
 .ex-body{max-height:0;overflow:hidden;transition:max-height .35s ease;}
 .example.open .ex-body{max-height:2200px;}
 .ex-body-inner{padding:6px 20px 20px;}
@@ -21565,6 +21572,26 @@ function wireChapterInteractivity(id){
     const isDone = optsIdx >= 0 && window.ANSWERED.has(id + '::opts' + optsIdx);
     card.classList.toggle('solved', isDone);
     card.dataset.done = isDone ? '1' : '0';
+    // Apply any previously-deleted state, and wire the delete button fresh
+    // each load (card.innerHTML was just replaced wholesale by loadChapter).
+    card.classList.toggle('ex-hidden', window.HIDDEN_CARDS.has(cardKey));
+    const head = card.querySelector('.ex-head');
+    if(head && !head.querySelector('.ex-del')){
+      const delBtn = document.createElement('div');
+      delBtn.className = 'ex-del';
+      delBtn.title = 'Remove this question';
+      delBtn.textContent = '✕';
+      delBtn.onclick = (e) => {
+        e.stopPropagation();
+        if(!confirm('Remove this question? It will disappear from this chapter on all your synced devices.')) return;
+        window.HIDDEN_CARDS.add(cardKey);
+        saveHiddenCards();
+        card.classList.add('ex-hidden');
+        scheduleGaSync();
+        updateProgress(id);
+      };
+      head.appendChild(delBtn);
+    }
   });
   regroupCompletedSections(content);
   const navLinks = content.querySelectorAll('nav.jump a');
@@ -21588,8 +21615,14 @@ function wireChapterInteractivity(id){
 function updateProgress(id, opts){
   opts = opts || {};
   const content = document.getElementById('content');
-  const total = content.querySelectorAll('[data-ex]').length + content.querySelectorAll('.check-card').length;
-  const done = content.querySelectorAll('[data-ex][data-done="1"]').length + content.querySelectorAll('.check-card[data-answered]').length;
+  // Only cards with an actual answerable .pyq-opts count toward the total —
+  // some "example" cards (e.g. a "Quick check" concept walkthrough) are pure
+  // static explanation with no MCQ to click, so they can never become "done"
+  // and previously capped a chapter below 100% forever (showing e.g. "6/7"
+  // with no way to ever reach 7/7). Deleted (hidden) cards stay in the DOM
+  // (display:none) rather than being removed, so .ex-hidden is excluded too.
+  const total = content.querySelectorAll('[data-ex]:not(.ex-hidden):has(.pyq-opts)').length + content.querySelectorAll('.check-card').length;
+  const done = content.querySelectorAll('[data-ex]:not(.ex-hidden):has(.pyq-opts)[data-done="1"]').length + content.querySelectorAll('.check-card[data-answered]').length;
   const pct = total ? Math.round((done/total)*100) : 0;
   document.getElementById('progFill').style.width = pct+'%';
   document.getElementById('progPct').textContent = pct+'%';
@@ -21608,11 +21641,20 @@ function updateProgress(id, opts){
 function chapterTotalCount(id){
   const ch = window.CHAPTERS[id];
   if(!ch) return 0;
-  if(ch._total !== undefined) return ch._total;
-  const tmp = document.createElement('div');
-  tmp.innerHTML = ch.html;
-  ch._total = tmp.querySelectorAll('[data-ex]').length + tmp.querySelectorAll('.check-card').length;
-  return ch._total;
+  if(ch._total === undefined){
+    const tmp = document.createElement('div');
+    tmp.innerHTML = ch.html;
+    // Only count cards with an actual MCQ (.pyq-opts) — a static "Quick
+    // check" walkthrough has no option to click and must not count.
+    ch._total = tmp.querySelectorAll('[data-ex]:has(.pyq-opts)').length + tmp.querySelectorAll('.check-card').length;
+  }
+  // Subtract this chapter's deleted cards even before it's ever been opened
+  // (e.g. right after a sync pulls down a deletion made on another device) —
+  // every cardKey for a chapter is prefixed "<id>::", matching how
+  // wireChapterInteractivity derives it.
+  let hiddenCount = 0;
+  window.HIDDEN_CARDS.forEach(k => { if(k.startsWith(id + '::')) hiddenCount++; });
+  return Math.max(0, ch._total - hiddenCount);
 }
 function refreshDot(id, pct, doneOverride, totalOverride){
   const dot = document.getElementById('dot-' + id);
@@ -21669,6 +21711,22 @@ try{
 
 function saveAnswered(){
   try{ localStorage.setItem('gaprep_answered', JSON.stringify(Object.fromEntries(window.ANSWERED))); }catch(e){}
+}
+
+/* ============ PER-QUESTION DELETE ============
+   Chapter content is static HTML baked into the page, not a database, so a
+   "deleted" question can't actually be removed from the source — instead its
+   cardKey goes into this hidden set, the card gets display:none, and it's
+   excluded from every count (sidebar, progress bar, done/total). Synced
+   alongside solved/answered so a deletion follows you to other devices.
+*/
+window.HIDDEN_CARDS = new Set();
+try{
+  const raw = localStorage.getItem('gaprep_hidden_cards');
+  if(raw) JSON.parse(raw).forEach(k=>window.HIDDEN_CARDS.add(k));
+}catch(e){}
+function saveHiddenCards(){
+  try{ localStorage.setItem('gaprep_hidden_cards', JSON.stringify([...window.HIDDEN_CARDS])); }catch(e){}
 }
 
 function toggleSolved(key, btn, card){
@@ -21748,6 +21806,10 @@ function mergeRemoteGaPrep(remote){
   Object.entries(remote.answered || {}).forEach(([k,v])=>{
     if(!window.ANSWERED.has(k)){ window.ANSWERED.set(k, v); changed = true; }
   });
+  // Deletions are additive/union too — a question removed on either device
+  // stays removed everywhere, never reappears because the other side hadn't
+  // deleted it yet.
+  (remote.hiddenCards || []).forEach(k=>{ if(!window.HIDDEN_CARDS.has(k)){ window.HIDDEN_CARDS.add(k); changed = true; } });
   Object.entries(remote.chapterProgress || {}).forEach(([cid, rp])=>{
     try{
       const raw = localStorage.getItem(chapterProgressKey(cid));
@@ -21777,6 +21839,7 @@ function collectGaPrepPayload(){
   return {
     solved: [...window.SOLVED],
     answered: Object.fromEntries(window.ANSWERED),
+    hiddenCards: [...window.HIDDEN_CARDS],
     chapterProgress,
     lastChapter,
   };
@@ -21809,7 +21872,7 @@ async function saveGaToGithub(attempt){
       gaSyncing = false;
       return;
     }
-    if(mergeRemoteGaPrep(existing.gaPrep)){ saveSolved(); saveAnswered(); }
+    if(mergeRemoteGaPrep(existing.gaPrep)){ saveSolved(); saveAnswered(); saveHiddenCards(); }
     existing.gaPrep = collectGaPrepPayload();
     const body = {
       message: 'Update GA prep progress ' + new Date().toISOString(),
@@ -21854,6 +21917,7 @@ async function loadGaFromGithub(){
     if(changed){
       saveSolved();
       saveAnswered();
+      saveHiddenCards();
       refreshAllDots();
       if(document.getElementById('homeTotalNum')) renderHome();
       else {
