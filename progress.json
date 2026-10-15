@@ -1396,7 +1396,9 @@
     "40": 0,
     "41": 1.5,
     "42": 0.75,
-    "43": 0
+    "43": 0,
+    "44": 3.5,
+    "45": 5
   },
   "gaPrep": {
     "solved": [
@@ -1461,7 +1463,6 @@
       "simple_interest::opts6": 1,
       "chain_rule::opts0": 1
     },
-    "hiddenCards": [],
     "chapterProgress": {
       "verbal_grammar": {
         "done": 0,
