@@ -149,8 +149,8 @@
           "type": "test",
           "name": "Topic Test 1",
           "coverage": "Scheduling",
-          "done": true,
-          "score": "",
+          "done": false,
+          "score": "16.33/25",
           "date": ""
         },
         {
