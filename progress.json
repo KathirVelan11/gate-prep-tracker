@@ -149,7 +149,7 @@
           "type": "test",
           "name": "Topic Test 1",
           "coverage": "Scheduling",
-          "done": false,
+          "done": true,
           "score": "",
           "date": ""
         },
