@@ -1456,7 +1456,8 @@
       "time_distance::4",
       "time_distance::5",
       "time_distance::idx11",
-      "problems_on_ages::idx8"
+      "problems_on_ages::idx8",
+      "work_pipes_boats::idx0"
     ],
     "answered": {
       "problems_on_ages::opts0": 0,
@@ -1508,8 +1509,12 @@
       "time_distance::opts18": 2,
       "time_distance::opts19": 2,
       "time_distance::opts11": 0,
-      "problems_on_ages::opts8": 0
+      "problems_on_ages::opts8": 0,
+      "work_pipes_boats::opts0": 3
     },
+    "hiddenCards": [
+      "time_distance::2"
+    ],
     "chapterProgress": {
       "verbal_grammar": {
         "done": 0,
@@ -1549,15 +1554,15 @@
       },
       "problems_on_numbers": {
         "done": 0,
-        "total": 26,
+        "total": 25,
         "pct": 0,
-        "ts": 1791353093679
+        "ts": 1792580133107
       },
       "problems_on_ages": {
         "done": 15,
         "total": 15,
         "pct": 100,
-        "ts": 1792562674391
+        "ts": 1792580129615
       },
       "surds_indices": {
         "done": 0,
@@ -1576,6 +1581,18 @@
         "total": 19,
         "pct": 100,
         "ts": 1792561792336
+      },
+      "probability": {
+        "done": 0,
+        "total": 42,
+        "pct": 0,
+        "ts": 1792580145813
+      },
+      "work_pipes_boats": {
+        "done": 1,
+        "total": 10,
+        "pct": 10,
+        "ts": 1792580390205
       },
       "problems_on_trains": {
         "done": 0,
@@ -1638,6 +1655,6 @@
         "ts": 1791982937069
       }
     },
-    "lastChapter": "problems_on_ages"
+    "lastChapter": "work_pipes_boats"
   }
 }
