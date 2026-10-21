@@ -1460,7 +1460,8 @@
       "work_pipes_boats::idx0",
       "work_pipes_boats::idx1",
       "alligation_mixture::idx1",
-      "alligation_mixture::idx2"
+      "alligation_mixture::idx2",
+      "alligation_mixture::idx6"
     ],
     "answered": {
       "problems_on_ages::opts0": 0,
@@ -1516,7 +1517,8 @@
       "work_pipes_boats::opts0": 3,
       "work_pipes_boats::opts1": 3,
       "alligation_mixture::opts0": 3,
-      "alligation_mixture::opts1": 2
+      "alligation_mixture::opts1": 2,
+      "alligation_mixture::opts5": 3
     },
     "hiddenCards": [
       "time_distance::2",
@@ -1661,10 +1663,10 @@
         "ts": 1792582367916
       },
       "alligation_mixture": {
-        "done": 2,
+        "done": 3,
         "total": 7,
-        "pct": 29,
-        "ts": 1792591859996
+        "pct": 43,
+        "ts": 1792599041490
       },
       "stocks_shares": {
         "done": 0,
