@@ -1453,7 +1453,8 @@
       "time_distance::3",
       "time_distance::4",
       "time_distance::5",
-      "time_distance::idx11"
+      "time_distance::idx11",
+      "problems_on_ages::idx8"
     ],
     "answered": {
       "problems_on_ages::opts0": 0,
@@ -1504,7 +1505,8 @@
       "time_distance::opts17": 2,
       "time_distance::opts18": 2,
       "time_distance::opts19": 2,
-      "time_distance::opts11": 0
+      "time_distance::opts11": 0,
+      "problems_on_ages::opts8": 0
     },
     "hiddenCards": [
       "time_distance::2"
@@ -1554,9 +1556,9 @@
       },
       "problems_on_ages": {
         "done": 15,
-        "total": 16,
-        "pct": 94,
-        "ts": 1791354735777
+        "total": 15,
+        "pct": 100,
+        "ts": 1792562674391
       },
       "surds_indices": {
         "done": 0,
@@ -1574,7 +1576,7 @@
         "done": 19,
         "total": 19,
         "pct": 100,
-        "ts": 1792561761944
+        "ts": 1792561792336
       },
       "problems_on_trains": {
         "done": 0,
@@ -1637,6 +1639,6 @@
         "ts": 1791982937069
       }
     },
-    "lastChapter": "time_distance"
+    "lastChapter": "problems_on_ages"
   }
 }
