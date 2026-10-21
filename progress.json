@@ -1515,38 +1515,46 @@
       "work_pipes_boats::opts1": 3
     },
     "hiddenCards": [
-      "time_distance::2"
+      "time_distance::2",
+      "bankers_discount::idx0",
+      "bankers_discount::idx1"
     ],
     "chapterProgress": {
       "verbal_grammar": {
         "done": 0,
         "total": 80,
         "pct": 0,
-        "ts": 1792557814597
+        "ts": 1791353103501
       },
       "verbal_rc": {
         "done": 0,
         "total": 38,
         "pct": 0,
-        "ts": 1791351722176
+        "ts": 1792581947204
       },
       "number_system": {
         "done": 0,
-        "total": 40,
+        "total": 38,
         "pct": 0,
-        "ts": 1791353332002
+        "ts": 1792581996294
       },
       "hcf_lcm": {
         "done": 0,
-        "total": 28,
+        "total": 25,
         "pct": 0,
-        "ts": 1791353335059
+        "ts": 1792581996900
       },
       "decimal_fractions": {
         "done": 0,
-        "total": 20,
+        "total": 19,
         "pct": 0,
-        "ts": 1791353344131
+        "ts": 1792581997702
+      },
+      "simplification": {
+        "done": 0,
+        "total": 61,
+        "pct": 0,
+        "ts": 1792582013286
       },
       "average": {
         "done": 0,
@@ -1556,9 +1564,9 @@
       },
       "problems_on_numbers": {
         "done": 0,
-        "total": 25,
+        "total": 26,
         "pct": 0,
-        "ts": 1792580133107
+        "ts": 1791737756530
       },
       "problems_on_ages": {
         "done": 15,
@@ -1606,7 +1614,7 @@
         "done": 0,
         "total": 9,
         "pct": 0,
-        "ts": 1791352596249
+        "ts": 1791743737526
       },
       "calendar_chapter": {
         "done": 0,
@@ -1624,7 +1632,7 @@
         "done": 1,
         "total": 7,
         "pct": 14,
-        "ts": 1792557819392
+        "ts": 1792581059939
       },
       "alligation_mixture": {
         "done": 0,
@@ -1646,17 +1654,23 @@
       },
       "bankers_discount": {
         "done": 0,
-        "total": 8,
+        "total": 6,
         "pct": 0,
-        "ts": 1791982977098
+        "ts": 1792582177725
       },
       "heights_distances": {
         "done": 6,
         "total": 7,
         "pct": 86,
         "ts": 1791982937069
+      },
+      "analytical_aptitude": {
+        "done": 0,
+        "total": 67,
+        "pct": 0,
+        "ts": 1792582139027
       }
     },
-    "lastChapter": "work_pipes_boats"
+    "lastChapter": "bankers_discount"
   }
 }
