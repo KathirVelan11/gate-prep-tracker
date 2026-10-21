@@ -21,7 +21,7 @@
           "coverage": "Bayes Theorem, Conditional Probability",
           "done": true,
           "score": "20.33/25",
-          "date": "2026-09-08"
+          "date": "2026-08-09"
         },
         {
           "type": "module",
@@ -49,7 +49,7 @@
           "coverage": "Complete Probability",
           "done": true,
           "score": "23/35",
-          "date": "2026-09-08"
+          "date": "2026-08-09"
         },
         {
           "type": "module",
@@ -1401,7 +1401,8 @@
     "45": 5,
     "46": 9,
     "47": 5.75,
-    "48": 7.75
+    "48": 7.75,
+    "50": 0
   },
   "gaPrep": {
     "solved": [
@@ -1508,9 +1509,6 @@
       "time_distance::opts11": 0,
       "problems_on_ages::opts8": 0
     },
-    "hiddenCards": [
-      "time_distance::2"
-    ],
     "chapterProgress": {
       "verbal_grammar": {
         "done": 0,
