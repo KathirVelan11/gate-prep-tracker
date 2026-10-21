@@ -1445,7 +1445,8 @@
       "time_distance::idx8",
       "time_distance::idx9",
       "time_distance::idx10",
-      "time_distance::idx12"
+      "time_distance::idx12",
+      "time_distance::idx13"
     ],
     "answered": {
       "problems_on_ages::opts0": 0,
@@ -1488,7 +1489,8 @@
       "time_distance::opts8": 3,
       "time_distance::opts9": 2,
       "time_distance::opts10": 0,
-      "time_distance::opts12": 0
+      "time_distance::opts12": 0,
+      "time_distance::opts13": 0
     },
     "hiddenCards": [],
     "chapterProgress": {
@@ -1553,10 +1555,10 @@
         "ts": 1791353102618
       },
       "time_distance": {
-        "done": 12,
+        "done": 13,
         "total": 20,
-        "pct": 60,
-        "ts": 1792560970310
+        "pct": 65,
+        "ts": 1792561096055
       },
       "problems_on_trains": {
         "done": 0,
