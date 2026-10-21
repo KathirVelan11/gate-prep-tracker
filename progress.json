@@ -1469,7 +1469,8 @@
       "chain_rule::idx4",
       "chain_rule::idx5",
       "chain_rule::idx6",
-      "chain_rule::idx2"
+      "chain_rule::idx2",
+      "chain_rule::idx3"
     ],
     "answered": {
       "problems_on_ages::opts0": 0,
@@ -1534,7 +1535,8 @@
       "chain_rule::opts3": 2,
       "chain_rule::opts4": 3,
       "chain_rule::opts5": 2,
-      "chain_rule::opts1": 1
+      "chain_rule::opts1": 1,
+      "chain_rule::opts2": 1
     },
     "hiddenCards": [
       "time_distance::2",
@@ -1673,10 +1675,10 @@
         "ts": 1791983403878
       },
       "chain_rule": {
-        "done": 5,
+        "done": 6,
         "total": 7,
-        "pct": 71,
-        "ts": 1792602747755
+        "pct": 86,
+        "ts": 1792603068741
       },
       "alligation_mixture": {
         "done": 7,
