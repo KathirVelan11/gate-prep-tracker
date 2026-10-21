@@ -1452,7 +1452,8 @@
       "time_distance::2",
       "time_distance::3",
       "time_distance::4",
-      "time_distance::5"
+      "time_distance::5",
+      "time_distance::idx11"
     ],
     "answered": {
       "problems_on_ages::opts0": 0,
@@ -1502,7 +1503,8 @@
       "time_distance::opts16": 3,
       "time_distance::opts17": 2,
       "time_distance::opts18": 2,
-      "time_distance::opts19": 2
+      "time_distance::opts19": 2,
+      "time_distance::opts11": 0
     },
     "hiddenCards": [
       "time_distance::2"
@@ -1569,10 +1571,10 @@
         "ts": 1791353102618
       },
       "time_distance": {
-        "done": 18,
+        "done": 19,
         "total": 19,
-        "pct": 95,
-        "ts": 1792561482373
+        "pct": 100,
+        "ts": 1792561761944
       },
       "problems_on_trains": {
         "done": 0,
