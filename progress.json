@@ -1517,7 +1517,29 @@
     "hiddenCards": [
       "time_distance::2",
       "bankers_discount::idx0",
-      "bankers_discount::idx1"
+      "bankers_discount::idx1",
+      "bankers_discount::idx2",
+      "bankers_discount::idx3",
+      "bankers_discount::idx4",
+      "bankers_discount::idx5",
+      "bankers_discount::idx6",
+      "bankers_discount::idx7",
+      "true_discount::idx0",
+      "true_discount::idx1",
+      "true_discount::idx2",
+      "true_discount::idx3",
+      "true_discount::idx4",
+      "true_discount::idx5",
+      "true_discount::idx6",
+      "true_discount::idx7",
+      "stocks_shares::idx0",
+      "stocks_shares::idx1",
+      "stocks_shares::idx2",
+      "stocks_shares::idx3",
+      "stocks_shares::idx4",
+      "stocks_shares::idx5",
+      "stocks_shares::idx6",
+      "stocks_shares::idx7"
     ],
     "chapterProgress": {
       "verbal_grammar": {
@@ -1642,21 +1664,21 @@
       },
       "stocks_shares": {
         "done": 0,
-        "total": 8,
+        "total": 0,
         "pct": 0,
-        "ts": 1791982995057
+        "ts": 1792582240238
       },
       "true_discount": {
         "done": 0,
-        "total": 8,
+        "total": 0,
         "pct": 0,
-        "ts": 1791982974236
+        "ts": 1792582219118
       },
       "bankers_discount": {
         "done": 0,
-        "total": 6,
+        "total": 0,
         "pct": 0,
-        "ts": 1792582177725
+        "ts": 1792582186334
       },
       "heights_distances": {
         "done": 6,
@@ -1671,6 +1693,6 @@
         "ts": 1792582139027
       }
     },
-    "lastChapter": "bankers_discount"
+    "lastChapter": "stocks_shares"
   }
 }
