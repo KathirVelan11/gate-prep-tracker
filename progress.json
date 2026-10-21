@@ -1457,7 +1457,8 @@
       "time_distance::5",
       "time_distance::idx11",
       "problems_on_ages::idx8",
-      "work_pipes_boats::idx0"
+      "work_pipes_boats::idx0",
+      "work_pipes_boats::idx1"
     ],
     "answered": {
       "problems_on_ages::opts0": 0,
@@ -1510,7 +1511,8 @@
       "time_distance::opts19": 2,
       "time_distance::opts11": 0,
       "problems_on_ages::opts8": 0,
-      "work_pipes_boats::opts0": 3
+      "work_pipes_boats::opts0": 3,
+      "work_pipes_boats::opts1": 3
     },
     "hiddenCards": [
       "time_distance::2"
@@ -1589,10 +1591,10 @@
         "ts": 1792580145813
       },
       "work_pipes_boats": {
-        "done": 1,
+        "done": 2,
         "total": 10,
-        "pct": 10,
-        "ts": 1792580390205
+        "pct": 20,
+        "ts": 1792580564042
       },
       "problems_on_trains": {
         "done": 0,
