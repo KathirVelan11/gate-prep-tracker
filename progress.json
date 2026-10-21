@@ -1463,7 +1463,8 @@
       "alligation_mixture::idx2",
       "alligation_mixture::idx6",
       "alligation_mixture::idx5",
-      "alligation_mixture::idx4"
+      "alligation_mixture::idx4",
+      "alligation_mixture::idx7"
     ],
     "answered": {
       "problems_on_ages::opts0": 0,
@@ -1522,7 +1523,8 @@
       "alligation_mixture::opts1": 2,
       "alligation_mixture::opts5": 3,
       "alligation_mixture::opts4": 0,
-      "alligation_mixture::opts3": 1
+      "alligation_mixture::opts3": 1,
+      "alligation_mixture::opts6": 0
     },
     "hiddenCards": [
       "time_distance::2",
@@ -1667,10 +1669,10 @@
         "ts": 1792582367916
       },
       "alligation_mixture": {
-        "done": 5,
+        "done": 6,
         "total": 7,
-        "pct": 71,
-        "ts": 1792599117155
+        "pct": 86,
+        "ts": 1792599244750
       },
       "stocks_shares": {
         "done": 0,
