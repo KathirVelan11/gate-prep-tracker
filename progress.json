@@ -1485,7 +1485,8 @@
       "chain_rule::idx6",
       "chain_rule::idx2",
       "chain_rule::idx3",
-      "chain_rule::idx7"
+      "chain_rule::idx7",
+      "analytical_aptitude::1"
     ],
     "answered": {
       "problems_on_ages::opts0": 0,
@@ -1552,44 +1553,72 @@
       "chain_rule::opts5": 2,
       "chain_rule::opts1": 1,
       "chain_rule::opts2": 1,
-      "chain_rule::opts6": 2
+      "chain_rule::opts6": 2,
+      "analytical_aptitude::opts13": 2
     },
+    "hiddenCards": [
+      "time_distance::2",
+      "bankers_discount::idx0",
+      "bankers_discount::idx1",
+      "bankers_discount::idx2",
+      "bankers_discount::idx3",
+      "bankers_discount::idx4",
+      "bankers_discount::idx5",
+      "bankers_discount::idx6",
+      "bankers_discount::idx7",
+      "true_discount::idx0",
+      "true_discount::idx1",
+      "true_discount::idx2",
+      "true_discount::idx3",
+      "true_discount::idx4",
+      "true_discount::idx5",
+      "true_discount::idx6",
+      "true_discount::idx7",
+      "stocks_shares::idx0",
+      "stocks_shares::idx1",
+      "stocks_shares::idx2",
+      "stocks_shares::idx3",
+      "stocks_shares::idx4",
+      "stocks_shares::idx5",
+      "stocks_shares::idx6",
+      "stocks_shares::idx7"
+    ],
     "chapterProgress": {
       "verbal_grammar": {
         "done": 0,
         "total": 80,
         "pct": 0,
-        "ts": 1791353103501
+        "ts": 1792603213574
       },
       "verbal_rc": {
         "done": 0,
         "total": 38,
         "pct": 0,
-        "ts": 1792581947204
+        "ts": 1792603212364
       },
       "number_system": {
         "done": 0,
         "total": 38,
         "pct": 0,
-        "ts": 1792581996294
+        "ts": 1793809798919
       },
       "hcf_lcm": {
         "done": 0,
         "total": 25,
         "pct": 0,
-        "ts": 1792581996900
+        "ts": 1792603214632
       },
       "decimal_fractions": {
         "done": 0,
         "total": 19,
         "pct": 0,
-        "ts": 1792581997702
+        "ts": 1792603217512
       },
       "simplification": {
         "done": 0,
         "total": 61,
         "pct": 0,
-        "ts": 1792582013286
+        "ts": 1793809784154
       },
       "average": {
         "done": 0,
@@ -1639,23 +1668,29 @@
         "pct": 20,
         "ts": 1792580564042
       },
+      "partnership": {
+        "done": 0,
+        "total": 9,
+        "pct": 0,
+        "ts": 1792603167052
+      },
       "problems_on_trains": {
         "done": 0,
-        "total": 11,
+        "total": 10,
         "pct": 0,
-        "ts": 1791981429175
+        "ts": 1792603210138
       },
       "races_games_skill": {
         "done": 0,
-        "total": 9,
+        "total": 8,
         "pct": 0,
-        "ts": 1791743737526
+        "ts": 1792603167946
       },
       "calendar_chapter": {
         "done": 0,
-        "total": 9,
+        "total": 8,
         "pct": 0,
-        "ts": 1791743733883
+        "ts": 1792603168561
       },
       "simple_interest": {
         "done": 7,
@@ -1673,13 +1708,13 @@
         "done": 7,
         "total": 7,
         "pct": 100,
-        "ts": 1792599686754
+        "ts": 1792603150625
       },
       "stocks_shares": {
         "done": 0,
         "total": 0,
         "pct": 0,
-        "ts": 1792582240238
+        "ts": 1792603149509
       },
       "true_discount": {
         "done": 0,
@@ -1700,12 +1735,12 @@
         "ts": 1791982937069
       },
       "analytical_aptitude": {
-        "done": 0,
+        "done": 1,
         "total": 67,
-        "pct": 0,
-        "ts": 1792582139027
+        "pct": 1,
+        "ts": 1793809973625
       }
     },
-    "lastChapter": "chain_rule"
+    "lastChapter": "analytical_aptitude"
   }
 }
