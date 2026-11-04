@@ -107,7 +107,7 @@
           "type": "test",
           "name": "Topic Test 2",
           "coverage": "Pipelining",
-          "done": true,
+          "done": false,
           "score": "",
           "date": ""
         },
