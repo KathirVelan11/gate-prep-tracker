@@ -1510,7 +1510,8 @@
       "analytical_aptitude::22",
       "analytical_aptitude::23",
       "analytical_aptitude::24",
-      "analytical_aptitude::25"
+      "analytical_aptitude::25",
+      "analytical_aptitude::26"
     ],
     "answered": {
       "problems_on_ages::opts0": 0,
@@ -1601,8 +1602,38 @@
       "analytical_aptitude::opts34": 0,
       "analytical_aptitude::opts35": 3,
       "analytical_aptitude::opts36": 2,
-      "analytical_aptitude::opts37": 2
+      "analytical_aptitude::opts37": 2,
+      "analytical_aptitude::opts38": 2
     },
+    "hiddenCards": [
+      "time_distance::2",
+      "bankers_discount::idx0",
+      "bankers_discount::idx1",
+      "bankers_discount::idx2",
+      "bankers_discount::idx3",
+      "bankers_discount::idx4",
+      "bankers_discount::idx5",
+      "bankers_discount::idx6",
+      "bankers_discount::idx7",
+      "true_discount::idx0",
+      "true_discount::idx1",
+      "true_discount::idx2",
+      "true_discount::idx3",
+      "true_discount::idx4",
+      "true_discount::idx5",
+      "true_discount::idx6",
+      "true_discount::idx7",
+      "stocks_shares::idx0",
+      "stocks_shares::idx1",
+      "stocks_shares::idx2",
+      "stocks_shares::idx3",
+      "stocks_shares::idx4",
+      "stocks_shares::idx5",
+      "stocks_shares::idx6",
+      "stocks_shares::idx7",
+      "analytical_aptitude::17",
+      "analytical_aptitude::18"
+    ],
     "chapterProgress": {
       "verbal_grammar": {
         "done": 0,
@@ -1755,10 +1786,10 @@
         "ts": 1791982937069
       },
       "analytical_aptitude": {
-        "done": 23,
+        "done": 24,
         "total": 65,
-        "pct": 35,
-        "ts": 1793811713646
+        "pct": 37,
+        "ts": 1793811956908
       }
     },
     "lastChapter": "analytical_aptitude"
