@@ -1501,7 +1501,8 @@
       "analytical_aptitude::13",
       "analytical_aptitude::14",
       "analytical_aptitude::15",
-      "analytical_aptitude::16"
+      "analytical_aptitude::16",
+      "analytical_aptitude::17"
     ],
     "answered": {
       "problems_on_ages::opts0": 0,
@@ -1584,7 +1585,8 @@
       "analytical_aptitude::opts25": 2,
       "analytical_aptitude::opts26": 0,
       "analytical_aptitude::opts27": 0,
-      "analytical_aptitude::opts28": 3
+      "analytical_aptitude::opts28": 3,
+      "analytical_aptitude::opts29": 2
     },
     "hiddenCards": [
       "time_distance::2",
@@ -1611,7 +1613,9 @@
       "stocks_shares::idx4",
       "stocks_shares::idx5",
       "stocks_shares::idx6",
-      "stocks_shares::idx7"
+      "stocks_shares::idx7",
+      "analytical_aptitude::17",
+      "analytical_aptitude::18"
     ],
     "chapterProgress": {
       "verbal_grammar": {
@@ -1766,9 +1770,9 @@
       },
       "analytical_aptitude": {
         "done": 16,
-        "total": 67,
-        "pct": 24,
-        "ts": 1793810776022
+        "total": 65,
+        "pct": 25,
+        "ts": 1793810909537
       }
     },
     "lastChapter": "analytical_aptitude"
