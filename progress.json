@@ -94,20 +94,20 @@
           "type": "test",
           "name": "Topic Test 3",
           "coverage": "Cache Memory",
-          "done": false,
+          "done": true,
           "score": "13.67/25",
           "date": "2026-10-12"
         },
         {
           "type": "module",
           "name": "Pipeline",
-          "done": false
+          "done": true
         },
         {
           "type": "test",
           "name": "Topic Test 2",
           "coverage": "Pipelining",
-          "done": false,
+          "done": true,
           "score": "",
           "date": ""
         },
