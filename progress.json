@@ -1417,7 +1417,8 @@
     "61": 0,
     "62": 0,
     "63": 0,
-    "64": 3
+    "64": 3,
+    "65": 7.5
   },
   "gaPrep": {
     "solved": [
@@ -1602,35 +1603,6 @@
       "analytical_aptitude::opts36": 2,
       "analytical_aptitude::opts37": 2
     },
-    "hiddenCards": [
-      "time_distance::2",
-      "bankers_discount::idx0",
-      "bankers_discount::idx1",
-      "bankers_discount::idx2",
-      "bankers_discount::idx3",
-      "bankers_discount::idx4",
-      "bankers_discount::idx5",
-      "bankers_discount::idx6",
-      "bankers_discount::idx7",
-      "true_discount::idx0",
-      "true_discount::idx1",
-      "true_discount::idx2",
-      "true_discount::idx3",
-      "true_discount::idx4",
-      "true_discount::idx5",
-      "true_discount::idx6",
-      "true_discount::idx7",
-      "stocks_shares::idx0",
-      "stocks_shares::idx1",
-      "stocks_shares::idx2",
-      "stocks_shares::idx3",
-      "stocks_shares::idx4",
-      "stocks_shares::idx5",
-      "stocks_shares::idx6",
-      "stocks_shares::idx7",
-      "analytical_aptitude::17",
-      "analytical_aptitude::18"
-    ],
     "chapterProgress": {
       "verbal_grammar": {
         "done": 0,
