@@ -1636,7 +1636,8 @@
       "stocks_shares::idx6",
       "stocks_shares::idx7",
       "analytical_aptitude::17",
-      "analytical_aptitude::18"
+      "analytical_aptitude::18",
+      "analytical_aptitude::30"
     ],
     "chapterProgress": {
       "verbal_grammar": {
@@ -1791,9 +1792,9 @@
       },
       "analytical_aptitude": {
         "done": 26,
-        "total": 65,
-        "pct": 40,
-        "ts": 1793812076239
+        "total": 64,
+        "pct": 41,
+        "ts": 1793846638688
       }
     },
     "lastChapter": "analytical_aptitude"
