@@ -1546,7 +1546,12 @@
       "analytical_aptitude::idx4",
       "analytical_aptitude::idx5",
       "analytical_aptitude::idx6",
-      "analytical_aptitude::idx7"
+      "analytical_aptitude::idx7",
+      "analytical_aptitude::idx8",
+      "analytical_aptitude::idx9",
+      "analytical_aptitude::idx10",
+      "analytical_aptitude::idx11",
+      "analytical_aptitude::idx12"
     ],
     "answered": {
       "problems_on_ages::opts0": 0,
@@ -1673,7 +1678,12 @@
       "analytical_aptitude::opts4": 1,
       "analytical_aptitude::opts5": 1,
       "analytical_aptitude::opts6": 1,
-      "analytical_aptitude::opts7": 2
+      "analytical_aptitude::opts7": 2,
+      "analytical_aptitude::opts8": 3,
+      "analytical_aptitude::opts9": 0,
+      "analytical_aptitude::opts10": 0,
+      "analytical_aptitude::opts11": 3,
+      "analytical_aptitude::opts12": 0
     },
     "hiddenCards": [
       "time_distance::2",
@@ -1857,10 +1867,10 @@
         "ts": 1791982937069
       },
       "analytical_aptitude": {
-        "done": 59,
+        "done": 64,
         "total": 64,
-        "pct": 92,
-        "ts": 1793851932439
+        "pct": 100,
+        "ts": 1793852099043
       }
     },
     "lastChapter": "analytical_aptitude"
