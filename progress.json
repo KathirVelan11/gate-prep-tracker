@@ -1553,7 +1553,9 @@
       "analytical_aptitude::idx11",
       "analytical_aptitude::idx12",
       "functions_sequences::1",
-      "functions_sequences::3"
+      "functions_sequences::3",
+      "functions_sequences::4",
+      "functions_sequences::7"
     ],
     "answered": {
       "problems_on_ages::opts0": 0,
@@ -1687,7 +1689,9 @@
       "analytical_aptitude::opts11": 3,
       "analytical_aptitude::opts12": 0,
       "functions_sequences::opts0": 0,
-      "functions_sequences::opts2": 1
+      "functions_sequences::opts2": 1,
+      "functions_sequences::opts3": 0,
+      "functions_sequences::opts6": 1
     },
     "hiddenCards": [
       "time_distance::2",
@@ -1811,10 +1815,10 @@
         "ts": 1793896818867
       },
       "functions_sequences": {
-        "done": 2,
+        "done": 4,
         "total": 45,
-        "pct": 4,
-        "ts": 1793897176821
+        "pct": 9,
+        "ts": 1793897264439
       },
       "clocks": {
         "done": 0,
