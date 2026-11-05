@@ -1514,7 +1514,8 @@
       "analytical_aptitude::26",
       "analytical_aptitude::27",
       "analytical_aptitude::28",
-      "analytical_aptitude::29"
+      "analytical_aptitude::29",
+      "analytical_aptitude::31"
     ],
     "answered": {
       "problems_on_ages::opts0": 0,
@@ -1609,7 +1610,8 @@
       "analytical_aptitude::opts38": 2,
       "analytical_aptitude::opts39": 3,
       "analytical_aptitude::opts40": 1,
-      "analytical_aptitude::opts41": 2
+      "analytical_aptitude::opts41": 2,
+      "analytical_aptitude::opts43": 2
     },
     "hiddenCards": [
       "time_distance::2",
@@ -1793,10 +1795,10 @@
         "ts": 1791982937069
       },
       "analytical_aptitude": {
-        "done": 27,
+        "done": 28,
         "total": 64,
-        "pct": 42,
-        "ts": 1793846753514
+        "pct": 44,
+        "ts": 1793846972185
       }
     },
     "lastChapter": "analytical_aptitude"
