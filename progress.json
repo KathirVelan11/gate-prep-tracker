@@ -1551,7 +1551,8 @@
       "analytical_aptitude::idx9",
       "analytical_aptitude::idx10",
       "analytical_aptitude::idx11",
-      "analytical_aptitude::idx12"
+      "analytical_aptitude::idx12",
+      "functions_sequences::1"
     ],
     "answered": {
       "problems_on_ages::opts0": 0,
@@ -1683,7 +1684,8 @@
       "analytical_aptitude::opts9": 0,
       "analytical_aptitude::opts10": 0,
       "analytical_aptitude::opts11": 3,
-      "analytical_aptitude::opts12": 0
+      "analytical_aptitude::opts12": 0,
+      "functions_sequences::opts0": 0
     },
     "hiddenCards": [
       "time_distance::2",
@@ -1794,6 +1796,36 @@
         "pct": 0,
         "ts": 1792580145813
       },
+      "tabulation": {
+        "done": 0,
+        "total": 16,
+        "pct": 0,
+        "ts": 1793896842109
+      },
+      "bar_graphs": {
+        "done": 0,
+        "total": 15,
+        "pct": 0,
+        "ts": 1793896818867
+      },
+      "functions_sequences": {
+        "done": 1,
+        "total": 45,
+        "pct": 2,
+        "ts": 1793897065898
+      },
+      "clocks": {
+        "done": 0,
+        "total": 14,
+        "pct": 0,
+        "ts": 1793896870847
+      },
+      "compound_interest": {
+        "done": 0,
+        "total": 6,
+        "pct": 0,
+        "ts": 1793896877899
+      },
       "work_pipes_boats": {
         "done": 2,
         "total": 10,
@@ -1804,31 +1836,31 @@
         "done": 0,
         "total": 9,
         "pct": 0,
-        "ts": 1792603167052
+        "ts": 1793896809100
       },
       "problems_on_trains": {
         "done": 0,
         "total": 10,
         "pct": 0,
-        "ts": 1792603210138
+        "ts": 1793896809593
       },
       "races_games_skill": {
         "done": 0,
         "total": 8,
         "pct": 0,
-        "ts": 1792603167946
+        "ts": 1793896808484
       },
       "calendar_chapter": {
         "done": 0,
         "total": 8,
         "pct": 0,
-        "ts": 1792603168561
+        "ts": 1793896808170
       },
       "simple_interest": {
         "done": 7,
         "total": 7,
         "pct": 100,
-        "ts": 1791983403878
+        "ts": 1793896807833
       },
       "chain_rule": {
         "done": 7,
@@ -1846,33 +1878,33 @@
         "done": 0,
         "total": 0,
         "pct": 0,
-        "ts": 1792603149509
+        "ts": 1793896807025
       },
       "true_discount": {
         "done": 0,
         "total": 0,
         "pct": 0,
-        "ts": 1792582219118
+        "ts": 1793896806197
       },
       "bankers_discount": {
         "done": 0,
         "total": 0,
         "pct": 0,
-        "ts": 1792582186334
+        "ts": 1793896800403
       },
       "heights_distances": {
         "done": 6,
-        "total": 7,
-        "pct": 86,
-        "ts": 1791982937069
+        "total": 6,
+        "pct": 100,
+        "ts": 1793896799988
       },
       "analytical_aptitude": {
         "done": 64,
         "total": 64,
         "pct": 100,
-        "ts": 1793852099043
+        "ts": 1793896791661
       }
     },
-    "lastChapter": "analytical_aptitude"
+    "lastChapter": "functions_sequences"
   }
 }
