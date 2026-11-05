@@ -1558,7 +1558,8 @@
       "functions_sequences::7",
       "functions_sequences::9",
       "functions_sequences::10",
-      "functions_sequences::11"
+      "functions_sequences::11",
+      "functions_sequences::14"
     ],
     "answered": {
       "problems_on_ages::opts0": 0,
@@ -1697,7 +1698,8 @@
       "functions_sequences::opts6": 1,
       "functions_sequences::opts8": 0,
       "functions_sequences::opts9": 0,
-      "functions_sequences::opts10": 3
+      "functions_sequences::opts10": 3,
+      "functions_sequences::opts13": 2
     },
     "hiddenCards": [
       "time_distance::2",
@@ -1821,10 +1823,10 @@
         "ts": 1793896818867
       },
       "functions_sequences": {
-        "done": 7,
+        "done": 8,
         "total": 45,
-        "pct": 16,
-        "ts": 1793897538638
+        "pct": 18,
+        "ts": 1793897632905
       },
       "clocks": {
         "done": 0,
