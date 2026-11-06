@@ -1585,7 +1585,9 @@
       "average::9",
       "average::5",
       "average::3",
-      "average::2"
+      "average::2",
+      "average::1",
+      "ratio_proportion::1"
     ],
     "answered": {
       "problems_on_ages::opts0": 0,
@@ -1751,7 +1753,9 @@
       "average::opts27": 0,
       "average::opts23": 2,
       "average::opts21": 3,
-      "average::opts20": 0
+      "average::opts20": 0,
+      "average::opts19": 1,
+      "ratio_proportion::opts17": 3
     },
     "hiddenCards": [
       "time_distance::2",
@@ -1827,16 +1831,16 @@
         "ts": 1793939966096
       },
       "average": {
-        "done": 11,
+        "done": 12,
         "total": 35,
-        "pct": 31,
-        "ts": 1793941190268
+        "pct": 34,
+        "ts": 1793941357980
       },
       "problems_on_numbers": {
         "done": 0,
-        "total": 26,
+        "total": 25,
         "pct": 0,
-        "ts": 1791737756530
+        "ts": 1793941357563
       },
       "problems_on_ages": {
         "done": 15,
@@ -1855,6 +1859,12 @@
         "total": 27,
         "pct": 0,
         "ts": 1791353102618
+      },
+      "ratio_proportion": {
+        "done": 1,
+        "total": 29,
+        "pct": 3,
+        "ts": 1793941446731
       },
       "time_distance": {
         "done": 19,
@@ -1977,6 +1987,6 @@
         "ts": 1793896791661
       }
     },
-    "lastChapter": "average"
+    "lastChapter": "ratio_proportion"
   }
 }
