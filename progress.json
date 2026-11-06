@@ -1583,7 +1583,9 @@
       "average::11",
       "average::10",
       "average::9",
-      "average::5"
+      "average::5",
+      "average::3",
+      "average::2"
     ],
     "answered": {
       "problems_on_ages::opts0": 0,
@@ -1747,7 +1749,9 @@
       "average::opts29": 0,
       "average::opts28": 2,
       "average::opts27": 0,
-      "average::opts23": 2
+      "average::opts23": 2,
+      "average::opts21": 3,
+      "average::opts20": 0
     },
     "hiddenCards": [
       "time_distance::2",
@@ -1823,10 +1827,10 @@
         "ts": 1793939966096
       },
       "average": {
-        "done": 9,
+        "done": 11,
         "total": 35,
-        "pct": 26,
-        "ts": 1793941007457
+        "pct": 31,
+        "ts": 1793941190268
       },
       "problems_on_numbers": {
         "done": 0,
