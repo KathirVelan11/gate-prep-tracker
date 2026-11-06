@@ -1588,7 +1588,8 @@
       "average::2",
       "average::1",
       "ratio_proportion::1",
-      "ratio_proportion::2"
+      "ratio_proportion::2",
+      "ratio_proportion::4"
     ],
     "answered": {
       "problems_on_ages::opts0": 0,
@@ -1757,7 +1758,8 @@
       "average::opts20": 0,
       "average::opts19": 1,
       "ratio_proportion::opts17": 3,
-      "ratio_proportion::opts18": 1
+      "ratio_proportion::opts18": 1,
+      "ratio_proportion::opts20": 0
     },
     "hiddenCards": [
       "time_distance::2",
@@ -1863,10 +1865,10 @@
         "ts": 1791353102618
       },
       "ratio_proportion": {
-        "done": 2,
+        "done": 3,
         "total": 29,
-        "pct": 7,
-        "ts": 1793941501325
+        "pct": 10,
+        "ts": 1793941702250
       },
       "time_distance": {
         "done": 19,
