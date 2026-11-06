@@ -1574,7 +1574,8 @@
       "functions_sequences::32",
       "functions_sequences::31",
       "functions_sequences::30",
-      "functions_sequences::29"
+      "functions_sequences::29",
+      "average::16"
     ],
     "answered": {
       "problems_on_ages::opts0": 0,
@@ -1729,7 +1730,8 @@
       "functions_sequences::opts31": 0,
       "functions_sequences::opts30": 0,
       "functions_sequences::opts29": 1,
-      "functions_sequences::opts28": 0
+      "functions_sequences::opts28": 0,
+      "average::opts34": 0
     },
     "hiddenCards": [
       "time_distance::2",
@@ -1798,11 +1800,17 @@
         "pct": 0,
         "ts": 1793809784154
       },
-      "average": {
+      "sqrt_cbrt": {
         "done": 0,
-        "total": 35,
+        "total": 27,
         "pct": 0,
-        "ts": 1791353098116
+        "ts": 1793939966096
+      },
+      "average": {
+        "done": 1,
+        "total": 35,
+        "pct": 3,
+        "ts": 1793940077745
       },
       "problems_on_numbers": {
         "done": 0,
@@ -1862,7 +1870,7 @@
         "done": 0,
         "total": 14,
         "pct": 0,
-        "ts": 1793896870847
+        "ts": 1793939960795
       },
       "compound_interest": {
         "done": 0,
@@ -1949,6 +1957,6 @@
         "ts": 1793896791661
       }
     },
-    "lastChapter": "functions_sequences"
+    "lastChapter": "average"
   }
 }
