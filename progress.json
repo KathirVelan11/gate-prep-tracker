@@ -180,7 +180,7 @@
           "type": "test",
           "name": "Topic Test 2",
           "coverage": "Synchronisation, Deadlock",
-          "done": true,
+          "done": false,
           "score": "",
           "date": ""
         },
