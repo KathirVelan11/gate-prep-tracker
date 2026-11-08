@@ -174,13 +174,13 @@
         {
           "type": "module",
           "name": "Deadlocks",
-          "done": false
+          "done": true
         },
         {
           "type": "test",
           "name": "Topic Test 2",
           "coverage": "Synchronisation, Deadlock",
-          "done": false,
+          "done": true,
           "score": "",
           "date": ""
         },
