@@ -1594,7 +1594,9 @@
       "ratio_proportion::1",
       "ratio_proportion::2",
       "ratio_proportion::4",
-      "problems_on_numbers::idx0"
+      "problems_on_numbers::idx0",
+      "problems_on_numbers::idx1",
+      "problems_on_numbers::idx2"
     ],
     "answered": {
       "problems_on_ages::opts0": 0,
@@ -1765,7 +1767,9 @@
       "ratio_proportion::opts17": 3,
       "ratio_proportion::opts18": 1,
       "ratio_proportion::opts20": 0,
-      "problems_on_numbers::opts0": 0
+      "problems_on_numbers::opts0": 0,
+      "problems_on_numbers::opts1": 1,
+      "problems_on_numbers::opts2": 1
     },
     "hiddenCards": [
       "time_distance::2",
@@ -1847,10 +1851,10 @@
         "ts": 1794211865377
       },
       "problems_on_numbers": {
-        "done": 1,
+        "done": 3,
         "total": 25,
-        "pct": 4,
-        "ts": 1794233989870
+        "pct": 12,
+        "ts": 1794234174018
       },
       "problems_on_ages": {
         "done": 15,
