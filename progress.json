@@ -1593,7 +1593,8 @@
       "average::1",
       "ratio_proportion::1",
       "ratio_proportion::2",
-      "ratio_proportion::4"
+      "ratio_proportion::4",
+      "problems_on_numbers::idx0"
     ],
     "answered": {
       "problems_on_ages::opts0": 0,
@@ -1763,62 +1764,93 @@
       "average::opts19": 1,
       "ratio_proportion::opts17": 3,
       "ratio_proportion::opts18": 1,
-      "ratio_proportion::opts20": 0
+      "ratio_proportion::opts20": 0,
+      "problems_on_numbers::opts0": 0
     },
+    "hiddenCards": [
+      "time_distance::2",
+      "bankers_discount::idx0",
+      "bankers_discount::idx1",
+      "bankers_discount::idx2",
+      "bankers_discount::idx3",
+      "bankers_discount::idx4",
+      "bankers_discount::idx5",
+      "bankers_discount::idx6",
+      "bankers_discount::idx7",
+      "true_discount::idx0",
+      "true_discount::idx1",
+      "true_discount::idx2",
+      "true_discount::idx3",
+      "true_discount::idx4",
+      "true_discount::idx5",
+      "true_discount::idx6",
+      "true_discount::idx7",
+      "stocks_shares::idx0",
+      "stocks_shares::idx1",
+      "stocks_shares::idx2",
+      "stocks_shares::idx3",
+      "stocks_shares::idx4",
+      "stocks_shares::idx5",
+      "stocks_shares::idx6",
+      "stocks_shares::idx7",
+      "analytical_aptitude::17",
+      "analytical_aptitude::18",
+      "analytical_aptitude::30"
+    ],
     "chapterProgress": {
       "verbal_grammar": {
         "done": 0,
         "total": 80,
         "pct": 0,
-        "ts": 1792603213574
+        "ts": 1794211840305
       },
       "verbal_rc": {
         "done": 0,
         "total": 38,
         "pct": 0,
-        "ts": 1792603212364
+        "ts": 1794211838633
       },
       "number_system": {
         "done": 0,
         "total": 38,
         "pct": 0,
-        "ts": 1793809798919
+        "ts": 1794211863105
       },
       "hcf_lcm": {
         "done": 0,
         "total": 25,
         "pct": 0,
-        "ts": 1792603214632
+        "ts": 1794211863504
       },
       "decimal_fractions": {
         "done": 0,
         "total": 19,
         "pct": 0,
-        "ts": 1792603217512
+        "ts": 1794211863847
       },
       "simplification": {
         "done": 0,
         "total": 61,
         "pct": 0,
-        "ts": 1793809784154
+        "ts": 1794211864322
       },
       "sqrt_cbrt": {
         "done": 0,
         "total": 27,
         "pct": 0,
-        "ts": 1793939966096
+        "ts": 1794211864682
       },
       "average": {
         "done": 12,
         "total": 35,
         "pct": 34,
-        "ts": 1793941357980
+        "ts": 1794211865377
       },
       "problems_on_numbers": {
-        "done": 0,
+        "done": 1,
         "total": 25,
-        "pct": 0,
-        "ts": 1793941357563
+        "pct": 4,
+        "ts": 1794233989870
       },
       "problems_on_ages": {
         "done": 15,
@@ -1842,7 +1874,7 @@
         "done": 3,
         "total": 29,
         "pct": 10,
-        "ts": 1793941702250
+        "ts": 1794131813953
       },
       "time_distance": {
         "done": 19,
