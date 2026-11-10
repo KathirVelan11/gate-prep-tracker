@@ -120,8 +120,8 @@
           "type": "test",
           "name": "Topic Test 4",
           "coverage": "I/O Interfacing, Magnetic Disk",
-          "done": false,
-          "score": "",
+          "done": true,
+          "score": "2/2",
           "date": ""
         },
         {
