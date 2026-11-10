@@ -114,7 +114,7 @@
         {
           "type": "module",
           "name": "I/O Interfacing, Interrupts & DMA",
-          "done": false
+          "done": true
         },
         {
           "type": "test",
