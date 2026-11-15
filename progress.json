@@ -167,7 +167,7 @@
           "type": "test",
           "name": "Topic Test 3",
           "coverage": "Memory Management",
-          "done": false,
+          "done": true,
           "score": "",
           "date": ""
         },
