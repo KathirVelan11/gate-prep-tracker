@@ -161,7 +161,7 @@
         {
           "type": "module",
           "name": "Memory Management (Paging, Segmentation, TLB)",
-          "done": false
+          "done": true
         },
         {
           "type": "test",
