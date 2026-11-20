@@ -138,7 +138,7 @@
     {
       "name": "Operating Systems",
       "instructor": "Sachin Mittal",
-      "done": true,
+      "done": false,
       "plan": [
         {
           "type": "module",
