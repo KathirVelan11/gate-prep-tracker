@@ -1608,7 +1608,9 @@
       "ratio_proportion::4",
       "problems_on_numbers::idx0",
       "problems_on_numbers::idx1",
-      "problems_on_numbers::idx2"
+      "problems_on_numbers::idx2",
+      "problems_on_numbers::idx3",
+      "probability::1"
     ],
     "answered": {
       "problems_on_ages::opts0": 0,
@@ -1781,20 +1783,52 @@
       "ratio_proportion::opts20": 0,
       "problems_on_numbers::opts0": 0,
       "problems_on_numbers::opts1": 1,
-      "problems_on_numbers::opts2": 1
+      "problems_on_numbers::opts2": 1,
+      "problems_on_numbers::opts3": 0,
+      "probability::opts13": 2
     },
+    "hiddenCards": [
+      "time_distance::2",
+      "bankers_discount::idx0",
+      "bankers_discount::idx1",
+      "bankers_discount::idx2",
+      "bankers_discount::idx3",
+      "bankers_discount::idx4",
+      "bankers_discount::idx5",
+      "bankers_discount::idx6",
+      "bankers_discount::idx7",
+      "true_discount::idx0",
+      "true_discount::idx1",
+      "true_discount::idx2",
+      "true_discount::idx3",
+      "true_discount::idx4",
+      "true_discount::idx5",
+      "true_discount::idx6",
+      "true_discount::idx7",
+      "stocks_shares::idx0",
+      "stocks_shares::idx1",
+      "stocks_shares::idx2",
+      "stocks_shares::idx3",
+      "stocks_shares::idx4",
+      "stocks_shares::idx5",
+      "stocks_shares::idx6",
+      "stocks_shares::idx7",
+      "analytical_aptitude::17",
+      "analytical_aptitude::18",
+      "analytical_aptitude::30"
+    ],
     "chapterProgress": {
       "verbal_grammar": {
         "done": 0,
         "total": 80,
         "pct": 0,
-        "ts": 1794211840305
+        "ts": 1794307865931
       },
       "verbal_rc": {
         "done": 0,
         "total": 38,
         "pct": 0,
-        "ts": 1794211838633
+        "ts": 1795173338821
       },
       "number_system": {
         "done": 0,
@@ -1833,10 +1867,10 @@
         "ts": 1794211865377
       },
       "problems_on_numbers": {
-        "done": 3,
+        "done": 4,
         "total": 25,
-        "pct": 12,
-        "ts": 1794234174018
+        "pct": 16,
+        "ts": 1794234219411
       },
       "problems_on_ages": {
         "done": 15,
@@ -1860,7 +1894,7 @@
         "done": 3,
         "total": 29,
         "pct": 10,
-        "ts": 1794131813953
+        "ts": 1794307863184
       },
       "time_distance": {
         "done": 19,
@@ -1869,10 +1903,10 @@
         "ts": 1792561792336
       },
       "probability": {
-        "done": 0,
+        "done": 1,
         "total": 42,
-        "pct": 0,
-        "ts": 1792580145813
+        "pct": 2,
+        "ts": 1795173450161
       },
       "tabulation": {
         "done": 0,
@@ -1983,6 +2017,6 @@
         "ts": 1793896791661
       }
     },
-    "lastChapter": "ratio_proportion"
+    "lastChapter": "probability"
   }
 }
