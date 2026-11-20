@@ -545,7 +545,7 @@
           "type": "test",
           "name": "Topic Test 1",
           "coverage": "Normalization",
-          "done": false,
+          "done": true,
           "score": "",
           "date": ""
         },
